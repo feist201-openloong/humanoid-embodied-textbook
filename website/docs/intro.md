@@ -21,4 +21,4 @@ sidebar_position: 0
 
 ## 代码仓库
 
-所有实操代码和教材源文件均可在 [GitHub](https://github.com/your-username/humanoid-embodied-textbook) 上获取。
+所有实操代码和教材源文件均可在 [GitHub](https://github.com/feist201-openloong/humanoid-embodied-textbook) 上获取。

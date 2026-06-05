@@ -1,12 +1,15 @@
 const {themes: prismThemes} = require('prism-react-renderer');
 
+// Use / as baseUrl for local dev; override with BASE_URL env var for deployment
+const baseUrl = process.env.BASE_URL || '/';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '人形机器人与具身智能：从入门到精通',
   tagline: 'Humanoid Robots & Embodied Intelligence: From Foundations to Frontiers',
   favicon: 'img/favicon.ico',
-  url: 'https://your-username.github.io',
-  baseUrl: '/humanoid-embodied-textbook/',
+  url: 'http://localhost:3001',
+  baseUrl,
   organizationName: 'your-username',
   projectName: 'humanoid-embodied-textbook',
   onBrokenLinks: 'warn',

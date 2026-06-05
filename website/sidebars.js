@@ -45,7 +45,12 @@ module.exports = {
     {
       type: 'category',
       label: '第五部分：系统集成与实操项目篇',
-      items: ['part5-integration/index'],
+      items: [
+        'part5-integration/ch18-ros2',
+        'part5-integration/ch19-navigation',
+        'part5-integration/ch20-collaboration',
+        'part5-integration/ch21-deployment',
+      ],
     },
     {
       type: 'category',

@@ -1,8 +1,7 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+const {themes: prismThemes} = require('prism-react-renderer');
 
-const config: Config = {
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   title: '人形机器人与具身智能：从入门到精通',
   tagline: 'Humanoid Robots & Embodied Intelligence: From Foundations to Frontiers',
   favicon: 'img/favicon.ico',
@@ -21,7 +20,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/your-username/humanoid-embodied-textbook/edit/main/website/',
           showLastUpdateTime: true,
         },
@@ -29,7 +28,7 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
-      } satisfies Preset.Options,
+      },
     ],
   ],
   themeConfig: {
@@ -80,16 +79,16 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['python', 'bash', 'json', 'yaml', 'xml'],
+      additionalLanguages: ['python', 'bash', 'json', 'yaml'],
     },
     mermaid: {
       theme: {light: 'neutral', dark: 'dark'},
     },
-  } satisfies Preset.ThemeConfig,
+  },
   markdown: {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
 };
 
-export default config;
+module.exports = config;

@@ -52,7 +52,7 @@ print(x + y)                             # 广播: [[11, 22], [13, 24]]
 R = np.array([[0, -1], [1, 0]])          # 旋转矩阵
 v = np.array([1, 0])
 v_rotated = R @ v                        # 矩阵乘法
-print(f"旋转后: {v_rotated}")            # [0, 1]
+print(f"旋转后: &#123;v_rotated&#125;")            # [0, 1]
 
 # 特征分解
 eigvals, eigvecs = np.linalg.eig(R)
@@ -167,7 +167,7 @@ data = mujoco.MjData(model)
 for step in range(1000):
     mujoco.mj_step(model, data)
     if step % 100 == 0:
-        print(f"步 {step}: 高度 = {data.qpos[2]:.3f}m")
+        print(f"步 &#123;step&#125;: 高度 = {data.qpos[2]:.3f}m")
 ```
 
 这个程序加载人形机器人模型，运行被动仿真。因为没有任何控制，机器人从初始姿态开始，在重力作用下下落并倒地。

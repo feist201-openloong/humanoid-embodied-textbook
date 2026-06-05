@@ -1,6 +1,4 @@
-import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
-
-const sidebars: SidebarsConfig = {
+module.exports = {
   textbookSidebar: [
     'intro',
     {
@@ -45,5 +43,3 @@ const sidebars: SidebarsConfig = {
     },
   ],
 };
-
-export default sidebars;

@@ -10,7 +10,7 @@ const config = {
   favicon: 'img/favicon.ico',
   url: 'http://localhost:3001',
   baseUrl,
-  organizationName: 'your-username',
+  organizationName: 'feist201-openloong',
   projectName: 'humanoid-embodied-textbook',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -24,7 +24,7 @@ const config = {
       {
         docs: {
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/your-username/humanoid-embodied-textbook/edit/main/website/',
+          editUrl: 'https://github.com/feist201-openloong/humanoid-embodied-textbook/edit/main/website/',
           showLastUpdateTime: true,
         },
         blog: false,
@@ -54,7 +54,7 @@ const config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/your-username/humanoid-embodied-textbook',
+          href: 'https://github.com/feist201-openloong/humanoid-embodied-textbook',
           label: 'GitHub',
           position: 'right',
         },

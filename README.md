@@ -3,8 +3,8 @@
 > **Humanoid Robots & Embodied Intelligence: From Foundations to Frontiers**
 
 [![CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Website](https://img.shields.io/badge/Website-在线阅读-blue)](https://your-username.github.io/humanoid-embodied-textbook/)
-[![Deploy](https://github.com/your-username/humanoid-embodied-textbook/actions/workflows/deploy-website.yml/badge.svg)](https://github.com/your-username/humanoid-embodied-textbook/actions/workflows/deploy-website.yml)
+[![Website](https://img.shields.io/badge/Website-在线阅读-blue)](https://feist201-openloong.github.io/humanoid-embodied-textbook/)
+[![Deploy](https://github.com/feist201-openloong/humanoid-embodied-textbook/actions/workflows/deploy-website.yml/badge.svg)](https://github.com/feist201-openloong/humanoid-embodied-textbook/actions/workflows/deploy-website.yml)
 
 ## 📚 关于本书
 

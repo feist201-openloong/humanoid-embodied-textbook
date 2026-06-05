@@ -24,7 +24,12 @@ module.exports = {
     {
       type: 'category',
       label: '第三部分：感知与交互篇',
-      items: ['part3-perception/index'],
+      items: [
+        'part3-perception/ch09-vision',
+        'part3-perception/ch10-multimodal',
+        'part3-perception/ch11-scene',
+        'part3-perception/ch12-hri',
+      ],
     },
     {
       type: 'category',

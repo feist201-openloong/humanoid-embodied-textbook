@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-part1-foundations/ch01-overview" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.1">
+<title data-rh="true">第1章：人形机器人概述 | 人形机器人与具身智能：从入门到精通</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="http://localhost:3001/humanoid-embodied-textbook/en/img/og-image.png"><meta data-rh="true" name="twitter:image" content="http://localhost:3001/humanoid-embodied-textbook/en/img/og-image.png"><meta data-rh="true" property="og:url" content="http://localhost:3001/humanoid-embodied-textbook/en/docs/part1-foundations/ch01-overview"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" property="og:locale:alternate" content="zh_CN"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="第1章：人形机器人概述 | 人形机器人与具身智能：从入门到精通"><meta data-rh="true" name="description" content="本章导语：人形机器人（Humanoid Robot）——这个曾经只存在于科幻小说中的概念，如今正在成为现实。从早稻田大学的第一台双足步行机器人WABOT，到Tesla Optimus走进工厂流水线，人形机器人经历了近半个世纪的技术积累。本章将从定义出发，系统梳理人形机器人的发展历程、全球产业格局、核心技术体系与典型产品，并在最后通过MuJoCo仿真实操迈出你的第一步。无论你是机器人领域的初学者，还是希望建立系统性知识框架的进阶者，本章都将为你奠定坚实的基础。"><meta data-rh="true" property="og:description" content="本章导语：人形机器人（Humanoid Robot）——这个曾经只存在于科幻小说中的概念，如今正在成为现实。从早稻田大学的第一台双足步行机器人WABOT，到Tesla Optimus走进工厂流水线，人形机器人经历了近半个世纪的技术积累。本章将从定义出发，系统梳理人形机器人的发展历程、全球产业格局、核心技术体系与典型产品，并在最后通过MuJoCo仿真实操迈出你的第一步。无论你是机器人领域的初学者，还是希望建立系统性知识框架的进阶者，本章都将为你奠定坚实的基础。"><link data-rh="true" rel="icon" href="/humanoid-embodied-textbook/en/img/favicon.ico"><link data-rh="true" rel="canonical" href="http://localhost:3001/humanoid-embodied-textbook/en/docs/part1-foundations/ch01-overview"><link data-rh="true" rel="alternate" href="http://localhost:3001/humanoid-embodied-textbook/docs/part1-foundations/ch01-overview" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="http://localhost:3001/humanoid-embodied-textbook/en/docs/part1-foundations/ch01-overview" hreflang="en"><link data-rh="true" rel="alternate" href="http://localhost:3001/humanoid-embodied-textbook/docs/part1-foundations/ch01-overview" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"第1章：人形机器人概述","item":"http://localhost:3001/humanoid-embodied-textbook/en/docs/part1-foundations/ch01-overview"}]}</script><link rel="stylesheet" href="/humanoid-embodied-textbook/en/assets/css/styles.50880cfb.css">
+<script src="/humanoid-embodied-textbook/en/assets/js/runtime~main.d1bedd63.js" defer="defer"></script>
+<script src="/humanoid-embodied-textbook/en/assets/js/main.06584348.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/humanoid-embodied-textbook/en/img/logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/humanoid-embodied-textbook/en/"><div class="navbar__logo"><img src="/humanoid-embodied-textbook/en/img/logo.svg" alt="Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/humanoid-embodied-textbook/en/img/logo.svg" alt="Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">人形机器人与具身智能</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/humanoid-embodied-textbook/en/docs/intro">目录</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" class="iconLanguage_nlXk"><path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"></path></svg>English</a><ul class="dropdown__menu"><li><a href="/humanoid-embodied-textbook/docs/part1-foundations/ch01-overview" target="_self" rel="noopener noreferrer" class="dropdown__link" lang="zh-CN">中文（中国）</a></li><li><a href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch01-overview" target="_self" rel="noopener noreferrer" class="dropdown__link dropdown__link--active" lang="en">English</a></li></ul></div><a href="https://github.com/your-username/humanoid-embodied-textbook" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/humanoid-embodied-textbook/en/docs/intro"><span title="《人形机器人与具身智能：从入门到精通》" class="linkLabel_WmDU">《人形机器人与具身智能：从入门到精通》</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch01-overview"><span title="第一部分：基础入门篇" class="categoryLinkLabel_W154">第一部分：基础入门篇</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch01-overview"><span title="第1章：人形机器人概述" class="linkLabel_WmDU">第1章：人形机器人概述</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch02-embodied-intro"><span title="第2章：具身智能导论" class="linkLabel_WmDU">第2章：具身智能导论</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch03-math-foundations"><span title="第3章：数学基础" class="linkLabel_WmDU">第3章：数学基础</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch04-dev-env"><span title="第4章：开发环境与工具链" class="linkLabel_WmDU">第4章：开发环境与工具链</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/en/docs/part2-motion/ch05-hardware"><span title="第二部分：运动系统篇" class="categoryLinkLabel_W154">第二部分：运动系统篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/en/docs/part3-perception/ch09-vision"><span title="第三部分：感知与交互篇" class="categoryLinkLabel_W154">第三部分：感知与交互篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/en/docs/part4-core-ei/ch13-rl"><span title="第四部分：具身智能核心篇" class="categoryLinkLabel_W154">第四部分：具身智能核心篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/en/docs/part5-integration/ch18-ros2"><span title="第五部分：系统集成与实操项目篇" class="categoryLinkLabel_W154">第五部分：系统集成与实操项目篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/en/docs/part6-frontiers/ch22-genai"><span title="第六部分：前沿拓展篇" class="categoryLinkLabel_W154">第六部分：前沿拓展篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/en/docs/appendices/"><span title="附录" class="categoryLinkLabel_W154">附录</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/humanoid-embodied-textbook/en/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">第一部分：基础入门篇</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">第1章：人形机器人概述</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>第1章：人形机器人概述</h1></header>
+<blockquote>
+<p><strong>本章导语</strong>：人形机器人（Humanoid Robot）——这个曾经只存在于科幻小说中的概念，如今正在成为现实。从早稻田大学的第一台双足步行机器人WABOT，到Tesla Optimus走进工厂流水线，人形机器人经历了近半个世纪的技术积累。本章将从定义出发，系统梳理人形机器人的发展历程、全球产业格局、核心技术体系与典型产品，并在最后通过MuJoCo仿真实操迈出你的第一步。无论你是机器人领域的初学者，还是希望建立系统性知识框架的进阶者，本章都将为你奠定坚实的基础。</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="11-什么是人形机器人">1.1 什么是人形机器人<a href="#11-什么是人形机器人" class="hash-link" aria-label="Direct link to 1.1 什么是人形机器人" title="Direct link to 1.1 什么是人形机器人" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="111-定义与核心特征">1.1.1 定义与核心特征<a href="#111-定义与核心特征" class="hash-link" aria-label="Direct link to 1.1.1 定义与核心特征" title="Direct link to 1.1.1 定义与核心特征" translate="no">​</a></h3>
+<p>人形机器人（Humanoid Robot），顾名思义，是指<strong>外形和运动方式模仿人类的机器人系统</strong>。更准确地说，人形机器人是一类具有类人形态——包括头部、躯干、双臂和双腿——并且能够实现双足行走、双臂操作和头部感知的机器人平台。</p>
+<p>在学术定义上，人形机器人需要满足三个核心特征：</p>
+<p><strong>（一）类人形态（Human-like Morphology）</strong></p>
+<p>人形机器人的外形设计以人体解剖结构为蓝本。典型的构型包括：</p>
+<ul>
+<li class=""><strong>头部</strong>：搭载视觉传感器（双目相机、深度相机）、麦克风阵列以及扬声器，用于感知环境和与人交互。部分高端机器人还集成了LED表情显示屏（如小米CyberOne、Engineered Arts Ameca），用于表达简单情绪。</li>
+<li class=""><strong>躯干</strong>：容纳主控计算单元（如NVIDIA Jetson AGX Orin或Intel Core i7/i9）、电池组、IMU（惯性测量单元，Inertial Measurement Unit）等核心部件。躯干的设计需要在空间紧凑性与散热性能之间取得平衡。</li>
+<li class=""><strong>双臂</strong>：每个手臂通常具有6-7个自由度（Degrees of Freedom，DoF），包括肩关节（3轴：俯仰/偏航/翻滚）、肘关节（1轴：俯仰）和腕关节（2-3轴：俯仰/偏航/翻滚）。这使得人形机器人能够完成从简单抓取到复杂装配的多样化操作。</li>
+<li class=""><strong>双手</strong>：灵巧手（Dexterous Hand）通常具有5-12个自由度，通过多指协调实现精细操作。当前的灵巧手大致分为欠驱动手（如Shadow Hand的简化版本）和全驱动手（如Inspire Hand）两类。</li>
+<li class=""><strong>双腿</strong>：每条腿通常具有5-6个自由度（髋关节3轴、膝关节1轴、踝关节2轴），通过驱动器的协调控制实现稳定的双足行走、奔跑、跳跃甚至爬楼梯。</li>
+</ul>
+<p><strong>（二）双足运动（Bipedal Locomotion）</strong></p>
+<p>双足运动是人形机器人区别于轮式机器人、四足机器人的最显著特征。双足运动带来的核心挑战包括：</p>
+<ul>
+<li class=""><strong>欠驱动系统</strong>：双足支撑时只有脚底与地面接触，属于&quot;浮动基座&quot;系统。在单脚支撑阶段（单脚离地），系统处于欠驱动状态（underactuated），即控制输入维度少于自由度总数。</li>
+<li class=""><strong>不稳定性</strong>：双足行走本质上是一个周期性失稳再恢复平衡的过程。每一步都需要精密的姿态控制来防止摔倒。</li>
+<li class=""><strong>能量效率</strong>：人类双足行走的能量效率极高（约0.2的Cost of Transport，CoT），而当前人形机器人的CoT约为人类的5-10倍，这是亟待改善的方向。</li>
+</ul>
+<p><strong>（三）灵巧操作（Dexterous Manipulation）</strong></p>
+<p>灵巧操作是指机器人通过多指协调、力控感知和视觉反馈，实现对物体的精细操作能力。这包括：</p>
+<ul>
+<li class=""><strong>力控抓取</strong>：不仅要抓取物体，还要控制施加的力度——抓鸡蛋不碎，抓工具不滑。</li>
+<li class=""><strong>在-hand操作（In-hand Manipulation）</strong>：如在手心转动一支笔、拼装乐高积木等精细动作。</li>
+<li class=""><strong>工具使用</strong>：使用螺丝刀、锤子、扳手等人类工具，这就要求机器人理解工具的功能并调整手部姿态。</li>
+</ul>
+<p>这三个核心特征——类人形态、双足运动、灵巧操作——共同定义了人形机器人的范畴。缺少其中任何一项，通常就被归入其他类型的机器人。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="112-与其他类型机器人的区别">1.1.2 与其他类型机器人的区别<a href="#112-与其他类型机器人的区别" class="hash-link" aria-label="Direct link to 1.1.2 与其他类型机器人的区别" title="Direct link to 1.1.2 与其他类型机器人的区别" translate="no">​</a></h3>
+<p>为了更好地理解人形机器人的独特定位，我们将其与三种最常见的机器人类型进行对比。</p>
+<p><strong>对比表格：人形机器人 vs. 其他类型机器人</strong></p>
+<table><thead><tr><th>对比维度</th><th>人形机器人</th><th>工业机械臂</th><th>轮式机器人</th><th>四足机器人</th></tr></thead><tbody><tr><td><strong>形态</strong></td><td>类人（双臂+双腿+头部）</td><td>单臂固定基座</td><td>轮式底盘+单臂/托盘</td><td>四足犬形</td></tr><tr><td><strong>运动方式</strong></td><td>双足步行/跑步</td><td>固定底座/轨道</td><td>轮式移动</td><td>四足行走/奔跑</td></tr><tr><td><strong>自由度总数</strong></td><td>30-60+ DoF</td><td>6-7 DoF</td><td>8-15 DoF</td><td>12-18 DoF</td></tr><tr><td><strong>操作能力</strong></td><td>双臂灵巧操作</td><td>单臂高精度</td><td>单臂有限操作</td><td>无/有限操作</td></tr><tr><td><strong>地形适应</strong></td><td>全地形（楼梯、门槛）</td><td>无移动能力</td><td>平坦地面</td><td>崎岖地形</td></tr><tr><td><strong>平衡控制</strong></td><td>动态平衡（极难）</td><td>静态稳定</td><td>静态稳定</td><td>动态平衡（中等）</td></tr><tr><td><strong>单位成本</strong></td><td>$20K-$200K+</td><td>$5K-$100K</td><td>$10K-$50K</td><td>$5K-$50K</td></tr><tr><td><strong>代表产品</strong></td><td>Tesla Optimus, Atlas</td><td>KUKA KR系列</td><td>MiR 自主移动机器人</td><td>Spot (Boston Dynamics)</td></tr><tr><td><strong>核心应用</strong></td><td>通用任务、家庭、工业</td><td>焊接、喷涂、装配</td><td>物流搬运</td><td>巡检、勘探</td></tr></tbody></table>
+<p><strong>工业机械臂</strong>（Industrial Manipulator / Robotic Arm）是目前工业界最成熟的机器人形态。它们通常固定在工作台上或沿轨道移动，以极高的精度（重复定位精度可达±0.02mm）和速度执行焊接、喷涂、装配等任务。但工业机械臂缺乏移动能力，且通常需要安全围栏隔离。</p>
+<p><strong>轮式机器人</strong>（Wheeled Robot）以移动能力见长，典型代表包括自主移动机器人（AMR，Autonomous Mobile Robot）和扫地机器人。轮式机器人在平坦地面上效率极高，但无法跨越台阶、门槛或崎岖地形。它们通常配备一个简单的机械臂或托架，操作能力有限。</p>
+<p><strong>四足机器人</strong>（Quadruped Robot）以Boston Dynamics的Spot和宇树科技的B2为代表。四足机器人在崎岖地形中的运动能力远超轮式机器人，但缺乏人形机器人的双臂操作能力——四足机器人&quot;没有手&quot;，只能携带传感器进行巡检任务。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="113-为什么选择人形形态">1.1.3 为什么选择人形形态<a href="#113-为什么选择人形形态" class="hash-link" aria-label="Direct link to 1.1.3 为什么选择人形形态" title="Direct link to 1.1.3 为什么选择人形形态" translate="no">​</a></h3>
+<p>既然工业机械臂更精准、轮式机器人更便宜、四足机器人更稳定，为什么还要发展人形机器人？这个问题的答案，正是人形机器人存在的最根本理由：</p>
+<blockquote>
+<p><strong>我们的世界是为人类形态设计的。</strong></p>
+</blockquote>
+<p>这句话的深刻含义体现在以下几个方面：</p>
+<p><strong>（一）环境适配性（Environment Compatibility）</strong></p>
+<p>人类建造的建筑、工具、设备和基础设施，全部以人体尺寸和能力为设计基准。例如：</p>
+<ul>
+<li class=""><strong>楼梯</strong>的宽度（约90cm）和高度（约17cm）适合人类步幅</li>
+<li class=""><strong>门把手</strong>的高度（约90-110cm）适合人类手臂操作</li>
+<li class=""><strong>汽车驾驶舱</strong>的座椅、踏板、方向盘布局基于人体工学</li>
+<li class=""><strong>工厂产线</strong>的操作高度、通道宽度以人类工人的作业范围为基准</li>
+<li class=""><strong>家庭环境</strong>中的厨房台面（约85cm）、开关高度、储物柜等均适配人类</li>
+</ul>
+<p>一台人形机器人无需改造环境就可以直接进入这些场景作业，而其他形态的机器人要么无法进入（轮式不能上楼梯），要么需要昂贵的环境改造（安装导轨、坡道等）。</p>
+<p><strong>（二）工具通用性（Tool Universality）</strong></p>
+<p>人类发明了成千上万种手持工具——螺丝刀、扳手、剪刀、锤子、刀具、笔、手机……这些工具的设计全部基于人手的能力和尺寸。人形机器人的灵巧手可以直接使用这些工具，无需为机器人定制专用工具。这带来了巨大的成本优势：工厂不需要改造工具，家庭不需要购买新设备。</p>
+<p><strong>（三）社会接受度（Social Acceptance）</strong></p>
+<p>心理学研究表明，人类对与自己形态相似的实体具有更高的信任度和交互意愿（这种现象被称为&quot;类人效应&quot;或相似性偏好）。人形机器人的类人外观降低了人类的心理戒备，使得人机协作更加自然。在家庭陪伴、养老护理、教育等场景中，这一优势尤为明显。</p>
+<p>当然，人形形态也并非没有缺点——双足运动的不稳定性、更高的成本、更复杂的控制算法都是现实挑战。但正是这些挑战，驱动着全球数千名研究人员和工程师不断突破技术边界。正如Boston Dynamics的创始人Marc Raibert所说：&quot;如果做简单的事情就能完成所有任务，我们就不需要人形机器人了。但现实世界需要我们能够处理各种复杂环境——这就是人形机器人的终极价值。&quot;</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="12-人形机器人发展简史">1.2 人形机器人发展简史<a href="#12-人形机器人发展简史" class="hash-link" aria-label="Direct link to 1.2 人形机器人发展简史" title="Direct link to 1.2 人形机器人发展简史" translate="no">​</a></h2>
+<p>人形机器人的发展史可以概括为四个阶段：萌芽期（1970s-1990s）、探索期（2000s-2015）、爆发期（2016-2023）和产业期（2024-至今）。下面，我们沿着时间线逐一回顾。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="121-萌芽期1970s-1990s从零到一">1.2.1 萌芽期（1970s-1990s）：从零到一<a href="#121-萌芽期1970s-1990s从零到一" class="hash-link" aria-label="Direct link to 1.2.1 萌芽期（1970s-1990s）：从零到一" title="Direct link to 1.2.1 萌芽期（1970s-1990s）：从零到一" translate="no">​</a></h3>
+<p>人形机器人的研究可以追溯到20世纪70年代，那时计算机科学和机器人学都处于起步阶段，但先驱者们已经开始了大胆的探索。</p>
+<p><strong>WABOT系列（早稻田大学，1973）</strong></p>
+<p>世界公认的第一台人形机器人是日本早稻田大学加藤一郎（Ichiro Kato）教授团队于1973年开发的<strong>WABOT-1</strong>。WABOT-1身高约2米，配备了两条腿、两只手臂和一套视觉系统。它能够测量距离和方向，通过触觉传感器抓取物体，并且实现了每分钟一步的缓慢双足步行——这在当时是划时代的成就。</p>
+<p>但是，WABOT-1的步行方式属于&quot;静态步行&quot;（static walking），即在每一步中保持重心投影始终落在支撑脚面积内，交替移动双腿。这种步行方式虽然稳定，但速度极慢，且无法应对动态干扰。</p>
+<p>1984年，加藤团队推出了<strong>WABOT-2</strong>，这是一台专门用于演奏电子琴的机器人。WABOT-2配备了五根手指的灵巧手，能够通过视觉读取乐谱并演奏中等难度的曲目。虽然功能局限，但WABOT-2展示了人形机器人在精细操作方面的潜力。</p>
+<p><strong>本田E系列/ASIMO前驱（1986-2000）</strong></p>
+<p>1986年，日本本田（Honda）公司秘密启动了人形机器人研究项目。与学术界的研究不同，本田从一开始就以实用化为目标，投入了巨大的研发资源。</p>
+<p>本田团队先后开发了<strong>E0到E6</strong>七台实验平台（E代表&quot;Experimental&quot;），专注于双足行走的研究。其中<strong>E0</strong>（1986年）只能实现简单的静态行走，而<strong>E6</strong>（1993年）已经能够实现动态行走——即行走过程中重心不完全落在支撑脚内，利用身体惯性维持平衡。</p>
+<p>1996年，本田推出了<strong>P1</strong>和<strong>P2</strong>（Prototype型号），这是最早的自立型（自备电池和控制器）人形机器人。<strong>P2</strong>高182cm，重210kg，虽然体积庞大，但已经具备了在人类环境中行走的基本能力。</p>
+<p>2000年，本田发布了震惊世界的<strong>ASIMO</strong>（Advanced Step in Innovative Mobility）。ASIMO高120cm，重52kg，能够以1.6km/h的速度行走，上下楼梯，甚至向人挥手致意。ASIMO在随后的20年中成为人形机器人领域最具代表性的符号之一。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="122-探索期2000s-2015百家争鸣">1.2.2 探索期（2000s-2015）：百家争鸣<a href="#122-探索期2000s-2015百家争鸣" class="hash-link" aria-label="Direct link to 1.2.2 探索期（2000s-2015）：百家争鸣" title="Direct link to 1.2.2 探索期（2000s-2015）：百家争鸣" translate="no">​</a></h3>
+<p>进入21世纪，人形机器人研究开始在全球范围内展开，形成了多个研究阵营和技术路线。</p>
+<p><strong>Honda ASIMO的持续进化（2000-2011）</strong></p>
+<p>ASIMO在2000年首次亮相后，本田对其进行了多次重大升级：</p>
+<ul>
+<li class=""><strong>2002年</strong>：ASIMO增加了跑步功能，速度提升至2.5km/h</li>
+<li class=""><strong>2005年</strong>：升级版ASIMO实现了倒走、单脚跳和双手操作</li>
+<li class=""><strong>2007年</strong>：ASIMO可以自主避障，识别移动物体和人的手势</li>
+<li class=""><strong>2011年</strong>：最后一个大版本——ASIMO学会了单脚跳、使用手指拧开水瓶，速度达到9km/h</li>
+</ul>
+<p>ASIMO虽然在技术演示上令人印象深刻，但其造价极其高昂（据估计每台超过200万美元），且实际应用场景有限。这预示了人形机器人商业化面临的根本困境。</p>
+<p><strong>HRP系列（日本产综研/AIST，1998-至今）</strong></p>
+<p>日本产业技术综合研究所（AIST，National Institute of Advanced Industrial Science and Technology）与川田工业合作，从1998年开始开发<strong>HRP（Humanoid Robotics Project）系列</strong>。HRP系列的目标是建立人形机器人的标准化平台，供学术界和产业界使用。</p>
+<ul>
+<li class=""><strong>HRP-2</strong>（2002年）：身高154cm，重58kg，具有30个自由度。HRP-2是当时最先进的人形机器人研究平台之一</li>
+<li class=""><strong>HRP-3</strong>（2006年）：增强了防尘防水能力，面向实际工业应用</li>
+<li class=""><strong>HRP-4</strong>（2010年）：更轻量化（39kg），外形更加拟人</li>
+<li class=""><strong>HRP-5P</strong>（2018年）：专为建筑工地设计，能够自主完成石膏板安装等重体力劳动</li>
+</ul>
+<p>HRP系列为全球人形机器人研究提供了开放平台，推动了运动控制、感知和规划算法的快速发展。</p>
+<p><strong>KHR系列（韩国KIST，2004-2010）</strong></p>
+<p>韩国科学技术研究院（KIST）在2004年推出了<strong>KHR-1（KAIST Humanoid Robot 1）</strong>，随后开发了<strong>KHR-2</strong>（2005年）和<strong>HUBO</strong>（2006年）。HUBO身高125cm，重55kg，能够以1.2km/h的速度行走，并拥有可抓取物体的双手。</p>
+<p>2015年，KIST与Drexel University合作开发的**HUBO 2+**在DARPA机器人挑战赛（DRC，DARPA Robotics Challenge）中获得第一名，完成了开车、开门、拧阀门等八项任务。</p>
+<p><strong>Boston Dynamics Atlas（液压时代，2013）</strong></p>
+<p>2013年，Boston Dynamics（当时隶属于Google的Alphabet）发布了<strong>Atlas</strong>的第一代版本。Atlas最初是为美国国防高级研究计划局（DARPA，Defense Advanced Research Projects Agency）开发的，用于参与DRC挑战赛。</p>
+<p>第一代Atlas高188cm，重150kg，采用<strong>液压驱动系统</strong>（hydraulic actuation）。液压系统赋予了Atlas惊人的力量密度和动态性能——它可以举起45kg的重物，可以承受撞击后恢复平衡。但液压系统也有明显缺点：噪音大、效率低、油液泄漏风险高。</p>
+<p>尽管如此，Atlas的出现标志着人形机器人在动态运动能力上的一次质变。它不再像之前的机器人那样&quot;慢吞吞&quot;，而是展现出了接近人类运动员的身体素质。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="123-爆发期2016-2023从实验室走向市场">1.2.3 爆发期（2016-2023）：从实验室走向市场<a href="#123-爆发期2016-2023从实验室走向市场" class="hash-link" aria-label="Direct link to 1.2.3 爆发期（2016-2023）：从实验室走向市场" title="Direct link to 1.2.3 爆发期（2016-2023）：从实验室走向市场" translate="no">​</a></h3>
+<p>2016年前后，三大趋势推动了人形机器人领域的爆发式发展：<strong>深度学习的成熟</strong>、<strong>电驱技术的进步</strong>以及<strong>大模型的出现</strong>。</p>
+<p><strong>Atlas后空翻（2017）</strong></p>
+<p>2017年11月，Boston Dynamics发布了一段视频，Atlas完成了完美的<strong>后空翻（Backflip）</strong>。这段视频在社交媒体上获得了数千万次观看，让Atlas一夜之间成为全球最知名的机器人。</p>
+<p>虽然这本质上是一个精心编排的演示动作，但它证明了人形机器人可以达到的运动极限远超人们的想象。Atlas随后还展示了跑酷（2018年）、体操（2019年）和跳舞（2020年）等技能，每一次发布都引爆了公众关注。</p>
+<p><strong>电驱转型：从液压到电驱动</strong></p>
+<p>长期以来，人形机器人领域存在&quot;液压 vs 电驱&quot;的技术路线之争。液压驱动（如Atlas早期版本）力量大、动态性能好，但成本高、维护复杂。电驱动（如ASIMO、HRP）控制精度高、成本低，但力矩密度相对不足。</p>
+<p>2018年之后，随着无框力矩电机（如科尔摩根TBM系列、TQ Robodrive系列）和高性能谐波减速器（如哈默纳科、绿的谐波）的成熟，电驱动方案的力矩密度大幅提升，逐渐具备了替代液压方案的能力。这场&quot;电驱革命&quot;为人形机器人的商业化铺平了道路。</p>
+<p><strong>Tesla Optimus发布（2021-2022）</strong></p>
+<p>2021年8月的Tesla AI Day上，Elon Musk首次公布了<strong>Tesla Bot（后更名为Optimus）</strong> 的概念。2022年9月，Tesla AI Day上展示了Optimus的原型——一个可以行走、挥手、搬运箱子的机器人。</p>
+<p>Optimus的发布是人形机器人产业化的一个关键转折点。不同于此前的机器人公司（如Boston Dynamics）专注于技术演示，Tesla从一开始就强调<strong>可量产性（manufacturability）</strong> 和<strong>低成本</strong>。Musk提出了Optimus的最终目标价——$20,000/台，这远低于当时任何同类产品。</p>
+<p>Tesla的优势在于：成熟的电驱动技术（从Tesla汽车迁移）、强大的供应链整合能力、以及FSD（Full Self-Driving）自动驾驶系统在感知与决策方面的技术积累。</p>
+<p><strong>小米CyberOne（2022）</strong></p>
+<p>2022年8月，小米在秋季新品发布会上推出了<strong>CyberOne</strong>（铁大）。CyberOne高177cm，重52kg，搭载了小米自研的伺服电机和Mi-Sense深度视觉模块。</p>
+<p>CyberOne的定位是&quot;家庭服务机器人&quot;，但小米明确表示它尚未商业化，更多是技术储备和品牌展示。小米的入场进一步表明：人形机器人正在成为科技巨头的必争之地。</p>
+<p><strong>具身智能浪潮（2023）</strong></p>
+<p>2023年，随着ChatGPT（2022年底发布）引爆的大语言模型浪潮，&quot;具身智能（Embodied Intelligence，EI）&quot;概念开始与人形机器人深度结合。学术界和工业界意识到：大语言模型（LLM，Large Language Model）和视觉-语言模型（VLM，Vision-Language Model）可以为人形机器人提供&quot;大脑&quot;，使其具备理解指令、规划任务和自主决策的能力。</p>
+<p>代表性进展包括：</p>
+<ul>
+<li class=""><strong>Google DeepMind的RT-2</strong>（2023年7月）：首个视觉-语言-动作模型（VLA，Vision-Language-Action Model），直接从视觉和文本输入输出机器人动作</li>
+<li class=""><strong>PaLM-E</strong>（2023年3月）：将PaLM大语言模型与机器人感知相结合</li>
+<li class=""><strong>Figure AI成立</strong>（2022年）：专门开发具身智能人形机器人的创业公司，2023年获得OpenAI投资</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="124-产业期2024-至今产品化元年">1.2.4 产业期（2024-至今）：产品化元年<a href="#124-产业期2024-至今产品化元年" class="hash-link" aria-label="Direct link to 1.2.4 产业期（2024-至今）：产品化元年" title="Direct link to 1.2.4 产业期（2024-至今）：产品化元年" translate="no">​</a></h3>
+<p>2024年被很多人形机器人从业者称为&quot;人形机器人产业化元年&quot;。这一年，多个公司的产品从原型走向了小批量生产和实际部署。</p>
+<p><strong>Figure 02（2024年8月）</strong></p>
+<p>Figure AI在2024年发布了<strong>Figure 02</strong>，这是一台专门为具身智能设计的人形机器人。Figure 02的核心亮点包括：</p>
+<ul>
+<li class="">与OpenAI深度合作，集成了最先进的VLM</li>
+<li class="">头部/手部共搭载六个RGB摄像头，提供360°视觉感知</li>
+<li class="">灵巧手具有12个自由度，可执行精细操作</li>
+<li class="">内置视觉语言模型，能够理解自然语言指令并自主规划任务</li>
+<li class="">已在BMW工厂进行试点部署</li>
+</ul>
+<p>Figure 02的设计哲学是&quot;AI原生的具身智能体&quot;——硬件为AI能力服务，而非传统地先有硬件再适配AI。</p>
+<p><strong>1X NEO（2024）</strong></p>
+<p>挪威的1X Technologies（由OpenAI投资的机器人公司）在2024年发布了<strong>NEO</strong>——一款面向家庭场景的人形机器人。NEO的设计理念是&quot;安全至上&quot;：轻量化（约30kg）、柔性外壳、力矩限制，确保在家庭环境中不会对人造成伤害。</p>
+<p>NEO代表了与工业机器人完全不同的设计路线：它不以力量和速度取胜，而是以安全性和亲和力为核心竞争力。</p>
+<p><strong>宇树科技 H1 / G1（2024）</strong></p>
+<p>中国公司宇树科技（Unitree，以四足机器人Go1起家）在2024年连续发布了<strong>H1</strong>和<strong>G1</strong>两款人形机器人。</p>
+<ul>
+<li class=""><strong>H1</strong>：高180cm，重47kg，身高体重比出色。H1的亮点在于极高的动态性能——它是全球首台能完成原地后空翻的纯电驱人形机器人（2024年2月演示），售价约$90,000</li>
+<li class=""><strong>G1</strong>：2024年5月发布的小型版，高127cm，重35kg。G1的起售价仅$16,000（约¥99,000），是目前&quot;最便宜&quot;的人形机器人之一</li>
+</ul>
+<p>宇树以&quot;高性价比&quot;策略迅速切入市场，H1和G1在科研和教育领域获得了大量订单。</p>
+<p><strong>智元机器人 远征A2（2024）</strong></p>
+<p>智元机器人（Agibot，由前华为&quot;天才少年&quot;彭志辉创立）在2024年发布了<strong>远征A2</strong>（Expedition A2）。A2定位为&quot;工业级通用双足机器人&quot;，专为工厂自动化场景设计。</p>
+<p>A2的关键参数：身高170cm，高性能关节模组自研，搭载了公司自研的POWER关节。智元明确瞄准ToB市场，与多个制造企业合作推进实际部署。</p>
+<p><strong>星动纪元 STAR 1（2024）</strong></p>
+<p>星动纪元（Star Dynamics）在2024年推出了<strong>STAR 1</strong>，这是一款强调&quot;端到端模仿学习&quot;能力的人形机器人。STAR 1通过人类演示的遥操作数据进行训练，可以直接从视觉输入生成动作序列，减少了对传统运动控制算法的依赖。</p>
+<p><strong>产业期特征总结</strong></p>
+<table><thead><tr><th>特征</th><th>描述</th></tr></thead><tbody><tr><td><strong>电驱全面主导</strong></td><td>几乎所有新产品均采用纯电驱动</td></tr><tr><td><strong>价格快速下降</strong></td><td>入门级产品价格降至$10K-$20K区间</td></tr><tr><td><strong>AI深度融合</strong></td><td>大模型/具身智能成为标配能力</td></tr><tr><td><strong>从演示到部署</strong></td><td>多家公司在工厂场景中开始试运行</td></tr><tr><td><strong>中国力量崛起</strong></td><td>宇树、智元、傅利叶等中国公司活跃度极高</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="13-全球产业格局">1.3 全球产业格局<a href="#13-全球产业格局" class="hash-link" aria-label="Direct link to 1.3 全球产业格局" title="Direct link to 1.3 全球产业格局" translate="no">​</a></h2>
+<p>截至2025年，人形机器人产业已经形成了清晰的全球竞争格局。我们可以从北美、中国、日韩及欧洲三个阵营来理解当前的产业版图。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="131-北美阵营">1.3.1 北美阵营<a href="#131-北美阵营" class="hash-link" aria-label="Direct link to 1.3.1 北美阵营" title="Direct link to 1.3.1 北美阵营" translate="no">​</a></h3>
+<p><strong>Tesla（Optimus）</strong></p>
+<p>Tesla是人形机器人产业化的&quot;旗手&quot;。Elon Musk将Optimus视为Tesla长期价值的核心——他甚至在一次投资者日上表示：&quot;长期来看，Optimus的业务价值将超过Tesla汽车业务。&quot;</p>
+<p>Optimus的设计哲学源自Tesla的&quot;第一性原理&quot;（First Principles Thinking）：</p>
+<ul>
+<li class=""><strong>电驱</strong>：从Tesla汽车的电驱系统迁移，复用成熟的电池、电机和热管理技术</li>
+<li class=""><strong>FSD技术迁移</strong>：Optimus的视觉感知系统基于Tesla纯视觉自动驾驶方案，复用Occupancy Networks和NeRF（Neural Radiance Fields）等感知技术</li>
+<li class=""><strong>规模化</strong>：Optimus从设计之初就考虑了大规模量产——减少零件数量、采用注塑工艺、使用成熟供应链</li>
+</ul>
+<p>Optimus Gen 2（2023年12月发布）相比Gen 1有了显著进步：步行速度提升30%，减重10kg，增加了脚部力传感器和灵巧手的触觉传感。</p>
+<p>截至2025年中，Tesla表示已在自有工厂部署了数台Optimus进行电池模组分拣、物料搬运等任务，并计划2026年实现对外销售。</p>
+<p><strong>Boston Dynamics（Atlas电驱化）</strong></p>
+<p>Boston Dynamics是人形机器人动态运动能力的王者。从2013年的液压版Atlas开始，BD团队在双足运动控制方面积累了无可争议的技术优势——后空翻、跑酷、体操舞，每一项都刷新了行业对运动能力的认知。</p>
+<p>2024年4月，Boston Dynamics发布了<strong>全电驱版Atlas</strong>（All-Electric Atlas），正式告别了液压驱动。电动Atlas保留了上一代的运动能力，同时大幅降低了噪音和维护成本。与BD以前的&quot;技术演示&quot;风格不同，电驱Atlas明确瞄准了工业应用场景。</p>
+<p>2025年，Boston Dynamics被现代汽车集团（Hyundai Motor Group）以全资收购，这为BD提供了汽车制造商在规模化生产方面的经验。</p>
+<p><strong>Figure AI（Figure 02）</strong></p>
+<p>Figure AI成立于2022年，总部位于美国加州，由Brett Adcock（此前创立了Vettery和Archer Aviation）创立。Figure的愿景明确：开发&quot;世界上第一个商业化量产的人形机器人&quot;。</p>
+<p>Figure与OpenAI的深度合作是公司最受关注的特点。Figure 01在2024年初的一次演示中展示了令人惊叹的能力：它与人类进行自然语言对话，根据人类指令&quot;给我一些吃的&quot;自主识别桌上的苹果、递过去、整理桌面——整个过程完全由AI驱动，没有预设的脚本。</p>
+<p>Figure 02（2024年8月发布）进一步强化了AI原生设计：6个RGB摄像头提供360°感知、自研灵巧手、计算单元采用定制的AI芯片。Figure已在BMW的斯帕坦堡工厂进行试运行，完成车身零部件的搬运和装配任务。</p>
+<p>融资方面，Figure在2024年完成了6.75亿美元的B轮融资，估值达26亿美元，投资方包括Microsoft、OpenAI、NVIDIA、Jeff Bezos等。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="132-中国阵营">1.3.2 中国阵营<a href="#132-中国阵营" class="hash-link" aria-label="Direct link to 1.3.2 中国阵营" title="Direct link to 1.3.2 中国阵营" translate="no">​</a></h3>
+<p>中国在人形机器人领域的崛起速度令全球瞩目。依托完整的制造业供应链、庞大的人才储备和积极的政策支持（如北京、上海、深圳等地的人形机器人产业扶持计划），中国已成为人形机器人产品化最活跃的地区。</p>
+<p><strong>宇树科技（Unitree，H1 / G1）</strong></p>
+<p>宇树科技成立于2016年，以四足机器人Go1、B2闻名。2023年进入人形机器人领域，凭借在四足机器人上积累的运动控制技术迅速推出H1和G1。</p>
+<p>宇树的差异化竞争优势在于<strong>性价比</strong>。G1的起售价$16,000远低于同类产品，H1在9万美元价位提供了后空翻级别的运动能力。这种&quot;降维打击&quot;策略使宇树在科研、教育市场迅速占据份额。</p>
+<p>宇树的技术特色包括：自研高力矩密度电机、基于NVIDIA Isaac Gym的强化学习训练框架、Sim2Real迁移能力。值得注意的是，H1是全球首台展示原地后空翻的纯电驱人形机器人。</p>
+<p><strong>智元机器人（Agibot，远征A2）</strong></p>
+<p>智元机器人由前华为&quot;天才少年&quot;彭志辉（人称&quot;稚晖君&quot;）于2023年2月创立，成立仅一年后估值即超10亿美元。智元聚焦&quot;工业级通用机器人&quot;，不追求消费市场。</p>
+<p>远征A2的关键特色是自研的<strong>POWER关节模组</strong>——集成无框力矩电机、谐波减速器、力矩传感器、编码器和驱动电路的一体化关节。这种垂直整合策略降低了成本并提高了可靠性。</p>
+<p>智元已与多家制造业企业（包括比亚迪等）达成合作协议，推进人形机器人在汽车产线的部署。</p>
+<p><strong>傅利叶智能（Fourier，GR-2）</strong></p>
+<p>傅利叶智能成立于2015年，原本专注于康复机器人（外骨骼和康复训练设备）。2023年推出人形机器人<strong>GR-1</strong>，2024年升级为<strong>GR-2</strong>。</p>
+<p>傅利叶的独特优势来自康复技术的迁移：</p>
+<ul>
+<li class=""><strong>力控技术</strong>：康复机器人天然需要力控，GR-2在关节力矩控制方面具有深厚积累</li>
+<li class=""><strong>安全性</strong>：康复设备对安全性要求极高，GR-2的力限制与碰撞检测技术领先</li>
+<li class=""><strong>临床应用理解</strong>：傅利叶的产品在医疗康复场景中具有天然优势</li>
+</ul>
+<p>GR-2的灵巧手采用全驱动方案（每指独立电机），配备了指尖触觉传感器，可完成鸡蛋抓取、针线穿行等精细操作。</p>
+<p><strong>星动纪元（Star Dynamics，STAR 1）</strong></p>
+<p>星动纪元成立于2023年，核心团队来自清华大学。STAR 1的技术特色是<strong>端到端模仿学习</strong>——通过大量人类遥操作数据直接训练从视觉到动作的端到端策略，而不是传统的手工设计运动控制器。</p>
+<p>STAR 1在2024年展示了搬运箱子、开门、跨门槛等操作能力。2024年完成Pre-A轮融资约3亿元人民币。</p>
+<p><strong>小米（CyberOne / CyberDog系列）</strong></p>
+<p>小米的CyberOne（2022年发布）更多是技术储备和生态布局，尚未进入真正意义上的产品化阶段。但小米的优势在于：消费级品牌认知、强大的供应链管理能力、以及AIoT（人工智能物联网，Artificial Intelligence Internet of Things）生态系统。</p>
+<p>小米的CyberDog系列（四足机器人）在全球有数十万台销量，为人形机器人的规模化提供了经验和基础。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="133-日韩及欧洲">1.3.3 日韩及欧洲<a href="#133-日韩及欧洲" class="hash-link" aria-label="Direct link to 1.3.3 日韩及欧洲" title="Direct link to 1.3.3 日韩及欧洲" translate="no">​</a></h3>
+<p><strong>本田（Honda）</strong></p>
+<p>本田在2022年正式结束了ASIMO的商业开发，但其在人形机器人领域的遗产仍然深远。本田的技术积累（特别是行走控制）通过专利和人才流动持续影响着行业。</p>
+<p><strong>1X Technologies（NEO）</strong></p>
+<p>1X（前身为Halodi Robotics）总部位于挪威，在欧美都有研发中心。1X专注于家庭服务场景，其NEO机器人以安全性为首要设计目标。</p>
+<p>NEO的独特设计包括：</p>
+<ul>
+<li class=""><strong>柔性外壳</strong>：覆盖软性材料，降低碰撞伤害</li>
+<li class=""><strong>轻量化</strong>：仅约30kg，比同类产品轻40-50%</li>
+<li class=""><strong>力矩限制</strong>：关节最大输出力控制在安全范围内</li>
+<li class=""><strong>静音运行</strong>：噪音低于35dB，适合家庭环境</li>
+</ul>
+<p>1X得到了OpenAI的投资，计划将NEO先期部署在工业和半结构化场景，逐步过渡到家庭。</p>
+<p><strong>PAL Robotics（TALOS）</strong></p>
+<p>西班牙PAL Robotics是欧洲人形机器人研究的代表，其<strong>TALOS</strong>产品主要面向科研和工业应用。TALOS高175cm，具有高负载能力（每臂可搬运6kg），配备了丰富的传感器接口和ROS（Robot Operating System，机器人操作系统）兼容性。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="134-横向对比分析表">1.3.4 横向对比分析表<a href="#134-横向对比分析表" class="hash-link" aria-label="Direct link to 1.3.4 横向对比分析表" title="Direct link to 1.3.4 横向对比分析表" translate="no">​</a></h3>
+<table><thead><tr><th>维度</th><th>Tesla Optimus</th><th>Figure 02</th><th>Unitree H1/G1</th><th>Fourier GR-2</th><th>1X NEO</th></tr></thead><tbody><tr><td><strong>技术路线</strong></td><td>纯电驱+FSD</td><td>AI原生电驱</td><td>高动态电驱</td><td>力控电驱</td><td>安全优先电驱</td></tr><tr><td><strong>身高(cm)</strong></td><td>173</td><td>168</td><td>180/127</td><td>165</td><td>165</td></tr><tr><td><strong>体重(kg)</strong></td><td>63</td><td>60</td><td>47/35</td><td>55</td><td>30</td></tr><tr><td><strong>核心AI能力</strong></td><td>复用FSD感知</td><td>OpenAI VLM</td><td>RL运动控制</td><td>力控操作</td><td>安全交互</td></tr><tr><td><strong>量产计划</strong></td><td>2025-2026内部，后对外</td><td>2025-2026</td><td>2024已接受预订</td><td>2024小批量</td><td>2025试点</td></tr><tr><td><strong>目标市场</strong></td><td>工业→通用</td><td>工业→通用</td><td>科研/教育→工业</td><td>医疗/工业</td><td>家庭→工业</td></tr><tr><td><strong>融资情况</strong></td><td>母公司资金支持</td><td>$6.75B(B轮)</td><td>C轮~¥10亿</td><td>D轮~¥4亿</td><td>未公开</td></tr><tr><td><strong>价格预期</strong></td><td>~$20,000(长期)</td><td>未公开</td><td>$16K-$90K</td><td>未公开</td><td>未公开</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="14-人形机器人的核心技术体系">1.4 人形机器人的核心技术体系<a href="#14-人形机器人的核心技术体系" class="hash-link" aria-label="Direct link to 1.4 人形机器人的核心技术体系" title="Direct link to 1.4 人形机器人的核心技术体系" translate="no">​</a></h2>
+<p>人形机器人是一项高度跨学科的系统工程。一台能够自主行走、操作和交互的人形机器人，需要硬件、软件和智能系统三大部分的紧密配合。本节将从系统架构的视角，梳理人形机器人的核心技术体系。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="141-硬件系统架构">1.4.1 硬件系统架构<a href="#141-硬件系统架构" class="hash-link" aria-label="Direct link to 1.4.1 硬件系统架构" title="Direct link to 1.4.1 硬件系统架构" translate="no">​</a></h3>
+<p><strong>（一）关节与驱动系统</strong></p>
+<p>关节是人形机器人的&quot;肌肉&quot;。每一个关节需要具备高力矩密度、高响应速度和高精度的特性。</p>
+<p>一套典型的关节模组包含以下组件：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">┌─────────────────────────────────────┐</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│           关节模组                      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  ┌──────────┐  ┌──────────────┐      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │无框力矩电机│→│ 减速器         │      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │(电机转子) │  │(谐波/行星)    │      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  └──────────┘  └──────┬───────┘      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                       ↓              │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  ┌──────────┐  ┌──────────────┐      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │编码器(位置)│  │力矩传感器(力控)│      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  └──────────┘  └──────────────┘      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                       ↓              │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  ┌──────────┐  ┌──────────────┐      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │电机驱动器 │←─│ 主控通信总线   │      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  └──────────┘  └──────────────┘      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">└─────────────────────────────────────┘</span><br></div></code></pre></div></div>
+<p>关键元件说明：</p>
+<ul>
+<li class=""><strong>无框力矩电机（Frameless Torque Motor）</strong>：通过将电机转子直接集成到关节轴上，实现了高力矩密度和紧凑体积。主流供应商包括科尔摩根（Kollmorgen，TBM系列）、TQ Robodrive和国产的步科、汇川技术等</li>
+<li class=""><strong>减速器（Reducer）</strong>：将电机的高速低扭矩输出转换为低速高扭矩输出。常用的有谐波减速器（Harmonic Drive，精度高、体积小、但成本高）和行星减速器（成本低、但间隙大）。谐波减速器的全球领导者是日本哈默纳科（Harmonic Drive Systems），中国的绿的谐波（Leaderdrive）正在快速追赶</li>
+<li class=""><strong>力矩传感器（Torque Sensor）</strong>：用于测量关节输出力矩，实现力控。六维力矩传感器（6-DoF Force/Torque Sensor）可以同时测量三个方向的力和三个方向的力矩，是实现精细操作的关键。中国公司坤维科技、宇立仪器等在这一领域有突出表现</li>
+<li class=""><strong>编码器（Encoder）</strong>：用于测量电机转子的位置和速度，通常采用绝对式磁编码器或光学编码器，分辨率可达19-24bit</li>
+</ul>
+<p><strong>（二）灵巧手</strong></p>
+<p>灵巧手是实现精细操作的核心部件，也是当前人形机器人最大的技术瓶颈之一。当前的灵巧手方案大致分为三类：</p>
+<table><thead><tr><th>方案</th><th>控制方式</th><th>自由度</th><th>特点</th><th>代表产品</th></tr></thead><tbody><tr><td><strong>欠驱动手</strong></td><td>单电机驱动多手指</td><td>5-6 DoF</td><td>结构简单、成本低、控制容易</td><td>Robotiq 2F-85</td></tr><tr><td><strong>全驱动手</strong></td><td>每指独立电机</td><td>6-12 DoF</td><td>灵活度高、可做精细操作</td><td>Inspire Hand, Schunk SVH</td></tr><tr><td><strong>触觉手</strong></td><td>全驱动+触觉阵列</td><td>6-12 DoF + 触觉</td><td>可感知接触力分布</td><td>Shadow Hand, 傅利叶触觉手</td></tr></tbody></table>
+<p>灵巧手面临的挑战包括：</p>
+<ol>
+<li class=""><strong>空间限制</strong>：人手大小空间内需要集成多个电机、减速器和传感器</li>
+<li class=""><strong>力控精度</strong>：精细操作需要精确控制指尖力量（如抓取鸡蛋需要约5-10N的力）</li>
+<li class=""><strong>触觉感知</strong>：缺乏类似人类的触觉反馈，使机器人在执行精细化操作时&quot;手笨&quot;</li>
+</ol>
+<p><strong>（三）感知传感器</strong></p>
+<p>人形机器人的感知系统是它的&quot;五官&quot;：</p>
+<ul>
+<li class=""><strong>视觉传感器</strong>：双目RGB相机（如Intel RealSense D435i）用于立体视觉和深度估计；鱼眼相机用于大视角感知；事件相机（Event Camera）用于高速运动捕捉</li>
+<li class=""><strong>惯性测量单元（IMU）</strong>：集成加速度计（测量线性加速度）和陀螺仪（测量角速度），是姿态估计的核心传感器</li>
+<li class=""><strong>力/力矩传感器</strong>：脚底四维/六维力传感器用于测量地面反作用力，是实现行走控制的关键；腕部六维力传感器用于操作力控</li>
+<li class=""><strong>激光雷达（LiDAR，Light Detection and Ranging）</strong>：用于环境建图和障碍物检测</li>
+<li class=""><strong>麦克风阵列</strong>：用于语音定位和语音识别</li>
+</ul>
+<p><strong>（四）计算平台</strong></p>
+<p>人形机器人的&quot;大脑&quot;需要同时运行视觉感知、运动控制、AI推理等任务。当前主流计算平台包括：</p>
+<ul>
+<li class=""><strong>NVIDIA Jetson AGX Orin / Orin NX</strong>：专为机器人设计的边缘AI计算平台，具有高达275 TOPS的AI算力</li>
+<li class=""><strong>Intel Core i7/i9 + GPU</strong>：通用计算方案，适合原型开发</li>
+<li class=""><strong>定制AI芯片</strong>：部分公司（如Tesla、Figure）正在开发自己的AI推理芯片，以提高能效比</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="142-软件与智能系统">1.4.2 软件与智能系统<a href="#142-软件与智能系统" class="hash-link" aria-label="Direct link to 1.4.2 软件与智能系统" title="Direct link to 1.4.2 软件与智能系统" translate="no">​</a></h3>
+<p>如果说硬件是骨架，那么软件和智能系统就是人形机器人的&quot;灵魂&quot;。</p>
+<p><strong>（一）感知（Perception）</strong></p>
+<p>感知模块负责理解环境，主要包括：</p>
+<ul>
+<li class=""><strong>场景理解</strong>：通过深度学习模型（如YOLO、DETR）检测和识别环境中的物体、人和障碍物；通过语义分割理解场景的结构（地面、墙面、楼梯等）</li>
+<li class=""><strong>姿态估计</strong>：估计机器人自身各关节的位置和方向；估计环境中物体的6D位姿（位置+方向），以支持抓取操作</li>
+<li class=""><strong>SLAM（Simultaneous Localization and Mapping，同时定位与地图构建）</strong>：在未知环境中同时构建地图和定位自身，是机器人自主移动的基础</li>
+</ul>
+<p><strong>（二）决策（Decision）</strong></p>
+<p>决策模块是机器人的&quot;大脑&quot;，负责从高层任务规划到底层动作生成：</p>
+<ul>
+<li class=""><strong>任务规划</strong>：将自然语言指令（如&quot;去厨房倒一杯水&quot;）分解为一系列子任务（&quot;前往厨房→识别水杯→抓取→倒水→返回&quot;）。大语言模型（LLM）在这一层面发挥了重要作用</li>
+<li class=""><strong>运动规划</strong>：规划从当前位置到目标位置的运动路径，需要考虑障碍物、地形条件和机器人自身运动能力</li>
+<li class=""><strong>动作生成</strong>：生成具体的关节运动轨迹或控制策略</li>
+</ul>
+<p><strong>（三）控制（Control）</strong></p>
+<p>控制模块是机器人的&quot;小脑&quot;，负责执行动作并保持平衡：</p>
+<ul>
+<li class=""><strong>模型预测控制（MPC，Model Predictive Control）</strong>：基于机器人的动力学模型，在预测时域内优化控制输入。MPC具有可解释性强、稳定性有理论保证的优点，但计算量大、对模型精度敏感</li>
+<li class=""><strong>全身控制（Whole-Body Control，WBC）</strong>：协调全身40-60个自由度，同时满足运动任务和平衡约束</li>
+<li class=""><strong>强化学习（RL，Reinforcement Learning）</strong>：通过仿真环境中的试错学习来训练运动策略。近年来，基于PPO（Proximal Policy Optimization）算法的RL训练在行走、跑步、跳跃等任务中取得了显著成效</li>
+<li class=""><strong>Sim2Real迁移</strong>：将仿真中训练的策略迁移到真实机器人上，域随机化（Domain Randomization）是解决&quot;仿真-现实差距&quot;的核心技术</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="143-技术树总览图">1.4.3 技术树总览图<a href="#143-技术树总览图" class="hash-link" aria-label="Direct link to 1.4.3 技术树总览图" title="Direct link to 1.4.3 技术树总览图" translate="no">​</a></h3>
+<p>下面用文本图表展示人形机器人的核心技术树：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">┌─────────────────────────────────────────────────────────────────┐</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                    人形机器人核心技术体系                            │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">├─────────────────────────────────────────────────────────────────┤</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                                                                  │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   硬件系统      │  │   软件系统      │  │   智能系统      │        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │  (Physical)    │  │  (Software)    │  │  (Intelligence)│        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  └───────┬───────┘  └───────┬───────┘  └───────┬───────┘        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│          │                  │                  │                 │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  ┌───────▼────────┐ ┌──────▼──────┐ ┌──────▼─────────┐          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │ • 关节模组       │ │ • ROS/ROS2  │ │ • 大模型(LLM)   │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 电机         │ │ • 实时控制   │ │ • 视觉语言模型   │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 减速器       │ │ • 状态估计   │ │ • 任务规划       │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 编码器       │ │ • 驱动接口   │ │ • 语义理解       │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │ • 灵巧手         │ │ • 仿真接口   │ │ • 具身智能       │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 欠/全驱动    │ └────────────┘ │ • 世界模型       │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 触觉传感     │                │ • 模仿学习/RL    │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │ • 传感器         │                │ • 端到端策略      │          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 视觉/IMU     │                └─────────────────┘          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 力/力矩      │                                            │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - LiDAR/声纳   │                                            │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │ • 计算平台       │                                            │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - Jetson/GPU   │                                            │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  │   - 定制AI芯片   │                                            │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│  └────────────────┘                                             │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                                                                  │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">└─────────────────────────────────────────────────────────────────┘</span><br></div></code></pre></div></div>
+<p>从这张图中可以看出，人形机器人是一个<strong>高度集成</strong>的系统——硬件为软件提供物理能力，软件为智能提供运行环境，智能为硬件提供决策和学习的&quot;大脑&quot;。三者缺一不可。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="15-典型产品深度纵览">1.5 典型产品深度纵览<a href="#15-典型产品深度纵览" class="hash-link" aria-label="Direct link to 1.5 典型产品深度纵览" title="Direct link to 1.5 典型产品深度纵览" translate="no">​</a></h2>
+<p>在本节中，我们将从五个最具代表性的产品入手，深入分析它们的设计理念、技术参数和当前进展。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="151-tesla-optimus-gen-2">1.5.1 Tesla Optimus Gen 2<a href="#151-tesla-optimus-gen-2" class="hash-link" aria-label="Direct link to 1.5.1 Tesla Optimus Gen 2" title="Direct link to 1.5.1 Tesla Optimus Gen 2" translate="no">​</a></h3>
+<p><strong>设计哲学</strong></p>
+<p>Optimus的设计体现了Tesla&quot;第一性原理&quot;的核心理念。Elon Musk多次强调，Optimus的目标不是做&quot;最酷&quot;的机器人，而是做&quot;最实用、最能规模化生产&quot;的机器人。这一理念体现在：</p>
+<ol>
+<li class=""><strong>复用原则</strong>：尽可能复用Tesla汽车的技术——电池（4680电池单元）、电机（永磁同步电机设计）、热管理（汽车热泵系统）、FSD感知芯片和算法</li>
+<li class=""><strong>减法原则</strong>：减少零件数量、简化装配工艺。例如，Optimus的手部采用模块化设计，每个手指是一个独立的可替换模组</li>
+<li class=""><strong>成本优先</strong>：每个组件的选型都要考虑成本，目标整机成本控制在$10,000-$20,000之间</li>
+</ol>
+<p><strong>关键参数</strong></p>
+<table><thead><tr><th>参数</th><th>Optimus Gen 1 (2022.09)</th><th>Optimus Gen 2 (2023.12)</th></tr></thead><tbody><tr><td>身高</td><td>172 cm</td><td>173 cm</td></tr><tr><td>体重</td><td>73 kg</td><td>63 kg (-10kg)</td></tr><tr><td>步行速度</td><td>0.8 m/s</td><td>1.0 m/s (+25%)</td></tr><tr><td>自由度</td><td>~50+ DoF</td><td>~50+ DoF（优化）</td></tr><tr><td>手部</td><td>欠驱动（简化）</td><td>全驱动灵巧手+触觉</td></tr><tr><td>传感器</td><td>RGB相机+IMU</td><td>+脚底力传感器</td></tr><tr><td>计算</td><td>FSD芯片</td><td>FSD芯片（升级版）</td></tr><tr><td>执行器类型</td><td>电驱</td><td>电驱（优化了力矩密度）</td></tr><tr><td>关节设计</td><td>外置线缆</td><td>内置线缆（更整洁）</td></tr></tbody></table>
+<p><strong>进展与评价</strong></p>
+<p>截至2025年初，Optimus已在Tesla的弗里蒙特工厂和奥斯汀工厂进行了多项实际任务测试，包括电池模组分拣、零部件搬运和产线巡检。据Tesla官方披露，Optimus已经能够执行超过50种不同的任务。</p>
+<p>Optimus的优势在于Tesla的垂直整合能力和规模化生产经验，但挑战也同样明显：FSD技术在封闭道路上表现优异，但在工厂和家庭等复杂环境中的泛化能力还有待验证。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="152-figure-02">1.5.2 Figure 02<a href="#152-figure-02" class="hash-link" aria-label="Direct link to 1.5.2 Figure 02" title="Direct link to 1.5.2 Figure 02" translate="no">​</a></h3>
+<p><strong>设计哲学</strong></p>
+<p>Figure AI的创始人Brett Adcock将Figure 02定义为&quot;首个为AI原生设计的人形机器人&quot;。与Optimus的&quot;技术复用&quot;路线不同，Figure 02从零开始为具身智能打造硬件平台。</p>
+<p>Figure的设计核心是：<strong>硬件是AI能力的外壳</strong>。具体来说：</p>
+<ul>
+<li class="">计算平台预留了充足的AI推理余量（定制AI芯片）</li>
+<li class="">传感器系统覆盖360°无死角（6个RGB相机）</li>
+<li class="">通信带宽足以支持高频状态数据和视觉流的实时传输</li>
+<li class="">灵巧手的力控精度达到毫牛级别</li>
+</ul>
+<p><strong>关键参数</strong></p>
+<table><thead><tr><th>参数</th><th>Figure 01 (2023)</th><th>Figure 02 (2024.08)</th></tr></thead><tbody><tr><td>身高</td><td>168 cm</td><td>168 cm</td></tr><tr><td>体重</td><td>60 kg</td><td>60 kg</td></tr><tr><td>运行时间</td><td>5h（轻负载）</td><td>5h+</td></tr><tr><td>相机</td><td>2×RGB</td><td>6×RGB（360°）</td></tr><tr><td>灵巧手自由度</td><td>6 DoF</td><td>12 DoF</td></tr><tr><td>手部负载</td><td>5 kg</td><td>7 kg</td></tr><tr><td>AI能力</td><td>外部VLM调用</td><td>内置VLM+语音交互</td></tr><tr><td>计算平台</td><td>Intel CPU+NVIDIA GPU</td><td>定制AI芯片</td></tr></tbody></table>
+<p><strong>进展与评价</strong></p>
+<p>Figure 02最令人印象深刻的是其AI交互能力。2024年初的演示中，Figure 01展示了与人类对话、理解环境、规划行动的全流程——这被认为是&quot;具身智能&quot;概念最成功的演示之一。</p>
+<p>Figure已在BMW的斯帕坦堡工厂部署了数台Figure 02进行试运行。Figure的挑战在于：商业化路径尚未完全清晰，大规模量产的能力尚需验证。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="153-unitree-h1--g1">1.5.3 Unitree H1 / G1<a href="#153-unitree-h1--g1" class="hash-link" aria-label="Direct link to 1.5.3 Unitree H1 / G1" title="Direct link to 1.5.3 Unitree H1 / G1" translate="no">​</a></h3>
+<p><strong>设计哲学</strong></p>
+<p>宇树科技的产品哲学可以概括为&quot;把专业能力带到大众市场&quot;。作为四足机器人领域的成本杀手（Go1售价约$2,700，B2售价约$12,000），宇树将同样的高性价比策略带到了人形机器人领域。</p>
+<p>宇树的差异化定位在于：<strong>不追求最高的绝对性能，而是追求最佳的性能/价格比</strong>。例如，H1可以在9万美元价位提供后空翻能力（而Atlas的研发成本超过数百万美元），G1则在1.6万美元价位提供了基本的双足行走和操作能力。</p>
+<p><strong>关键参数</strong></p>
+<table><thead><tr><th>参数</th><th>Unitree H1</th><th>Unitree G1</th></tr></thead><tbody><tr><td>身高</td><td>180 cm</td><td>127 cm</td></tr><tr><td>体重</td><td>47 kg</td><td>35 kg</td></tr><tr><td>自由度</td><td>~40+ DoF</td><td>~30+ DoF</td></tr><tr><td>最大步行速度</td><td>3.3 m/s</td><td>2.0 m/s</td></tr><tr><td>跳跃能力</td><td>原地后空翻</td><td>简单跳跃</td></tr><tr><td>手部</td><td>灵巧手（可选）</td><td>三指夹爪/灵巧手（可选）</td></tr><tr><td>计算平台</td><td>Jetson Orin NX</td><td>Jetson Orin NX</td></tr><tr><td>电池续航</td><td>~2h</td><td>~2h</td></tr><tr><td>起售价</td><td>$90,000</td><td>$16,000</td></tr></tbody></table>
+<p><strong>进展与评价</strong></p>
+<p>H1在2024年2月展示了纯电驱后空翻，成为全球首台完成这一动作的纯电驱人形机器人。G1则在2024年5月发布后迅速获得大量科研订单。</p>
+<p>宇树的产品在动态运动方面表现出色，但在灵巧操作和AI集成方面相对薄弱——这与其目标市场（科研、教育）的定位一致。随着公司向工业场景拓展，这些能力将是需要补齐的短板。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="154-fourier-gr-2">1.5.4 Fourier GR-2<a href="#154-fourier-gr-2" class="hash-link" aria-label="Direct link to 1.5.4 Fourier GR-2" title="Direct link to 1.5.4 Fourier GR-2" translate="no">​</a></h3>
+<p><strong>设计哲学</strong></p>
+<p>傅利叶智能的GR-2体现了&quot;从医疗到通用&quot;的技术迁移路径。作为一家深耕康复机器人领域多年的公司，傅利叶在力控技术、人机安全性和临床应用方面具有深厚积累。</p>
+<p>GR-2的设计核心是 <strong>&quot;力控优先&quot;</strong> ——几乎所有关节都集成了高精度力矩传感器，支持精确的力控操作。这使得GR-2在需要精细接触力的任务中具有天然优势。</p>
+<p><strong>关键参数</strong></p>
+<table><thead><tr><th>参数</th><th>Fourier GR-1 (2023)</th><th>Fourier GR-2 (2024)</th></tr></thead><tbody><tr><td>身高</td><td>165 cm</td><td>165 cm</td></tr><tr><td>体重</td><td>55 kg</td><td>55 kg</td></tr><tr><td>自由度</td><td>~40 DoF</td><td>~50 DoF</td></tr><tr><td>手部</td><td>欠驱动灵巧手</td><td>全驱动灵巧手+触觉传感器</td></tr><tr><td>关节</td><td>集成力矩传感器</td><td>升级力矩传感器（更高精度）</td></tr><tr><td>核心优势</td><td>力控行走</td><td>力控操作+行走</td></tr><tr><td>目标场景</td><td>科研+医疗</td><td>医疗+工业+科研</td></tr></tbody></table>
+<p><strong>进展与评价</strong></p>
+<p>GR-2在灵巧操作方面表现突出——其全驱动灵巧手配合指尖触觉传感器，可以实现鸡蛋抓取、针线穿行等精细操作。这对于从康复领域迁移过来的傅利叶来说是一个自然的选择。</p>
+<p>GR-2的挑战在于：其力控导向的设计可能在某些需要高速、高动态性能的场景中不占优势。此外，傅利叶需要证明其产品在工业场景中的可靠性和耐久性。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="155-五产品横向对比参数表">1.5.5 五产品横向对比参数表<a href="#155-五产品横向对比参数表" class="hash-link" aria-label="Direct link to 1.5.5 五产品横向对比参数表" title="Direct link to 1.5.5 五产品横向对比参数表" translate="no">​</a></h3>
+<table><thead><tr><th>参数维度</th><th>Tesla Optimus Gen 2</th><th>Figure 02</th><th>Unitree H1</th><th>Unitree G1</th><th>Fourier GR-2</th></tr></thead><tbody><tr><td><strong>身高 (cm)</strong></td><td>173</td><td>168</td><td>180</td><td>127</td><td>165</td></tr><tr><td><strong>体重 (kg)</strong></td><td>63</td><td>60</td><td>47</td><td>35</td><td>55</td></tr><tr><td><strong>负重 (kg)</strong></td><td>10+</td><td>7</td><td>6</td><td>3-5</td><td>7+</td></tr><tr><td><strong>步行速度 (m/s)</strong></td><td>1.0</td><td>0.8</td><td>3.3</td><td>2.0</td><td>0.6</td></tr><tr><td><strong>自由度总数</strong></td><td>~50+</td><td>~50+</td><td>~40+</td><td>~30+</td><td>~50+</td></tr><tr><td><strong>灵巧手自由度</strong></td><td>11</td><td>12</td><td>6(可选灵巧手)</td><td>3-6(可选)</td><td>12</td></tr><tr><td><strong>关节类型</strong></td><td>电驱</td><td>电驱</td><td>电驱</td><td>电驱</td><td>电驱(力控)</td></tr><tr><td><strong>计算平台</strong></td><td>FSD芯片</td><td>定制AI芯片</td><td>Jetson Orin NX</td><td>Jetson Orin NX</td><td>Jetson Orin</td></tr><tr><td><strong>AI能力</strong></td><td>FSD感知复用</td><td>OpenAI VLM</td><td>RL运动控制</td><td>RL运动控制</td><td>力控操作</td></tr><tr><td><strong>续航时间</strong></td><td>2-3h</td><td>5h+</td><td>~2h</td><td>~2h</td><td>~2h</td></tr><tr><td><strong>价格预期</strong></td><td>~$20,000(长期)</td><td>未公开</td><td>$90,000</td><td>$16,000</td><td>未公开</td></tr><tr><td><strong>核心优势</strong></td><td>规模化潜力</td><td>AI原生能力</td><td>高动态性能</td><td>极致性价比</td><td>力控操作</td></tr><tr><td><strong>当前状态</strong></td><td>工厂内部试用</td><td>BWM工厂试点</td><td>已可订购</td><td>已可订购</td><td>小批量生产</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="16-应用场景概览">1.6 应用场景概览<a href="#16-应用场景概览" class="hash-link" aria-label="Direct link to 1.6 应用场景概览" title="Direct link to 1.6 应用场景概览" translate="no">​</a></h2>
+<p>人形机器人的应用场景可以按照从&quot;环境可控&quot;到&quot;环境全开放&quot;、从&quot;任务固定&quot;到&quot;任务通用&quot;两个维度来分类。下面逐一简述五大核心场景。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="161-工业制造">1.6.1 工业制造<a href="#161-工业制造" class="hash-link" aria-label="Direct link to 1.6.1 工业制造" title="Direct link to 1.6.1 工业制造" translate="no">​</a></h3>
+<p>工业制造是人形机器人目前最明确、最优先落地的场景。核心驱动因素在于：</p>
+<ul>
+<li class=""><strong>劳动力短缺</strong>：全球制造业面临严重的劳动力不足，特别是在重体力、高重复性的岗位</li>
+<li class=""><strong>柔性生产需求</strong>：频繁换线、小批量多品种的生产模式需要机器人具有灵活的适应能力</li>
+<li class=""><strong>环境适配</strong>：现有产线是按人类工人设计的，人形机器人可以直接适配而无需改造</li>
+</ul>
+<p>典型应用包括：</p>
+<ul>
+<li class=""><strong>物料搬运</strong>：在仓库和产线间搬运重型零部件（单次负重5-15kg）</li>
+<li class=""><strong>装配操作</strong>：精密部件的安装、拧紧、焊接等</li>
+<li class=""><strong>质检巡查</strong>：利用多模态感知进行产品缺陷检测</li>
+<li class=""><strong>工具操作</strong>：使用人类工具（扳手、螺丝刀、电钻）进行维护和修理</li>
+</ul>
+<p>Tesla、Figure AI、智元机器人均明确将工业制造作为首要目标市场。Tesla已在其工厂内部署Optimus进行电池模组分拣（2024），Figure 02在BMW工厂进行试点（2024），智元与比亚迪等车企合作探索产线部署。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="162-物流仓储">1.6.2 物流仓储<a href="#162-物流仓储" class="hash-link" aria-label="Direct link to 1.6.2 物流仓储" title="Direct link to 1.6.2 物流仓储" translate="no">​</a></h3>
+<p>物流仓储场景与工业制造高度重叠，但有其独特性：</p>
+<ul>
+<li class=""><strong>动态环境</strong>：仓库布局频繁变化，箱子和货物的位置不是固定的</li>
+<li class=""><strong>多品类操作</strong>：需要处理各种尺寸、形状、重量的包裹和物件</li>
+<li class=""><strong>空间受限</strong>：货架间通道狭窄，需要机器人灵活转身和跨台阶</li>
+</ul>
+<p>人形机器人相比传统的自主移动机器人（AMR，Autonomous Mobile Robot）的优势在于：可以直接从货架上取放物品（不需要传送带或升降机构），可以上下楼梯，可以操作各种尺寸的包裹。</p>
+<p>代表应用：DHL和1X Technologies正在探索仓库场景的人形机器人部署。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="163-家庭服务">1.6.3 家庭服务<a href="#163-家庭服务" class="hash-link" aria-label="Direct link to 1.6.3 家庭服务" title="Direct link to 1.6.3 家庭服务" translate="no">​</a></h3>
+<p>家庭服务是人形机器人的&quot;终极梦想&quot;市场，也是技术门槛最高的场景。核心原因在于：</p>
+<ul>
+<li class=""><strong>环境极度非结构化</strong>：每个家庭布局不同、物品摆放杂乱</li>
+<li class=""><strong>任务极度多样化</strong>：从扫地、洗碗、到照顾宠物、陪孩子玩耍</li>
+<li class=""><strong>安全性要求极高</strong>：家中可能有老人、小孩、宠物，任何碰撞都可能造成伤害</li>
+<li class=""><strong>成本敏感</strong>：消费者的价格接受度远低于工业客户</li>
+</ul>
+<p>1X Technologies的NEO是最明确针对家庭场景的产品——轻量化（30kg）、柔性外壳、力矩限制、静音运行，所有设计都围绕&quot;安全&quot;和&quot;亲和力&quot;展开。</p>
+<p>家庭服务的人形机器人普及预计要到2030年之后，核心制约因素包括成本（目标$10K-20K）、技术成熟度和安全标准。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="164-医疗护理">1.6.4 医疗护理<a href="#164-医疗护理" class="hash-link" aria-label="Direct link to 1.6.4 医疗护理" title="Direct link to 1.6.4 医疗护理" translate="no">​</a></h3>
+<p>医疗护理是人形机器人可以产生巨大社会价值的场景：</p>
+<ul>
+<li class=""><strong>康复训练</strong>：协助患者进行物理治疗，GR-2等机器人的力控能力在此场景中具有独特优势</li>
+<li class=""><strong>手术辅助</strong>：高精度操作辅助，目前更多由专用手术机器人（如达芬奇系统）完成</li>
+<li class=""><strong>病房服务</strong>：送药、消毒、巡检、陪护</li>
+<li class=""><strong>养老护理</strong>：协助老人起床、行走、如厕，提供陪伴和照护</li>
+</ul>
+<p>傅利叶智能在医疗护理场景中具有天然优势——其康复机器人产品和临床经验可以直接迁移到人形机器人平台。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="165-特种作业">1.6.5 特种作业<a href="#165-特种作业" class="hash-link" aria-label="Direct link to 1.6.5 特种作业" title="Direct link to 1.6.5 特种作业" translate="no">​</a></h3>
+<p>特种作业包括人类不适合或无法安全执行的任务：</p>
+<ul>
+<li class=""><strong>危险环境作业</strong>：核电站巡检与维护、化工厂泄漏处置、矿下作业等</li>
+<li class=""><strong>消防救援</strong>：进入火场进行搜救和物资运输</li>
+<li class=""><strong>太空探索</strong>：NASA的Valkyrie和SpaceX对人形机器人在火星基地建设中的潜力表示关注</li>
+<li class=""><strong>军事应用</strong>：后勤保障、排爆、区域巡逻（但这一应用面临较大的伦理争议）</li>
+</ul>
+<p>特种作业场景对人形机器人的鲁棒性、耐久性和环境适应性提出了最高要求，是当前技术条件下最具挑战性的应用方向。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="️-仿真实操mujoco第一课">🛠️ 仿真实操：MuJoCo第一课<a href="#️-仿真实操mujoco第一课" class="hash-link" aria-label="Direct link to 🛠️ 仿真实操：MuJoCo第一课" title="Direct link to 🛠️ 仿真实操：MuJoCo第一课" translate="no">​</a></h2>
+<blockquote>
+<p><strong>实操代码路径</strong>：<code>code/ch01-load-model/load_humanoid.py</code>（位于项目根目录的 <code>code/ch01-load-model/</code> 文件夹下）</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验目标">实验目标<a href="#实验目标" class="hash-link" aria-label="Direct link to 实验目标" title="Direct link to 实验目标" translate="no">​</a></h3>
+<p>本实操是人形机器人学习之旅的&quot;Hello World&quot;。通过本实验，你将：</p>
+<ol>
+<li class=""><strong>加载一个真实的人形机器人MuJoCo模型</strong>，观察它的物理结构和关节配置</li>
+<li class=""><strong>打印机器人的自由度信息</strong>，了解每个关节的名称、类型和运动范围</li>
+<li class=""><strong>运行被动仿真</strong>，观察机器人在重力作用下的自然运动（以及为什么机器人需要控制算法才能站立）</li>
+<li class=""><strong>建立对MuJoCo（Multi-Joint dynamics with Contact）仿真引擎的直观认识</strong>——这是后续所有仿真实操的基础</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="前置依赖">前置依赖<a href="#前置依赖" class="hash-link" aria-label="Direct link to 前置依赖" title="Direct link to 前置依赖" translate="no">​</a></h3>
+<p>在运行本实验之前，请确保你已经安装了必要的Python依赖。在终端中执行：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token builtin class-name">cd</span><span class="token plain"> code/ch01-load-model</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">pip </span><span class="token function" style="color:#d73a49">install</span><span class="token plain"> </span><span class="token parameter variable" style="color:#36acaa">-r</span><span class="token plain"> requirements.txt</span><br></div></code></pre></div></div>
+<p>requirements.txt文件内容为：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">mujoco&gt;=3.0</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">numpy&gt;=1.24</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">matplotlib&gt;=3.7</span><br></div></code></pre></div></div>
+<p>如果你尚未安装MuJoCo，上述命令会自动安装。MuJoCo是一个开源的高性能物理仿真引擎，由Roboti LLC开发，现由Google DeepMind维护并免费提供使用。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验步骤">实验步骤<a href="#实验步骤" class="hash-link" aria-label="Direct link to 实验步骤" title="Direct link to 实验步骤" translate="no">​</a></h3>
+<p><strong>步骤1：加载模型并创建仿真</strong></p>
+<p>代码首先从 <code>assets/models/</code> 目录加载一个预训练的人形机器人XML模型文件（MJCF格式，MuJoCo的标准模型描述格式）。MJCF文件定义了机器人的所有物理属性：连杆的质量和惯性、关节的类型和运动范围、碰撞体的形状和摩擦系数等。</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token comment" style="color:#999988;font-style:italic"># 核心代码（简化示意）</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> mujoco</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> mujoco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">viewer</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token comment" style="color:#999988;font-style:italic"># 加载模型</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">model </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> mujoco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">MjModel</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">from_xml_path</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">&quot;../../assets/models/humanoid.xml&quot;</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">data </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> mujoco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">MjData</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">model</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token comment" style="color:#999988;font-style:italic"># 运行被动仿真</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">for</span><span class="token plain"> i </span><span class="token keyword" style="color:#00009f">in</span><span class="token plain"> </span><span class="token builtin">range</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1000</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    mujoco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">mj_step</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">model</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> data</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
+<p><strong>步骤2：观察关节结构</strong></p>
+<p>加载模型后，代码会遍历机器人所有关节（joints），打印出每个关节的名称、类型（hinge/ball/slide等）和自由度索引。人形机器人通常包含：</p>
+<ul>
+<li class=""><strong>髋关节</strong>：左右各3个自由度（俯仰、偏航、翻滚）</li>
+<li class=""><strong>膝关节</strong>：左右各1个自由度（俯仰）</li>
+<li class=""><strong>踝关节</strong>：左右各2个自由度（俯仰、翻滚）</li>
+<li class=""><strong>肩关节</strong>：左右各3个自由度（俯仰、偏航、翻滚）</li>
+<li class=""><strong>肘关节</strong>：左右各1-2个自由度（俯仰，有些还有偏航）</li>
+<li class=""><strong>腕关节</strong>：左右各2个自由度（俯仰、偏航）</li>
+<li class=""><strong>颈部关节</strong>：2-3个自由度（俯仰、偏航）</li>
+</ul>
+<p>总计通常超过30个自由度。</p>
+<p><strong>步骤3：打印自由度信息</strong></p>
+<p>代码将输出每个自由度的：</p>
+<ul>
+<li class=""><code>名称</code>（如&quot;left_hip_pitch&quot;）</li>
+<li class=""><code>关节类型</code>（hinge表示旋转关节）</li>
+<li class=""><code>运动范围</code>（弧度或角度）</li>
+<li class=""><code>默认初始位置</code></li>
+<li class=""><code>是否有限位</code></li>
+</ul>
+<p><strong>步骤4：运行被动仿真</strong></p>
+<p>最后，代码启动一个被动仿真：不给任何关节施加控制信号，让机器人在重力作用下自由运动。你会看到：</p>
+<ul>
+<li class="">机器人站立片刻后失去平衡</li>
+<li class="">双腿弯曲、身体前倾/后仰</li>
+<li class="">最终摔倒在地上</li>
+</ul>
+<p>这个实验传达了一个重要信息：<strong>双足站立本质上是不稳定的</strong>。如果不施加主动控制（通过MPC、RL或其他控制算法），人形机器人在重力作用下会像任何非稳定系统一样倾倒。这正是人形机器人运动控制的根本挑战所在。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="延伸思考">延伸思考<a href="#延伸思考" class="hash-link" aria-label="Direct link to 延伸思考" title="Direct link to 延伸思考" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>自由度与稳定性</strong>：观察到的被动倒塌说明了什么？如果增加或减少腿部自由度，会如何影响行走的难度？</p>
+</li>
+<li class="">
+<p><strong>仿真与现实</strong>：MuJoCo是一个物理仿真引擎，它能够模拟重力、碰撞、摩擦力等物理现象。但仿真终究是真实物理的近似——想想有哪些物理现象是MuJoCo可能没有精确建模的？（提示：气动阻力、关节柔性、电机延迟……）</p>
+</li>
+<li class="">
+<p><strong>控制算法的重要性</strong>：在后续章节中，你将学习如何通过控制算法让机器人保持站立和行走。你认为&quot;经典控制方法&quot;（基于模型）和&quot;学习方法&quot;（基于RL）各有什么优劣？</p>
+</li>
+<li class="">
+<p><strong>Sim2Real</strong>：在仿真中训练的策略能否直接迁移到真实机器人上？需要克服哪些差距？这个问题的答案将是第4章的核心内容。</p>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="本章小结">本章小结<a href="#本章小结" class="hash-link" aria-label="Direct link to 本章小结" title="Direct link to 本章小结" translate="no">​</a></h2>
+<p>本章从五个维度系统介绍了人形机器人的全貌：</p>
+<ol>
+<li class="">
+<p><strong>概念与特征</strong>：人形机器人是具备类人形态、双足运动和灵巧操作能力的机器人系统。它的核心价值在于能够<strong>适配人类环境</strong>——这是其他机器人形态无法替代的。</p>
+</li>
+<li class="">
+<p><strong>发展历程</strong>：从1973年WABOT-1的&quot;蹒跚学步&quot;，到Atlas的&quot;后空翻&quot;，再到2024年多家公司进入产品化阶段——人形机器人在50年间经历了从实验室演示到产业化的跨越。</p>
+</li>
+<li class="">
+<p><strong>产业格局</strong>：北美（Tesla、Figure、Boston Dynamics）、中国（宇树、智元、傅利叶、星动纪元、小米）和日韩/欧洲（1X、PAL Robotics）三大阵营各具特色。中国在性价比和产品化速度上表现突出。</p>
+</li>
+<li class="">
+<p><strong>核心技术</strong>：人形机器人是硬件（关节、手、传感器、计算）、软件（ROS、控制、状态估计）和智能（大模型、RL、Sim2Real）的高度集成体。</p>
+</li>
+<li class="">
+<p><strong>典型产品</strong>：Optimus的规模化潜力、Figure的AI原生能力、宇树的高动态性能、GR-2的力控优势——不同产品各具特色，但共同指向一个方向：人形机器人正在从&quot;能不能动&quot;走向&quot;能不能用&quot;。</p>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="习题">习题<a href="#习题" class="hash-link" aria-label="Direct link to 习题" title="Direct link to 习题" translate="no">​</a></h2>
+<p><strong>一、选择题（每题只有一个正确答案）</strong></p>
+<p><strong>1. 人形机器人的三个核心特征是：</strong>
+A. 人工智能、深度学习、大模型
+B. 类人形态、双足运动、灵巧操作
+C. 语音交互、视觉感知、自主导航
+D. 低成本、高精度、长续航</p>
+<p><strong>2. 以下哪个人形机器人是第一个实现纯电驱后空翻的？</strong>
+A. Boston Dynamics Atlas（液压版）
+B. Honda ASIMO
+C. Unitree H1
+D. Tesla Optimus Gen 2</p>
+<p><strong>3. 人形机器人行业在2024年前后呈现出哪一最显著的技术趋势？</strong>
+A. 从电驱转向液压驱动
+B. 从电驱转向气动驱动
+C. 从液压驱动全面转向电驱
+D. 从伺服电机转向步进电机</p>
+<p><strong>二、简答题</strong></p>
+<p><strong>4.</strong> 人形机器人的核心价值是&quot;能够适配人类环境&quot;。请从环境、工具和社交三个角度，各举一个具体例子说明这一观点的实际意义。</p>
+<p><strong>5.</strong> 简述强化学习（RL）在人形机器人运动控制中的作用。为什么需要Sim2Real（仿真到真实迁移）技术？域随机化（Domain Randomization）解决了什么问题？</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="参考文献">参考文献<a href="#参考文献" class="hash-link" aria-label="Direct link to 参考文献" title="Direct link to 参考文献" translate="no">​</a></h2>
+<ol>
+<li class="">Kato, I. &amp; Tsuiki, H. (1973). The WABOT-1: A Humanoid Robot with Biped Locomotion. <em>Waseda University Technical Report</em>.</li>
+<li class="">Honda Motor Co. (2000). ASIMO: Advanced Step in Innovative Mobility. <em>Honda Technical Review</em>.</li>
+<li class="">Feng, S. et al. (2015). Optimization-based Full Body Control for the DARPA Robotics Challenge. <em>Journal of Field Robotics</em>, 32(6), 823-850.</li>
+<li class="">Hwangbo, J. et al. (2019). Learning Agile and Dynamic Motor Skills for Legged Robots. <em>Science Robotics</em>, 4(26), eaau5872.</li>
+<li class="">Tesla Inc. (2022-2024). Tesla AI Day Presentations &amp; Optimus Technical Reports. <em>Tesla Investor Relations</em>.</li>
+<li class="">宇树科技. (2024). Unitree H1 / G1 产品技术规格书. <em>Unitree Robotics</em>.</li>
+<li class="">Figure AI. (2024). Figure 02: AI-Native Humanoid Robot Technical Overview. <em>Figure AI Blog</em>.</li>
+<li class="">高工机器人产业研究所. (2024). 人形机器人产业发展白皮书. <em>高工咨询</em>.</li>
+<li class="">Goldman Sachs. (2024). Humanoid Robot Investment Report: From Science Fiction to Commercial Reality. <em>Goldman Sachs Global Investment Research</em>.</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/your-username/humanoid-embodied-textbook/edit/main/website/docs/part1-foundations/ch01-overview.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2026-06-05T14:45:31.000Z" itemprop="dateModified">Jun 5, 2026</time></b></span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/humanoid-embodied-textbook/en/docs/intro"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">《人形机器人与具身智能：从入门到精通》</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch02-embodied-intro"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">第2章：具身智能导论</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#11-什么是人形机器人" class="table-of-contents__link toc-highlight">1.1 什么是人形机器人</a><ul><li><a href="#111-定义与核心特征" class="table-of-contents__link toc-highlight">1.1.1 定义与核心特征</a></li><li><a href="#112-与其他类型机器人的区别" class="table-of-contents__link toc-highlight">1.1.2 与其他类型机器人的区别</a></li><li><a href="#113-为什么选择人形形态" class="table-of-contents__link toc-highlight">1.1.3 为什么选择人形形态</a></li></ul></li><li><a href="#12-人形机器人发展简史" class="table-of-contents__link toc-highlight">1.2 人形机器人发展简史</a><ul><li><a href="#121-萌芽期1970s-1990s从零到一" class="table-of-contents__link toc-highlight">1.2.1 萌芽期（1970s-1990s）：从零到一</a></li><li><a href="#122-探索期2000s-2015百家争鸣" class="table-of-contents__link toc-highlight">1.2.2 探索期（2000s-2015）：百家争鸣</a></li><li><a href="#123-爆发期2016-2023从实验室走向市场" class="table-of-contents__link toc-highlight">1.2.3 爆发期（2016-2023）：从实验室走向市场</a></li><li><a href="#124-产业期2024-至今产品化元年" class="table-of-contents__link toc-highlight">1.2.4 产业期（2024-至今）：产品化元年</a></li></ul></li><li><a href="#13-全球产业格局" class="table-of-contents__link toc-highlight">1.3 全球产业格局</a><ul><li><a href="#131-北美阵营" class="table-of-contents__link toc-highlight">1.3.1 北美阵营</a></li><li><a href="#132-中国阵营" class="table-of-contents__link toc-highlight">1.3.2 中国阵营</a></li><li><a href="#133-日韩及欧洲" class="table-of-contents__link toc-highlight">1.3.3 日韩及欧洲</a></li><li><a href="#134-横向对比分析表" class="table-of-contents__link toc-highlight">1.3.4 横向对比分析表</a></li></ul></li><li><a href="#14-人形机器人的核心技术体系" class="table-of-contents__link toc-highlight">1.4 人形机器人的核心技术体系</a><ul><li><a href="#141-硬件系统架构" class="table-of-contents__link toc-highlight">1.4.1 硬件系统架构</a></li><li><a href="#142-软件与智能系统" class="table-of-contents__link toc-highlight">1.4.2 软件与智能系统</a></li><li><a href="#143-技术树总览图" class="table-of-contents__link toc-highlight">1.4.3 技术树总览图</a></li></ul></li><li><a href="#15-典型产品深度纵览" class="table-of-contents__link toc-highlight">1.5 典型产品深度纵览</a><ul><li><a href="#151-tesla-optimus-gen-2" class="table-of-contents__link toc-highlight">1.5.1 Tesla Optimus Gen 2</a></li><li><a href="#152-figure-02" class="table-of-contents__link toc-highlight">1.5.2 Figure 02</a></li><li><a href="#153-unitree-h1--g1" class="table-of-contents__link toc-highlight">1.5.3 Unitree H1 / G1</a></li><li><a href="#154-fourier-gr-2" class="table-of-contents__link toc-highlight">1.5.4 Fourier GR-2</a></li><li><a href="#155-五产品横向对比参数表" class="table-of-contents__link toc-highlight">1.5.5 五产品横向对比参数表</a></li></ul></li><li><a href="#16-应用场景概览" class="table-of-contents__link toc-highlight">1.6 应用场景概览</a><ul><li><a href="#161-工业制造" class="table-of-contents__link toc-highlight">1.6.1 工业制造</a></li><li><a href="#162-物流仓储" class="table-of-contents__link toc-highlight">1.6.2 物流仓储</a></li><li><a href="#163-家庭服务" class="table-of-contents__link toc-highlight">1.6.3 家庭服务</a></li><li><a href="#164-医疗护理" class="table-of-contents__link toc-highlight">1.6.4 医疗护理</a></li><li><a href="#165-特种作业" class="table-of-contents__link toc-highlight">1.6.5 特种作业</a></li></ul></li><li><a href="#️-仿真实操mujoco第一课" class="table-of-contents__link toc-highlight">🛠️ 仿真实操：MuJoCo第一课</a><ul><li><a href="#实验目标" class="table-of-contents__link toc-highlight">实验目标</a></li><li><a href="#前置依赖" class="table-of-contents__link toc-highlight">前置依赖</a></li><li><a href="#实验步骤" class="table-of-contents__link toc-highlight">实验步骤</a></li><li><a href="#延伸思考" class="table-of-contents__link toc-highlight">延伸思考</a></li></ul></li><li><a href="#本章小结" class="table-of-contents__link toc-highlight">本章小结</a></li><li><a href="#习题" class="table-of-contents__link toc-highlight">习题</a></li><li><a href="#参考文献" class="table-of-contents__link toc-highlight">参考文献</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">教材</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/humanoid-embodied-textbook/en/docs/intro">目录</a></li><li class="footer__item"><a href="https://github.com/your-username/humanoid-embodied-textbook" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub 仓库<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/your-username/humanoid-embodied-textbook" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 本书采用 CC BY-NC-SA 4.0 协议开源</div></div></div></footer></div>
+</body>
+</html>

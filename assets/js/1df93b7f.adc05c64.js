@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkhumanoid_embodied_textbook=globalThis.webpackChunkhumanoid_embodied_textbook||[]).push([[4583],{6866(o,e,t){t.r(e),t.d(e,{default:()=>u});t(6540);var d=t(6347),i=t(4848);function u(){return(0,i.jsx)(d.rd,{to:"/docs/intro"})}}}]);

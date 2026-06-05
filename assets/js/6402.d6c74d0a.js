@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkhumanoid_embodied_textbook=globalThis.webpackChunkhumanoid_embodied_textbook||[]).push([[6402],{6402(e,o,i){i.d(o,{createArchitectureServices:()=>t.S});var t=i(5016);i(9302)}}]);

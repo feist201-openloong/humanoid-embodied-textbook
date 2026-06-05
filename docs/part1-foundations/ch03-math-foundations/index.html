@@ -1,0 +1,1497 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-part1-foundations/ch03-math-foundations" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.1">
+<title data-rh="true">第3章：数学基础 | 人形机器人与具身智能：从入门到精通</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="http://localhost:3001/humanoid-embodied-textbook/img/og-image.png"><meta data-rh="true" name="twitter:image" content="http://localhost:3001/humanoid-embodied-textbook/img/og-image.png"><meta data-rh="true" property="og:url" content="http://localhost:3001/humanoid-embodied-textbook/docs/part1-foundations/ch03-math-foundations"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-CN"><meta data-rh="true" name="docsearch:language" content="zh-CN"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="第3章：数学基础 | 人形机器人与具身智能：从入门到精通"><meta data-rh="true" name="description" content="本章导读：人形机器人是一个需要多学科融合的领域，但其最底层的支撑是数学。从描述关节旋转的线性代数，到处理传感器噪声的概率统计，再到让机器人&quot;学会&quot;行走的优化方法——数学是贯穿所有算法的共同语言。本章面向具备大二水平《线性代数》和《概率论》基础的同学，用重直觉、轻推导的方式，为你搭建起人形机器人研究所必需的数学工具箱。如果你对某些内容已经熟悉，可以跳过直接阅读后续章节；如果遇到陌生概念，随时回到本章查阅即可。"><meta data-rh="true" property="og:description" content="本章导读：人形机器人是一个需要多学科融合的领域，但其最底层的支撑是数学。从描述关节旋转的线性代数，到处理传感器噪声的概率统计，再到让机器人&quot;学会&quot;行走的优化方法——数学是贯穿所有算法的共同语言。本章面向具备大二水平《线性代数》和《概率论》基础的同学，用重直觉、轻推导的方式，为你搭建起人形机器人研究所必需的数学工具箱。如果你对某些内容已经熟悉，可以跳过直接阅读后续章节；如果遇到陌生概念，随时回到本章查阅即可。"><link data-rh="true" rel="icon" href="/humanoid-embodied-textbook/img/favicon.ico"><link data-rh="true" rel="canonical" href="http://localhost:3001/humanoid-embodied-textbook/docs/part1-foundations/ch03-math-foundations"><link data-rh="true" rel="alternate" href="http://localhost:3001/humanoid-embodied-textbook/docs/part1-foundations/ch03-math-foundations" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="http://localhost:3001/humanoid-embodied-textbook/en/docs/part1-foundations/ch03-math-foundations" hreflang="en"><link data-rh="true" rel="alternate" href="http://localhost:3001/humanoid-embodied-textbook/docs/part1-foundations/ch03-math-foundations" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"第3章：数学基础","item":"http://localhost:3001/humanoid-embodied-textbook/docs/part1-foundations/ch03-math-foundations"}]}</script><link rel="stylesheet" href="/humanoid-embodied-textbook/assets/css/styles.50880cfb.css">
+<script src="/humanoid-embodied-textbook/assets/js/runtime~main.60ffb084.js" defer="defer"></script>
+<script src="/humanoid-embodied-textbook/assets/js/main.95c809d2.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/humanoid-embodied-textbook/img/logo.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/humanoid-embodied-textbook/"><div class="navbar__logo"><img src="/humanoid-embodied-textbook/img/logo.svg" alt="Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/humanoid-embodied-textbook/img/logo.svg" alt="Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">人形机器人与具身智能</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/humanoid-embodied-textbook/docs/intro">目录</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" class="iconLanguage_nlXk"><path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"></path></svg>中文（中国）</a><ul class="dropdown__menu"><li><a href="/humanoid-embodied-textbook/docs/part1-foundations/ch03-math-foundations" target="_self" rel="noopener noreferrer" class="dropdown__link dropdown__link--active" lang="zh-CN">中文（中国）</a></li><li><a href="/humanoid-embodied-textbook/en/docs/part1-foundations/ch03-math-foundations" target="_self" rel="noopener noreferrer" class="dropdown__link" lang="en">English</a></li></ul></div><a href="https://github.com/your-username/humanoid-embodied-textbook" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/humanoid-embodied-textbook/docs/intro"><span title="《人形机器人与具身智能：从入门到精通》" class="linkLabel_WmDU">《人形机器人与具身智能：从入门到精通》</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/humanoid-embodied-textbook/docs/part1-foundations/ch01-overview"><span title="第一部分：基础入门篇" class="categoryLinkLabel_W154">第一部分：基础入门篇</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/humanoid-embodied-textbook/docs/part1-foundations/ch01-overview"><span title="第1章：人形机器人概述" class="linkLabel_WmDU">第1章：人形机器人概述</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/humanoid-embodied-textbook/docs/part1-foundations/ch02-embodied-intro"><span title="第2章：具身智能导论" class="linkLabel_WmDU">第2章：具身智能导论</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/humanoid-embodied-textbook/docs/part1-foundations/ch03-math-foundations"><span title="第3章：数学基础" class="linkLabel_WmDU">第3章：数学基础</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/humanoid-embodied-textbook/docs/part1-foundations/ch04-dev-env"><span title="第4章：开发环境与工具链" class="linkLabel_WmDU">第4章：开发环境与工具链</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/docs/part2-motion/ch05-hardware"><span title="第二部分：运动系统篇" class="categoryLinkLabel_W154">第二部分：运动系统篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/docs/part3-perception/ch09-vision"><span title="第三部分：感知与交互篇" class="categoryLinkLabel_W154">第三部分：感知与交互篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/docs/part4-core-ei/ch13-rl"><span title="第四部分：具身智能核心篇" class="categoryLinkLabel_W154">第四部分：具身智能核心篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/docs/part5-integration/ch18-ros2"><span title="第五部分：系统集成与实操项目篇" class="categoryLinkLabel_W154">第五部分：系统集成与实操项目篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/docs/part6-frontiers/ch22-genai"><span title="第六部分：前沿拓展篇" class="categoryLinkLabel_W154">第六部分：前沿拓展篇</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/humanoid-embodied-textbook/docs/appendices/"><span title="附录" class="categoryLinkLabel_W154">附录</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/humanoid-embodied-textbook/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">第一部分：基础入门篇</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">第3章：数学基础</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>第3章：数学基础</h1></header>
+<blockquote>
+<p><strong>本章导读</strong>：人形机器人是一个需要多学科融合的领域，但其最底层的支撑是数学。从描述关节旋转的线性代数，到处理传感器噪声的概率统计，再到让机器人&quot;学会&quot;行走的优化方法——数学是贯穿所有算法的共同语言。本章面向具备大二水平《线性代数》和《概率论》基础的同学，用<strong>重直觉、轻推导</strong>的方式，为你搭建起人形机器人研究所必需的数学工具箱。如果你对某些内容已经熟悉，可以跳过直接阅读后续章节；如果遇到陌生概念，随时回到本章查阅即可。</p>
+</blockquote>
+<p><strong>为什么人形机器人需要如此广泛的数学基础？</strong> 因为人形机器人具有高自由度（通常 30+ 个关节）、需要在动态环境中实时决策，且必须处理来自视觉、触觉、惯性测量单元等多种传感器的噪声数据。这要求开发者同时掌握几何推理（描述身体姿态）、概率推断（处理不确定性）和数值优化（寻找最优控制策略）三大数学能力。本章将逐一覆盖这些领域，并在最后用代码实操将它们串联起来。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="如何高效学习本章">如何高效学习本章？<a href="#如何高效学习本章" class="hash-link" aria-label="如何高效学习本章？的直接链接" title="如何高效学习本章？的直接链接" translate="no">​</a></h3>
+<p>对于不同的读者，建议采用不同的学习策略：</p>
+<ul>
+<li class="">
+<p><strong>数学基础扎实的读者</strong>：快速浏览 3.1-3.2 节，聚焦于与你之前学习不同的视角（如从群论理解旋转、李代数的扰动模型），重点阅读 3.3.4（卡尔曼滤波）和 3.4.4（凸优化）中与机器人相关的应用示例。</p>
+</li>
+<li class="">
+<p><strong>需要温故知新的读者</strong>：按顺序阅读，每读完一个小节，停下来思考&quot;这个概念在机器人中对应什么物理意义&quot;。例如：旋转矩阵对应关节姿态，高斯分布对应传感器噪声，梯度下降对应策略学习。</p>
+</li>
+<li class="">
+<p><strong>优先实践的同学</strong>：先阅读第4章搭建开发环境，然后回到本章的实操部分，边运行代码边对照理论内容学习。</p>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="无论哪种方式都强烈建议亲手推导关键公式哪怕只是一维版本并用代码实现算法直觉的建立三分靠读七分靠写">无论哪种方式，都强烈建议亲手推导关键公式（哪怕只是一维版本）并用代码实现。算法直觉的建立，三分靠读，七分靠写。<a href="#无论哪种方式都强烈建议亲手推导关键公式哪怕只是一维版本并用代码实现算法直觉的建立三分靠读七分靠写" class="hash-link" aria-label="无论哪种方式，都强烈建议亲手推导关键公式（哪怕只是一维版本）并用代码实现。算法直觉的建立，三分靠读，七分靠写。的直接链接" title="无论哪种方式，都强烈建议亲手推导关键公式（哪怕只是一维版本）并用代码实现。算法直觉的建立，三分靠读，七分靠写。的直接链接" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="31-线性代数核心6000字">3.1 线性代数核心（6,000字）<a href="#31-线性代数核心6000字" class="hash-link" aria-label="3.1 线性代数核心（6,000字）的直接链接" title="3.1 线性代数核心（6,000字）的直接链接" translate="no">​</a></h2>
+<blockquote>
+<p><strong>一句话核心</strong>：线性代数是描述机器人<strong>位置、姿态和运动</strong>的语言——向量表示空间中的点，矩阵表示对空间的变换。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="311-向量矩阵与基本运算">3.1.1 向量、矩阵与基本运算<a href="#311-向量矩阵与基本运算" class="hash-link" aria-label="3.1.1 向量、矩阵与基本运算的直接链接" title="3.1.1 向量、矩阵与基本运算的直接链接" translate="no">​</a></h3>
+<p><strong>向量</strong>是最基本的数学对象。在机器人学中，向量可以有多种物理含义：</p>
+<ul>
+<li class=""><strong>位置向量</strong>：$p = (x, y, z)^\top \in \mathbb{R}^3$ 表示三维空间中的一个点，例如机器人足端在世界坐标系中的位置。</li>
+<li class=""><strong>速度向量</strong>：$v = (v_x, v_y, v_z)^\top$ 表示沿各轴的运动速度。</li>
+<li class=""><strong>关节角度向量</strong>：$q = (q_1, q_2, \dots, q_n)^\top$ 表示 $n$ 个关节的角度值。</li>
+<li class=""><strong>力矩向量</strong>：$\tau = (\tau_1, \tau_2, \dots, \tau_n)^\top$ 表示施加在各关节上的驱动力矩。</li>
+</ul>
+<p>向量的两个基本运算是<strong>加法</strong>和<strong>数乘</strong>，它们满足平行四边形法则和三角形法则。向量的<strong>点积</strong>（内积）$a \cdot b = a^\top b = \sum_i a_i b_i$ 衡量两个向量的相似度，当两个向量垂直时点积为零。向量的<strong>叉积</strong> $a \times b$ 生成一个垂直于 $a$ 和 $b$ 的新向量，其大小等于 $a$ 和 $b$ 张成的平行四边形面积——这在计算旋转的轴方向时至关重要。</p>
+<p><strong>矩阵</strong>则是向量的&quot;变换器&quot;。一个 $m \times n$ 矩阵 $A$ 可以将一个 $n$ 维向量映射到一个 $m$ 维空间：</p>
+<p>$$
+y = A x, \quad x \in \mathbb{R}^n, y \in \mathbb{R}^m
+$$</p>
+<p>从几何角度看，矩阵乘法可以理解为对向量施加<strong>线性变换</strong>——包括旋转、缩放、剪切和反射。机器人学中最重要的矩阵运算包括：</p>
+<ul>
+<li class="">
+<p><strong>矩阵乘法</strong>：$C = AB$，表示先施加变换 $B$、再施加变换 $A$ 的复合变换。注意矩阵乘法<strong>不满足交换律</strong>：$AB \neq BA$（除非特殊情形）。这对应了一个直观的物理事实：旋转的顺序不同，最终姿态也不同——先绕 $x$ 轴转 $90^\circ$ 再绕 $y$ 轴转 $90^\circ$，与反过来做的结果完全不同。</p>
+</li>
+<li class="">
+<p><strong>转置</strong>：$A^\top$ 将行与列互换。对于旋转矩阵 $R$，一个优美的性质是 $R^\top = R^{-1}$，这意味着旋转矩阵的转置即为其逆——只需转置就能&quot;撤销&quot;一次旋转。</p>
+</li>
+<li class="">
+<p><strong>逆矩阵</strong>：$A^{-1}$ 满足 $A A^{-1} = I$。逆矩阵的几何含义是&quot;反向变换&quot;。在机器人运动学中，已知末端执行器的位姿，求解各关节角度（逆运动学）本质上就是在求一系列变换矩阵的逆。</p>
+</li>
+<li class="">
+<p><strong>行列式</strong>：$\det(A)$ 衡量线性变换对体积的缩放比例。旋转矩阵满足 $\det(R) = 1$，说明旋转不改变物体的体积。如果 $\det(A) = 0$，说明变换将空间压缩到了更低维度（信息丢失），此时矩阵不可逆。</p>
+</li>
+<li class="">
+<p><strong>特征值与特征向量</strong>：满足 $A v = \lambda v$ 的 $\lambda$（特征值）和 $v$（特征向量）。特征向量是矩阵作用下方向保持不变的向量（只改变长度），特征值是对应的缩放因子。在机器人学中，惯性矩阵的特征向量对应了物体的<strong>主轴方向</strong>，特征值对应了绕各主轴旋转的惯性矩大小。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>直觉理解</strong>：如果把矩阵看作一个&quot;函数&quot;，那么特征向量就是这个函数的&quot;固定方向&quot;——矩阵作用上去后只改变长度不改变方向。想象一个拉长的橡皮球：沿着长轴方向拉伸最多（大特征值），沿着短轴方向拉伸最少（小特征值），沿着中间轴方向拉伸适中。这些&quot;轴方向&quot;就是特征向量。</p>
+</blockquote>
+<p><strong>矩阵的迹（Trace）</strong>：$\text{tr}(A) = \sum_i A_{ii}$ 是对角线元素之和。迹在旋转矩阵中有着重要作用——从旋转矩阵的迹可以直接计算出旋转角度。</p>
+<p><strong>在机器人中的角色</strong>：人形机器人的每个关节都可以用旋转矩阵描述其相对姿态；雅可比矩阵 $J$ 将关节速度 $\dot{q}$ 映射到末端执行器速度 $v = J \dot{q}$；惯性矩阵 $M(q)$ 描述了质量分布对加速度的影响；刚体动力学方程 $M(q)\ddot{q} + C(q,\dot{q})\dot{q} + g(q) = \tau$ 的每一项都依赖于线性代数。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="312-旋转矩阵2d旋转--3d旋转--三个主轴旋转">3.1.2 旋转矩阵（2D旋转 → 3D旋转 → 三个主轴旋转）<a href="#312-旋转矩阵2d旋转--3d旋转--三个主轴旋转" class="hash-link" aria-label="3.1.2 旋转矩阵（2D旋转 → 3D旋转 → 三个主轴旋转）的直接链接" title="3.1.2 旋转矩阵（2D旋转 → 3D旋转 → 三个主轴旋转）的直接链接" translate="no">​</a></h3>
+<p>旋转矩阵是描述刚体姿态的核心工具。为什么需要专门的数学工具来描述旋转？因为<strong>旋转不是欧几里得空间中的线性操作</strong>——三维旋转空间是一个弯曲的流形（$SO(3)$），而不是平坦的向量空间。旋转矩阵提供了一种用线性代数处理旋转的方式。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2d-旋转">2D 旋转<a href="#2d-旋转" class="hash-link" aria-label="2D 旋转的直接链接" title="2D 旋转的直接链接" translate="no">​</a></h4>
+<p>在二维平面中，将点 $(x, y)$ 绕原点逆时针旋转角度 $\theta$，变换为：</p>
+<p>$$
+\begin{bmatrix}
+x&#x27; \
+y&#x27;
+\end{bmatrix} =
+\begin{bmatrix}
+\cos\theta &amp; -\sin\theta \
+\sin\theta &amp; \cos\theta
+\end{bmatrix}
+\begin{bmatrix}
+x \
+y
+\end{bmatrix}
+$$</p>
+<p>这个 $2 \times 2$ 矩阵就是二维旋转矩阵 $R(\theta)$。观察它的列：第一列 $(\cos\theta, \sin\theta)^\top$ 是 $x$ 轴单位向量 $(1,0)^\top$ 旋转后的位置；第二列 $(-\sin\theta, \cos\theta)^\top$ 是 $y$ 轴单位向量 $(0,1)^\top$ 旋转后的位置。</p>
+<blockquote>
+<p><strong>直觉</strong>：旋转矩阵的每一列，就是原始坐标轴的单位向量在旋转后的新位置。因此，旋转矩阵本质上是&quot;新坐标系相对于旧坐标系的描述&quot;。</p>
+</blockquote>
+<p>二维旋转矩阵的性质：</p>
+<ul>
+<li class="">$R(\theta)^\top R(\theta) = I$（正交性）</li>
+<li class="">$\det(R(\theta)) = 1$</li>
+<li class="">$R(\theta_1) R(\theta_2) = R(\theta_1 + \theta_2)$（角度叠加）</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="3d-旋转">3D 旋转<a href="#3d-旋转" class="hash-link" aria-label="3D 旋转的直接链接" title="3D 旋转的直接链接" translate="no">​</a></h4>
+<p>三维旋转矩阵 $R \in \mathbb{R}^{3 \times 3}$ 同样满足两个核心性质：</p>
+<ol>
+<li class=""><strong>正交性</strong>：$R^\top R = I$（列向量互相正交且为单位向量）</li>
+<li class=""><strong>行列式为 1</strong>：$\det(R) = 1$</li>
+</ol>
+<p>所有满足这两个条件的 $3 \times 3$ 矩阵构成<strong>特殊正交群（Special Orthogonal Group）</strong>，记作 $SO(3)$：</p>
+<p>$$
+SO(3) = &amp;#123; R \in \mathbb{R}^{3 \times 3} \mid R^\top R = I, ; \det(R) = 1 &amp;#125;
+$$</p>
+<p>$SO(3)$ 中的每个元素对应一个三维旋转。这个集合具有&quot;群&quot;结构：任意两个旋转的复合仍然是旋转（封闭性），每个旋转都有逆旋转（逆元），存在恒等旋转（单位元）。</p>
+<p><strong>为什么旋转矩阵有 9 个元素却只有 3 个自由度？</strong> 正交性条件 $R^\top R = I$ 提供了 6 个独立约束方程（对称矩阵的 6 个独立元素），所以 $9 - 6 = 3$，恰好对应三维旋转的三个自由度。这就是为什么旋转矩阵是&quot;冗余表示&quot;——但冗余也有好处：没有奇异性，且复合运算简单（直接矩阵乘法）。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="绕三个主轴的旋转">绕三个主轴的旋转<a href="#绕三个主轴的旋转" class="hash-link" aria-label="绕三个主轴的旋转的直接链接" title="绕三个主轴的旋转的直接链接" translate="no">​</a></h4>
+<p>三维空间中，绕 $x$、$y$、$z$ 轴的基本旋转矩阵分别为：</p>
+<p><strong>绕 $x$ 轴旋转 $\theta$（滚转/Roll）</strong>：</p>
+<p>$$
+R_x(\theta) = \begin{bmatrix}
+1 &amp; 0 &amp; 0 \
+0 &amp; \cos\theta &amp; -\sin\theta \
+0 &amp; \sin\theta &amp; \cos\theta
+\end{bmatrix}
+$$</p>
+<p>注意第一行第一列为 1，其余行为 $2 \times 2$ 旋转矩阵——因为绕 $x$ 轴旋转时，$x$ 坐标不变，$y$ 和 $z$ 坐标在 $yz$ 平面内旋转。</p>
+<p><strong>绕 $y$ 轴旋转 $\theta$（俯仰/Pitch）</strong>：</p>
+<p>$$
+R_y(\theta) = \begin{bmatrix}
+\cos\theta &amp; 0 &amp; \sin\theta \
+0 &amp; 1 &amp; 0 \
+-\sin\theta &amp; 0 &amp; \cos\theta
+\end{bmatrix}
+$$</p>
+<p>这里 $\sin\theta$ 的符号与 $R_x$ 不同——左上角的 $-\sin\theta$ 在左下角而不是右上角，这是因为 $y$ 轴的正方向与右手坐标系中 $x$、$z$ 的叉积方向一致导致的。</p>
+<p><strong>绕 $z$ 轴旋转 $\theta$（偏航/Yaw）</strong>：</p>
+<p>$$
+R_z(\theta) = \begin{bmatrix}
+\cos\theta &amp; -\sin\theta &amp; 0 \
+\sin\theta &amp; \cos\theta &amp; 0 \
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+$$</p>
+<p>$z$ 坐标不变，$x$ 和 $y$ 在 $xy$ 平面内旋转，与二维旋转矩阵完全相同。</p>
+<p><strong>任意三维旋转的分解</strong>：任意三维旋转可以表示为三个基本旋转的复合，即<strong>欧拉角</strong>表示。最常见的表示顺序是 ZYX（也称为&quot;偏航-俯仰-滚转&quot;顺序）：</p>
+<p>$$
+R = R_z(\alpha) R_y(\beta) R_x(\gamma)
+$$</p>
+<p>其中 $\alpha$ 是偏航角（Yaw）、$\beta$ 是俯仰角（Pitch）、$\gamma$ 是滚转角（Roll）。</p>
+<blockquote>
+<p><strong>直观理解</strong>：想象扛着一台摄像机先绕垂直轴转（确定朝向哪个方向），再绕横轴转（确定仰头还是低头），最后绕纵轴转（确定画面是否水平）。这就是 ZYX 欧拉角的物理过程。</p>
+</blockquote>
+<p><strong>欧拉角的致命缺陷——万向锁（Gimbal Lock）</strong>：当 $\beta = \pm 90^\circ$（俯仰角为 ±90°）时，第一次旋转（绕 $z$）和第三次旋转（绕 $x$）的旋转轴重合，系统丢失一个自由度。具体表现为：本应三个自由度的旋转，此时只能控制两个方向。这就是为什么在机器人学中，<strong>四元数</strong>比欧拉角更受青睐——四元数完全没有万向锁问题。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="313-四元数复数类比定义运算与旋转的关系">3.1.3 四元数（复数类比、定义、运算、与旋转的关系）<a href="#313-四元数复数类比定义运算与旋转的关系" class="hash-link" aria-label="3.1.3 四元数（复数类比、定义、运算、与旋转的关系）的直接链接" title="3.1.3 四元数（复数类比、定义、运算、与旋转的关系）的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="从复数到四元数历史的回响">从复数到四元数——历史的回响<a href="#从复数到四元数历史的回响" class="hash-link" aria-label="从复数到四元数——历史的回响的直接链接" title="从复数到四元数——历史的回响的直接链接" translate="no">​</a></h4>
+<p>复数 $a + bi$ 可以表示二维旋转：乘以单位复数 $e^{i\theta} = \cos\theta + i\sin\theta$ 等价于将向量旋转 $\theta$ 角度。这个构造极其优雅——一个复数既编码了旋转角度，又可以通过简单的乘法实现旋转合成。</p>
+<p>1843年，爱尔兰数学家 William Rowan Hamilton 试图将复数的思想推广到三维空间。他苦苦思索多年，最终在都柏林的布鲁姆桥（Broom Bridge）上灵光一现：不是用三个分量（这会破坏乘法封闭性），而是需要<strong>四个分量</strong>——一个实部和三个虚部。他兴奋地将这个发现刻在了桥的石头上。</p>
+<p>四元数 $q$ 由四个实数组成：</p>
+<p>$$
+q = w + xi + yj + zk = (w, x, y, z)
+$$</p>
+<p>其中 $i, j, k$ 满足著名的 Hamilton 规则：</p>
+<p>$$
+i^2 = j^2 = k^2 = ijk = -1
+$$</p>
+<p>以及：</p>
+<p>$$
+ij = k, \quad jk = i, \quad ki = j
+$$</p>
+<p>注意这些关系与三维向量的叉积 $x \times y = z$（在右手坐标系下）完全一致。这不是巧合——四元数的虚部天生就是为编码三维旋转而设计的。</p>
+<blockquote>
+<p><strong>直觉</strong>：复数用一个&quot;实部+虚部&quot;编码二维旋转，四元数用一个&quot;标量+三维向量&quot;编码三维旋转。标量部分 $w$ 编码旋转角度的一半（$\cos(\theta/2)$），向量部分 $(x,y,z)$ 编码旋转轴的方向（$\sin(\theta/2) \cdot u$）。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="四元数的基本运算">四元数的基本运算<a href="#四元数的基本运算" class="hash-link" aria-label="四元数的基本运算的直接链接" title="四元数的基本运算的直接链接" translate="no">​</a></h4>
+<p>四元数通常写作标量-向量形式 $q = (w, v)$，其中 $w \in \mathbb{R}$ 是标量部分，$v = (x, y, z) \in \mathbb{R}^3$ 是向量部分。</p>
+<p><strong>加法</strong>：对应元素相加</p>
+<p>$$
+q_1 + q_2 = (w_1 + w_2, v_1 + v_2)
+$$</p>
+<p><strong>乘法</strong>（这是最关键也最不直观的运算）：</p>
+<p>$$
+q_1 q_2 = (w_1 w_2 - v_1 \cdot v_2, ; w_1 v_2 + w_2 v_1 + v_1 \times v_2)
+$$</p>
+<p>这里的 $\cdot$ 和 $\times$ 分别是标准的三维点积和叉积。从公式中可以看出：</p>
+<ul>
+<li class="">标量部分涉及两个标量之积和向量点积</li>
+<li class="">向量部分涉及两个标量与向量的乘积以及叉积（这正是三维旋转中出现的项）</li>
+</ul>
+<p>四元数乘法<strong>不满足交换律</strong>：$q_1 q_2 \neq q_2 q_1$，因为叉积 $v_1 \times v_2 = -v_2 \times v_1$ 改变了符号。这对应了旋转复合也不交换的物理事实。</p>
+<p><strong>共轭</strong>：</p>
+<p>$$
+q^* = (w, -v)
+$$</p>
+<p><strong>模长</strong>：</p>
+<p>$$
+|q| = \sqrt{w^2 + x^2 + y^2 + z^2}
+$$</p>
+<p><strong>逆</strong>：</p>
+<p>$$
+q^{-1} = \frac{q^*}{|q|^2}
+$$</p>
+<p>对于单位四元数（$|q| = 1$），逆就是共轭：$q^{-1} = q^*$。这对应了旋转的逆就是反向旋转。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="用四元数表示三维旋转">用四元数表示三维旋转<a href="#用四元数表示三维旋转" class="hash-link" aria-label="用四元数表示三维旋转的直接链接" title="用四元数表示三维旋转的直接链接" translate="no">​</a></h4>
+<p>这是四元数最优雅的应用。设 $v = (x, y, z)$ 是三维空间中的一个向量（例如从肩关节到肘关节的方向），我们想将它绕单位轴 $u = (u_x, u_y, u_z)$（$|u| = 1$）旋转 $\theta$ 角度。</p>
+<p>首先构造单位四元数：</p>
+<p>$$
+q = \left(\cos\frac{\theta}{2}, ; \sin\frac{\theta}{2} , u\right)
+$$</p>
+<p>然后，将向量 $v$ 视为纯四元数 $v_q = (0, v)$。旋转后的向量为：</p>
+<p>$$
+v_q&#x27; = q , v_q , q^{-1}
+$$</p>
+<p>计算结果 $v_q&#x27; = (0, v&#x27;)$ 的虚部 $v&#x27;$ 就是旋转后的三维坐标。</p>
+<blockquote>
+<p><strong>直觉</strong>：为什么是 $\theta/2$ 而不是 $\theta$？因为&quot;左乘 $q$ 再右乘 $q^{-1}$&quot;相当于旋转了两次——总共旋转 $\theta$ 角度。这种对称构造保证了：</p>
+<ol>
+<li class="">结果始终是纯四元数（没有标量部分）</li>
+<li class="">旋转角度正确</li>
+<li class="">$q$ 和 $-q$ 表示同一个旋转（因为两次乘以负号相互抵消）</li>
+</ol>
+<p>最后一点有时会让人困惑，但反过来看也是优势：四元数到旋转矩阵的映射是二对一的，这避免了某些连续性缺陷。</p>
+</blockquote>
+<p><strong>为什么四元数优于旋转矩阵和欧拉角？</strong></p>
+<table><thead><tr><th>优势</th><th>说明</th></tr></thead><tbody><tr><td><strong>无万向锁</strong></td><td>四元数在所有姿态下都有三个自由度，不存在退化情形</td></tr><tr><td><strong>紧凑</strong></td><td>4 个浮点数 vs 旋转矩阵的 9 个，节省内存和计算</td></tr><tr><td><strong>数值稳定</strong></td><td>保持单位模长只需归一化（4 个数）；而保持旋转矩阵正交性需要 Gram-Schmidt 正交化（复杂且不完美）</td></tr><tr><td><strong>平滑插值</strong></td><td>Slerp 球面线性插值可以生成恒定角速度的平滑旋转路径</td></tr><tr><td><strong>复合高效</strong></td><td>四元数乘法只需 4 次乘法 + 若干加法，比矩阵乘法快</td></tr></tbody></table>
+<p><strong>四元数的实际应用场景</strong>：人形机器人中，IMU（惯性测量单元）直接输出四元数姿态；关节的期望姿态通常用四元数表示；运动捕捉系统（Mocap）的数据格式也常用四元数。现代深度学习框架（PyTorch、TensorFlow）都有内置的四元数运算模块。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="314-轴角表示法罗德里格斯公式">3.1.4 轴角表示法（罗德里格斯公式）<a href="#314-轴角表示法罗德里格斯公式" class="hash-link" aria-label="3.1.4 轴角表示法（罗德里格斯公式）的直接链接" title="3.1.4 轴角表示法（罗德里格斯公式）的直接链接" translate="no">​</a></h3>
+<p>轴角表示法是人类理解旋转最自然的方式——&quot;绕某个轴转某个角度&quot;。一个轴角可以写作 $(\theta, u)$，其中 $u \in \mathbb{R}^3$ 是单位旋转轴，$\theta \in [0, \pi]$ 是旋转角度。也可以用一个三维向量 $\omega = \theta u$ 表示，向量的方向是旋转轴，长度是旋转角度。</p>
+<p><strong>从轴角到旋转矩阵——罗德里格斯公式</strong>：</p>
+<p>给定单位轴 $u = (u_x, u_y, u_z)$ 和角度 $\theta$，对应的旋转矩阵为：</p>
+<p>$$
+R = I + \sin\theta , [u]<em>\times + (1 - \cos\theta) , [u]</em>\times^2
+$$</p>
+<p>其中 $[u]_\times$ 是 $u$ 的<strong>反对称矩阵</strong>（skew-symmetric matrix），又称叉积矩阵：</p>
+<p>$$
+[u]_\times = \begin{bmatrix}
+0 &amp; -u_z &amp; u_y \
+u_z &amp; 0 &amp; -u_x \
+-u_y &amp; u_x &amp; 0
+\end{bmatrix}
+$$</p>
+<p>这个矩阵的作用是：对任意向量 $v$，有 $[u]_\times v = u \times v$（叉积）。</p>
+<blockquote>
+<p><strong>直觉公式拆解</strong>：罗德里格斯公式的三个项分别对应：</p>
+<ul>
+<li class="">$I$：恒等变换，如果 $\theta = 0$，旋转矩阵就是单位矩阵</li>
+<li class="">$\sin\theta , [u]_\times$：沿着垂直于 $u$ 的方向移动（切向分量），$\sin\theta$ 控制移动距离</li>
+<li class="">$(1 - \cos\theta) , [u]_\times^2$：沿着指向 $u$ 的方向修正（法向分量），$(1 - \cos\theta)$ 确保向量长度不变</li>
+</ul>
+</blockquote>
+<p>$[u]_\times^2$ 的计算也有闭式解：</p>
+<p>$$
+[u]_\times^2 = u u^\top - I = \begin{bmatrix}
+u_x^2 - 1 &amp; u_x u_y &amp; u_x u_z \
+u_x u_y &amp; u_y^2 - 1 &amp; u_y u_z \
+u_x u_z &amp; u_y u_z &amp; u_z^2 - 1
+\end{bmatrix}
+$$</p>
+<p><strong>从旋转矩阵到轴角</strong>：</p>
+<p>给定旋转矩阵 $R$，提取旋转角度：</p>
+<p>$$
+\theta = \arccos\left(\frac{\text{tr}(R) - 1}{2}\right)
+$$</p>
+<p>提取旋转轴（的反对称矩阵）：</p>
+<p>$$
+[u]_\times = \frac{R - R^\top}{2\sin\theta}
+$$</p>
+<p>当 $\theta \to 0$ 时，分母趋近于 0，提取的轴变得不稳定——这就是轴角表示在接近恒等旋转时的奇异性。</p>
+<p><strong>轴角表示的特点</strong>：</p>
+<ul>
+<li class=""><strong>最直观</strong>：人类最容易理解的旋转表示方式</li>
+<li class=""><strong>奇异点</strong>：$\theta = 0$ 时轴的方向无定义</li>
+<li class=""><strong>不便于复合</strong>：两个轴角的复合不是简单的向量加法（需要先转成四元数或矩阵再复合）</li>
+<li class=""><strong>与角速度直接对应</strong>：$\omega = \dot{\theta} u$ 就是物理上的角速度向量</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="315-三种表示的转换与对比表格">3.1.5 三种表示的转换与对比表格<a href="#315-三种表示的转换与对比表格" class="hash-link" aria-label="3.1.5 三种表示的转换与对比表格的直接链接" title="3.1.5 三种表示的转换与对比表格的直接链接" translate="no">​</a></h3>
+<p>在实际的机器人编程中，这三种表示经常需要互相转换。以下是一个全面的对比和转换公式速查。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="对比表格">对比表格<a href="#对比表格" class="hash-link" aria-label="对比表格的直接链接" title="对比表格的直接链接" translate="no">​</a></h4>
+<table><thead><tr><th>特性</th><th>旋转矩阵 $R$</th><th>四元数 $q$</th><th>轴角 $(\theta, u)$</th></tr></thead><tbody><tr><td><strong>参数个数</strong></td><td>9（冗余）</td><td>4（1个单位约束）</td><td>3 或 4</td></tr><tr><td><strong>自由度</strong></td><td>3</td><td>3</td><td>3</td></tr><tr><td><strong>奇异性</strong></td><td>无</td><td>无</td><td>$\theta = 0$ 时轴不定</td></tr><tr><td><strong>复合旋转</strong></td><td>矩阵乘法 $R_2 R_1$</td><td>四元数乘法 $q_2 q_1$</td><td>不直接，需转换</td></tr><tr><td><strong>插值</strong></td><td>困难（需投影到 $SO(3)$）</td><td>Slerp 容易实现</td><td>小心处理符号</td></tr><tr><td><strong>内存占用</strong></td><td>9 个 float</td><td>4 个 float</td><td>3 个 float</td></tr><tr><td><strong>正交性维护</strong></td><td>需 Gram-Schmidt 正交化</td><td>只需归一化</td><td>N/A</td></tr><tr><td><strong>直观性</strong></td><td>低</td><td>中等</td><td>最高</td></tr><tr><td><strong>常用场景</strong></td><td>坐标变换计算</td><td>姿态控制、平滑插值</td><td>角速度表示、可视化</td></tr></tbody></table>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="转换公式速查">转换公式速查<a href="#转换公式速查" class="hash-link" aria-label="转换公式速查的直接链接" title="转换公式速查的直接链接" translate="no">​</a></h4>
+<p>设四元数 $q = (w, x, y, z)$，满足 $w^2 + x^2 + y^2 + z^2 = 1$（单位四元数），轴角 $(\theta, u)$ 满足 $u$ 为单位向量。</p>
+<p><strong>四元数 → 旋转矩阵</strong>：</p>
+<p>$$
+R(q) = \begin{bmatrix}
+1 - 2(y^2 + z^2) &amp; 2(xy - wz) &amp; 2(xz + wy) \
+2(xy + wz) &amp; 1 - 2(x^2 + z^2) &amp; 2(yz - wx) \
+2(xz - wy) &amp; 2(yz + wx) &amp; 1 - 2(x^2 + y^2)
+\end{bmatrix}
+$$</p>
+<p><strong>旋转矩阵 → 四元数</strong>：从 $R$ 的迹 $\text{tr}(R)$ 开始</p>
+<p>$$
+w = \frac{\sqrt{1 + \text{tr}(R)}}{2}, \quad
+x = \frac{R_{32} - R_{23}}{4w}, \quad
+y = \frac{R_{13} - R_{31}}{4w}, \quad
+z = \frac{R_{21} - R_{12}}{4w}
+$$</p>
+<p>当 $w$ 接近 0 时（对应 $\theta \approx 180^\circ$），上述公式数值不稳定，需要用替代方案，例如比较对角元素的大小来选择最大的分量作为分母。</p>
+<p><strong>四元数 → 轴角</strong>：</p>
+<p>$$
+\theta = 2 \arccos(w), \quad
+u = \frac{(x, y, z)}{\sin(\theta/2)}
+$$</p>
+<p><strong>轴角 → 四元数</strong>：</p>
+<p>$$
+q = \left(\cos\frac{\theta}{2}, ; \sin\frac{\theta}{2} \cdot u_x, ; \sin\frac{\theta}{2} \cdot u_y, ; \sin\frac{\theta}{2} \cdot u_z\right)
+$$</p>
+<p><strong>旋转矩阵 → 轴角</strong>（罗德里格斯公式的逆）：</p>
+<p>$$
+\theta = \arccos\left(\frac{\text{tr}(R) - 1}{2}\right), \quad
+[u]_\times = \frac{R - R^\top}{2\sin\theta}
+$$</p>
+<blockquote>
+<p><strong>实用建议</strong>：在实际编程中，建议使用成熟的数学库（如 SciPy 的 <code>Rotation</code> 模块、Eigen 的 <code>Quaternion</code> 类、MuJoCo 的 <code>mjtQuaternion</code>）来完成这些转换。自己手写时务必注意边界条件（特别是 $\theta \approx 0$ 或 $\theta \approx \pi$ 的情形）。</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="32-刚体变换5000字">3.2 刚体变换（5,000字）<a href="#32-刚体变换5000字" class="hash-link" aria-label="3.2 刚体变换（5,000字）的直接链接" title="3.2 刚体变换（5,000字）的直接链接" translate="no">​</a></h2>
+<blockquote>
+<p><strong>一句话核心</strong>：刚体变换描述了一个物体在空间中的<strong>完整位姿（位置+姿态）</strong>，是机器人运动学的基础——从基座到每个关节再到末端执行器的坐标链。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="321-齐次坐标与变换矩阵">3.2.1 齐次坐标与变换矩阵<a href="#321-齐次坐标与变换矩阵" class="hash-link" aria-label="3.2.1 齐次坐标与变换矩阵的直接链接" title="3.2.1 齐次坐标与变换矩阵的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="为什么需要齐次坐标">为什么需要齐次坐标？<a href="#为什么需要齐次坐标" class="hash-link" aria-label="为什么需要齐次坐标？的直接链接" title="为什么需要齐次坐标？的直接链接" translate="no">​</a></h4>
+<p>纯旋转矩阵只能描述方向，但机器人还需要平移——例如从肩关节到肘关节有一个固定的长度偏移，从世界坐标系到机器人基座有位置偏移。如果我们分别用旋转矩阵 $R$ 和平移向量 $t$ 来表达变换：</p>
+<p>$$
+p&#x27; = R p + t
+$$</p>
+<p>这个形式是非线性的（因为加法），无法用单纯的矩阵乘法表示复合变换。而齐次坐标将旋转和平移统一在一个 $4 \times 4$ 矩阵中，使得复合变换变成简单的矩阵乘法。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="齐次变换矩阵的定义">齐次变换矩阵的定义<a href="#齐次变换矩阵的定义" class="hash-link" aria-label="齐次变换矩阵的定义的直接链接" title="齐次变换矩阵的定义的直接链接" translate="no">​</a></h4>
+<p>在齐次坐标系中，三维点 $p = (x, y, z)^\top$ 被表示为四维向量（增加一个额外的&quot;1&quot;维）：</p>
+<p>$$
+\tilde{p} = \begin{bmatrix} x \ y \ z \ 1 \end{bmatrix}
+$$</p>
+<p>齐次变换矩阵 $T \in \mathbb{R}^{4 \times 4}$ 的形式为：</p>
+<p>$$
+T = \begin{bmatrix}
+R &amp; t \
+0^\top &amp; 1
+\end{bmatrix} = \begin{bmatrix}
+r_{11} &amp; r_{12} &amp; r_{13} &amp; t_x \
+r_{21} &amp; r_{22} &amp; r_{23} &amp; t_y \
+r_{31} &amp; r_{32} &amp; r_{33} &amp; t_z \
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+$$</p>
+<p>对点的变换表示为矩阵乘法：</p>
+<p>$$
+\tilde{p}&#x27; = T \tilde{p} = \begin{bmatrix} R p + t \ 1 \end{bmatrix}
+$$</p>
+<blockquote>
+<p><strong>直觉</strong>：齐次矩阵的左上 $3 \times 3$ 块是旋转部分，最右列是平移部分，最后一行永远是 $(0,0,0,1)$。这个&quot;最后一行&quot;的作用是确保变换后点坐标的最后一维仍然是 1（即保持齐次形式）。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="变换的复合与链式法则">变换的复合与链式法则<a href="#变换的复合与链式法则" class="hash-link" aria-label="变换的复合与链式法则的直接链接" title="变换的复合与链式法则的直接链接" translate="no">​</a></h4>
+<p><strong>复合变换</strong>：连续施加多个变换时，只需将对应的齐次矩阵相乘：</p>
+<p>$$
+T_{a c} = T_{a b} T_{b c}
+$$</p>
+<p>下标约定：$T_{ab}$ 表示从坐标系 $b$ 到坐标系 $a$ 的变换。&quot;从右到左&quot;读：先应用 $T_{bc}$（从 $c$ 到 $b$），再应用 $T_{ab}$（从 $b$ 到 $a$）。</p>
+<p><strong>机器人运动学链</strong>：对于有 $n$ 个关节的机器人臂，从基座（坐标系 0）到末端执行器（坐标系 $n$）的变换为：</p>
+<p>$$
+T_{0n} = T_{01} T_{12} T_{23} \dots T_{(n-1)n}
+$$</p>
+<p>每个 $T_{(i-1)i}$ 由关节 $i$ 的旋转（或平移）和连杆 $i$ 的固定偏移决定。这被称为<strong>正运动学</strong>——已知关节角度，计算末端位姿。</p>
+<blockquote>
+<p><strong>直觉</strong>：想象从肩膀到手指的骨骼链。$T_{01}$ 是肩关节到上臂的变换，$T_{12}$ 是上臂到肘关节的变换，以此类推。从肩膀出发，依次经过每个关节，最终到达指尖——这就是 $T_{0n}$。</p>
+</blockquote>
+<p><strong>逆变换</strong>：从坐标系 $a$ 到坐标系 $b$ 的逆变换为：</p>
+<p>$$
+T_{ba} = T_{ab}^{-1}
+$$</p>
+<p>计算逆变换的公式（利用 $SE(3)$ 的特殊结构，避免了 $4 \times 4$ 矩阵的一般求逆）：</p>
+<p>$$
+T^{-1} = \begin{bmatrix}
+R^\top &amp; -R^\top t \
+0^\top &amp; 1
+\end{bmatrix}
+$$</p>
+<p><strong>对向量的变换 vs 对点的变换</strong>：向量（如速度、力）不受平移影响，因此对向量应用变换时只使用旋转部分：</p>
+<p>$$
+\tilde{v}&#x27; = \begin{bmatrix} R &amp; t \ 0^\top &amp; 1 \end{bmatrix} \begin{bmatrix} v \ 0 \end{bmatrix} = \begin{bmatrix} R v \ 0 \end{bmatrix}
+$$</p>
+<p>注意向量的齐次坐标最后一维是 0（而不是点的 1），这确保了平移不会影响向量。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="322-se3-群的直观理解">3.2.2 SE(3) 群的直观理解<a href="#322-se3-群的直观理解" class="hash-link" aria-label="3.2.2 SE(3) 群的直观理解的直接链接" title="3.2.2 SE(3) 群的直观理解的直接链接" translate="no">​</a></h3>
+<p>所有 $4 \times 4$ 齐次变换矩阵集合构成了<strong>特殊欧几里得群（Special Euclidean Group）</strong>：</p>
+<p>$$
+SE(3) = \left&amp;#123; T = \begin{bmatrix} R &amp; t \ 0^\top &amp; 1 \end{bmatrix} ;\middle|; R \in SO(3), t \in \mathbb{R}^3 \right&amp;#125;
+$$</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="什么是群">什么是&quot;群&quot;？<a href="#什么是群" class="hash-link" aria-label="什么是&quot;群&quot;？的直接链接" title="什么是&quot;群&quot;？的直接链接" translate="no">​</a></h4>
+<p>在抽象代数中，群是一个集合加上一种二元运算，满足四个性质：</p>
+<ol>
+<li class=""><strong>封闭性</strong>：集合中任意两个元素运算的结果仍在集合中</li>
+<li class=""><strong>结合律</strong>：$(a \circ b) \circ c = a \circ (b \circ c)$</li>
+<li class=""><strong>单位元</strong>：存在元素 $e$ 使得 $e \circ a = a \circ e = a$</li>
+<li class=""><strong>逆元</strong>：每个元素 $a$ 都有逆元 $a^{-1}$ 使得 $a \circ a^{-1} = e$</li>
+</ol>
+<p>对于 $SE(3)$，运算是矩阵乘法：</p>
+<ul>
+<li class=""><strong>封闭性</strong>：两个刚体变换复合仍是刚体变换——不会产生扭曲或缩放</li>
+<li class=""><strong>结合律</strong>：矩阵乘法天然满足</li>
+<li class=""><strong>单位元</strong>：$I_{4 \times 4}$（不移动也不旋转）</li>
+<li class=""><strong>逆元</strong>：$T^{-1}$ 也在 $SE(3)$ 中（反转平移和旋转）</li>
+</ul>
+<blockquote>
+<p><strong>直觉</strong>：$SE(3)$ 就是所有&quot;刚体运动&quot;（rigid motions）的集合。你可以先移动再旋转、先旋转再移动、或者旋转着移动——结果一定是一个刚体运动，不会把物体拉伸、扭曲或压缩。这就是 $SE(3)$ 封闭性的物理含义。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="se3-的结构">SE(3) 的结构<a href="#se3-的结构" class="hash-link" aria-label="SE(3) 的结构的直接链接" title="SE(3) 的结构的直接链接" translate="no">​</a></h4>
+<p>$SE(3)$ 不是 $SO(3)$ 和 $\mathbb{R}^3$ 的简单直积（Cartesian product），而是<strong>半直积</strong>（semi-direct product）：</p>
+<p>$$
+SE(3) \cong SO(3) \ltimes \mathbb{R}^3
+$$</p>
+<p>为什么是半直积？因为旋转会影响平移的效果——先旋转后平移与先平移后旋转的结果不同（除非旋转是恒等变换）。换句话说，$SO(3)$ 通过旋转作用在 $\mathbb{R}^3$ 上：</p>
+<p>$$
+T_1 T_2 = \begin{bmatrix} R_1 &amp; t_1 \ 0 &amp; 1 \end{bmatrix} \begin{bmatrix} R_2 &amp; t_2 \ 0 &amp; 1 \end{bmatrix} = \begin{bmatrix} R_1 R_2 &amp; R_1 t_2 + t_1 \ 0 &amp; 1 \end{bmatrix}
+$$</p>
+<p>注意平移部分的复合是 $R_1 t_2 + t_1$：第二个变换的平移 $t_2$ 被第一个变换的旋转 $R_1$ 旋转了。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="se3-在机器人中的物理意义">SE(3) 在机器人中的物理意义<a href="#se3-在机器人中的物理意义" class="hash-link" aria-label="SE(3) 在机器人中的物理意义的直接链接" title="SE(3) 在机器人中的物理意义的直接链接" translate="no">​</a></h4>
+<ul>
+<li class="">世界坐标系到机器人基座的变换：$T_{wb} \in SE(3)$</li>
+<li class="">机器人基座到末端执行器的变换：$T_{be} \in SE(3)$</li>
+<li class="">连续时间下的轨迹：$T(t) \in SE(3)$ 是关于时间 $t$ 的曲线</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="323-旋转的复合与插值slerp">3.2.3 旋转的复合与插值（Slerp）<a href="#323-旋转的复合与插值slerp" class="hash-link" aria-label="3.2.3 旋转的复合与插值（Slerp）的直接链接" title="3.2.3 旋转的复合与插值（Slerp）的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="旋转的复合">旋转的复合<a href="#旋转的复合" class="hash-link" aria-label="旋转的复合的直接链接" title="旋转的复合的直接链接" translate="no">​</a></h4>
+<p>旋转的复合就是矩阵乘法。给定两个旋转 $R_1$ 和 $R_2$，&quot;先转 $R_1$ 再转 $R_2$&quot;的结果是 $R = R_2 R_1$。</p>
+<p>注意顺序——从右向左读。这与函数复合 $f(g(x))$ 的记法一致：先应用右边的函数，再应用左边的。</p>
+<p><strong>旋转不可交换</strong>：$R_2 R_1 \neq R_1 R_2$（除非绕同一轴）。这对应了一个容易验证的物理事实：先绕 $x$ 轴转 $90^\circ$ 再绕 $y$ 轴转 $90^\circ$，与先绕 $y$ 轴转 $90^\circ$ 再绕 $x$ 轴转 $90^\circ$，最终姿态完全不同。你可以用手中的笔验证这一点——这是理解机器人运动学的关键直觉。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="球面线性插值slerp">球面线性插值（Slerp）<a href="#球面线性插值slerp" class="hash-link" aria-label="球面线性插值（Slerp）的直接链接" title="球面线性插值（Slerp）的直接链接" translate="no">​</a></h4>
+<p>在机器人控制中，经常需要让关节或末端执行器从一个姿态平滑地过渡到另一个姿态。例如：机器人从&quot;站立&quot;姿态过渡到&quot;下蹲&quot;姿态，中间的每一帧都需要一个中间姿态。</p>
+<p><strong>直接线性插值的问题</strong>：对两个四元数做简单的线性组合 $q(t) = (1-t)q_1 + t q_2$，然后归一化——这种方法称为 Lerp（Linear interpolation with normalization）。Lerp 的缺点是角速度不均匀：中间快，两端慢。对于需要恒定角速度的运动（如机械臂的平滑轨迹），这会导致末端执行器在运动开始时加速、结束时减速，而不是匀速运动。</p>
+<p><strong>Slerp（Spherical Linear Interpolation）</strong> 在四元数构成的四维单位球面上沿<strong>大圆弧</strong>插值，保证恒定角速度：</p>
+<p>$$
+\text{Slerp}(q_1, q_2, t) = \frac{\sin((1-t)\Omega)}{\sin\Omega} q_1 + \frac{\sin(t\Omega)}{\sin\Omega} q_2
+$$</p>
+<p>其中 $\Omega = \arccos(|q_1 \cdot q_2|)$ 是两个四元数之间的角度，$t \in [0, 1]$ 是插值参数。</p>
+<blockquote>
+<p><strong>直觉</strong>：想象地球仪上的两个点。Lerp 是在三维空间中沿直线穿越地球内部连接两点（速度不均），而 Slerp 是沿地球表面的大圆路径飞行（匀速）。在机器人中，我们显然希望匀速飞行——这就是 Slerp 的价值。</p>
+</blockquote>
+<p><strong>Slerp 的实现要点</strong>：</p>
+<ol>
+<li class="">计算点积 $d = q_1 \cdot q_2$</li>
+<li class="">如果 $d &lt; 0$，取反 $q_2$（保证走最短路径）</li>
+<li class="">如果 $d$ 接近 1（两个姿态几乎相同），退化为线性插值避免数值问题</li>
+<li class="">否则用 Slerp 公式计算</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="324-李群与李代数初步so3se3微小扰动">3.2.4 李群与李代数初步（SO(3)/SE(3)微小扰动）<a href="#324-李群与李代数初步so3se3微小扰动" class="hash-link" aria-label="3.2.4 李群与李代数初步（SO(3)/SE(3)微小扰动）的直接链接" title="3.2.4 李群与李代数初步（SO(3)/SE(3)微小扰动）的直接链接" translate="no">​</a></h3>
+<p>这是本书中比较&quot;进阶&quot;的内容，但对于理解现代机器人状态估计和优化至关重要。我们先建立直觉，再给出数学形式。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="为什么要学李群和李代数">为什么要学李群和李代数？<a href="#为什么要学李群和李代数" class="hash-link" aria-label="为什么要学李群和李代数？的直接链接" title="为什么要学李群和李代数？的直接链接" translate="no">​</a></h4>
+<p><strong>核心问题</strong>：$SO(3)$ 和 $SE(3)$ 是弯曲的流形（manifold），不是向量空间。你无法直接在 $SO(3)$ 上做加法——两个旋转矩阵相加的结果不一定是一个有效的旋转矩阵。但在优化和控制中，我们经常需要对姿态做&quot;微小调整&quot;。</p>
+<p><strong>李代数提供了&quot;在切空间中操作&quot;的能力</strong>：</p>
+<ol>
+<li class="">在切空间（李代数，一个向量空间）中做线性操作（加法、梯度下降）</li>
+<li class="">通过指数映射将结果映射回流形（李群）</li>
+</ol>
+<p>这就好比：你不能在地球表面上画一条直线（因为表面是弯曲的），但你可以在纸上（切平面）画一条直线，然后把它投影到地球表面。</p>
+<blockquote>
+<p><strong>一句话直觉</strong>：李群是弯曲的流形（旋转空间），李代数是流形在某点的切空间（角速度空间）。旋转的&quot;导数&quot;是角速度，角速度的&quot;积分&quot;是旋转。李代数 = 角速度空间，李群 = 旋转空间。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="so3-的李代数-mathfrakso3">SO(3) 的李代数 $\mathfrak{so}(3)$<a href="#so3-的李代数-mathfrakso3" class="hash-link" aria-label="SO(3) 的李代数 $\mathfrak{so}(3)$的直接链接" title="SO(3) 的李代数 $\mathfrak{so}(3)$的直接链接" translate="no">​</a></h4>
+<p>$SO(3)$ 在单位元 $I$ 处的切空间记作 $\mathfrak{so}(3)$，是所有 $3 \times 3$ 反对称矩阵的集合：</p>
+<p>$$
+\mathfrak{so}(3) = &amp;#123; [\omega]<em>\times \in \mathbb{R}^{3 \times 3} \mid [\omega]</em>\times^\top = -[\omega]_\times &amp;#125;
+$$</p>
+<p>更具体地说：</p>
+<p>$$
+[\omega]_\times = \begin{bmatrix}
+0 &amp; -\omega_z &amp; \omega_y \
+\omega_z &amp; 0 &amp; -\omega_x \
+-\omega_y &amp; \omega_x &amp; 0
+\end{bmatrix}
+$$</p>
+<p>这里的 $\omega = (\omega_x, \omega_y, \omega_z) \in \mathbb{R}^3$ 就是<strong>角速度向量</strong>。$\mathfrak{so}(3)$ 与 $\mathbb{R}^3$ 同构——每个三维向量对应一个反对称矩阵。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="指数映射从李代数到李群">指数映射：从李代数到李群<a href="#指数映射从李代数到李群" class="hash-link" aria-label="指数映射：从李代数到李群的直接链接" title="指数映射：从李代数到李群的直接链接" translate="no">​</a></h4>
+<p>$$
+\exp: \mathfrak{so}(3) \to SO(3), \quad R = \exp([\omega]_\times)
+$$</p>
+<p>这个指数映射的闭式解——你猜对了——就是<strong>罗德里格斯公式</strong>！</p>
+<p>$$
+\exp([\omega]<em>\times) = I + \frac{\sin\theta}{\theta} [\omega]</em>\times + \frac{1 - \cos\theta}{\theta^2} [\omega]_\times^2
+$$</p>
+<p>其中 $\theta = |\omega|$ 是旋转角度的绝对值，$u = \omega / \theta$ 是单位旋转轴。</p>
+<p>当 $\theta \to 0$（微小旋转）时，指数映射近似为：</p>
+<p>$$
+\exp([\omega]<em>\times) \approx I + [\omega]</em>\times
+$$</p>
+<p>这正是<strong>一阶近似</strong>——微小旋转可以用反对称矩阵的线性项近似。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="对数映射从李群到李代数">对数映射：从李群到李代数<a href="#对数映射从李群到李代数" class="hash-link" aria-label="对数映射：从李群到李代数的直接链接" title="对数映射：从李群到李代数的直接链接" translate="no">​</a></h4>
+<p>$$
+\log: SO(3) \to \mathfrak{so}(3), \quad [\omega]_\times = \log(R)
+$$</p>
+<p>$$
+\theta = \arccos\left(\frac{\text{tr}(R) - 1}{2}\right), \quad
+[\omega]_\times = \frac{\theta (R - R^\top)}{2\sin\theta}
+$$</p>
+<p>当 $\theta \to 0$ 时，对数映射近似为：</p>
+<p>$$
+\log(R) \approx \frac{R - R^\top}{2}
+$$</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="se3-的李代数-mathfrakse3">SE(3) 的李代数 $\mathfrak{se}(3)$<a href="#se3-的李代数-mathfrakse3" class="hash-link" aria-label="SE(3) 的李代数 $\mathfrak{se}(3)$的直接链接" title="SE(3) 的李代数 $\mathfrak{se}(3)$的直接链接" translate="no">​</a></h4>
+<p>类似地，$SE(3)$ 的李代数 $\mathfrak{se}(3)$ 由<strong>扭转</strong>（twist）$\xi = (v, \omega)$ 生成，其中 $v$ 是线速度，$\omega$ 是角速度：</p>
+<p>$$
+[\xi]<em>\times = \begin{bmatrix}
+[\omega]</em>\times &amp; v \
+0^\top &amp; 0
+\end{bmatrix} \in \mathbb{R}^{4 \times 4}
+$$</p>
+<p>指数映射将扭转变换为齐次变换矩阵 $T = \exp([\xi]_\times) \in SE(3)$。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="扰动模型李代数在机器人学中的核心应用">扰动模型——李代数在机器人学中的核心应用<a href="#扰动模型李代数在机器人学中的核心应用" class="hash-link" aria-label="扰动模型——李代数在机器人学中的核心应用的直接链接" title="扰动模型——李代数在机器人学中的核心应用的直接链接" translate="no">​</a></h4>
+<p>在状态估计、SLAM 和运动规划中，我们经常需要在当前姿态 $T$ 上施加一个微小扰动 $\delta \xi$：</p>
+<p>$$
+T&#x27; = T \cdot \exp([\delta \xi]_\times)
+$$</p>
+<p>或者用左乘形式的扰动：</p>
+<p>$$
+T&#x27; = \exp([\delta \xi]_\times) \cdot T
+$$</p>
+<p>右乘和左乘的区别在于：扰动是在局部坐标系还是世界坐标系中。</p>
+<p><strong>在优化中的应用</strong>：假设我们要优化一个姿态参数 $T$，使某个代价函数 $f(T)$ 最小。我们不能直接在 $T$ 的矩阵元素上做梯度下降（因为结果可能不在 $SE(3)$ 中）。李代数方案是：</p>
+<ol>
+<li class="">在切空间 $\mathfrak{se}(3)$（一个 6 维向量空间）中定义增量 $\delta \xi$</li>
+<li class="">更新：$T_{k+1} = T_k \cdot \exp([\delta \xi]_\times)$</li>
+<li class="">代价函数对 $\delta \xi$ 的导数可以通过链式法则计算</li>
+</ol>
+<p>这被称为<strong>流形上的优化</strong>，是现代机器人状态估计（如第5章的因子图优化）的标准做法。</p>
+<blockquote>
+<p><strong>记住</strong>：每当你在论文或代码中看到 &quot;right perturbation&quot; 或 &quot;left perturbation&quot;，指的就是通过李代数在 $SE(3)$ 上施加微小扰动——这是李理论在机器人学中最重要的实际应用。</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="33-概率与统计基础4000字">3.3 概率与统计基础（4,000字）<a href="#33-概率与统计基础4000字" class="hash-link" aria-label="3.3 概率与统计基础（4,000字）的直接链接" title="3.3 概率与统计基础（4,000字）的直接链接" translate="no">​</a></h2>
+<blockquote>
+<p><strong>一句话核心</strong>：机器人永远无法精确知道世界的完整状态——传感器有噪声，环境有变化，模型有误差。概率论是处理这种<strong>不确定性</strong>的数学语言。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="331-贝叶斯定理与机器人中的贝叶斯推断">3.3.1 贝叶斯定理与机器人中的贝叶斯推断<a href="#331-贝叶斯定理与机器人中的贝叶斯推断" class="hash-link" aria-label="3.3.1 贝叶斯定理与机器人中的贝叶斯推断的直接链接" title="3.3.1 贝叶斯定理与机器人中的贝叶斯推断的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="贝叶斯定理">贝叶斯定理<a href="#贝叶斯定理" class="hash-link" aria-label="贝叶斯定理的直接链接" title="贝叶斯定理的直接链接" translate="no">​</a></h4>
+<p>贝叶斯定理是概率论中最重要的公式之一，也是机器人感知和状态估计的哲学基石：</p>
+<p>$$
+P(X \mid Z) = \frac{P(Z \mid X) , P(X)}{P(Z)}
+$$</p>
+<p>四个组成部分的含义：</p>
+<ul>
+<li class=""><strong>先验概率 $P(X)$</strong>：在获得任何观测数据之前，我们对状态 $X$ 的了解。例如，在没有 GPS 信号时，我们可能知道机器人大致在某个房间里。</li>
+<li class=""><strong>似然 $P(Z \mid X)$</strong>：如果状态真的是 $X$，那么观测到数据 $Z$ 的可能性有多大。例如，如果机器人在门口，它看到门把手图像的概率。</li>
+<li class=""><strong>后验概率 $P(X \mid Z)$</strong>：结合观测数据后，我们对状态 $X$ 的更新信念。这是我们真正关心的量。</li>
+<li class=""><strong>证据 $P(Z)$</strong>：观测数据的整体概率，作为归一化常数确保后验是一个有效的概率分布。</li>
+</ul>
+<blockquote>
+<p><strong>直觉</strong>：贝叶斯更新就是一个&quot;学习&quot;过程——先有一个初始信念（先验），观察到新证据后，用&quot;证据对当前信念的支持程度&quot;（似然）来修正信念，得到更新后的信念（后验）。如果你强烈认为某个状态是可能的（高先验），但传感器强烈反对（低似然），你会降低信心，但不会完全抛弃先验——贝叶斯公式精确地量化了这个权衡。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="机器人中的递归贝叶斯滤波">机器人中的递归贝叶斯滤波<a href="#机器人中的递归贝叶斯滤波" class="hash-link" aria-label="机器人中的递归贝叶斯滤波的直接链接" title="机器人中的递归贝叶斯滤波的直接链接" translate="no">​</a></h4>
+<p>在机器人中，状态估计通常是<strong>在线</strong>（online）和<strong>递归</strong>（recursive）的——机器人一边运动一边持续更新位置信念。</p>
+<p><strong>递归贝叶斯滤波公式</strong>：</p>
+<p>$$
+\text{Bel}(x_t) = \eta , P(z_t \mid x_t) \int P(x_t \mid x_{t-1}, u_t) , \text{Bel}(x_{t-1}) , dx_{t-1}
+$$</p>
+<p>这个公式虽然看起来复杂，但其含义非常直观：</p>
+<ol>
+<li class=""><strong>预测步骤</strong>（积分部分）：基于上一时刻的信念 $\text{Bel}(x_{t-1})$ 和当前的控制输入 $u_t$（例如给电机的指令），用状态转移模型 $P(x_t \mid x_{t-1}, u_t)$ 预测当前状态的概率分布。</li>
+<li class=""><strong>更新步骤</strong>（乘积部分）：用当前传感器观测 $z_t$ 的似然 $P(z_t \mid x_t)$ 修正预测，得到后验信念 $\text{Bel}(x_t)$。</li>
+<li class=""><strong>归一化</strong>：$\eta$ 确保分布的总概率为 1。</li>
+</ol>
+<p>这个&quot;预测-更新&quot;框架是所有状态估计算法（卡尔曼滤波、粒子滤波、扩展卡尔曼滤波）的通用模板。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="贝叶斯公式在机器人中的具体应用">贝叶斯公式在机器人中的具体应用<a href="#贝叶斯公式在机器人中的具体应用" class="hash-link" aria-label="贝叶斯公式在机器人中的具体应用的直接链接" title="贝叶斯公式在机器人中的具体应用的直接链接" translate="no">​</a></h4>
+<p><strong>机器人全局定位</strong>：机器人在已知地图中醒来，不知道自己在哪里。先验是均匀分布（所有位置等可能）。第一次看到一扇门（观测），后验变成&quot;门附近的位置概率更高&quot;。移动后（预测），信念扩散。再次看到门（更新），信念收敛。</p>
+<p><strong>传感器融合</strong>：同时使用激光雷达和摄像头估计物体的位置。每次观测提供一个新的似然项，后验概率是所有这些信息的综合。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="332-高斯分布一元多元条件高斯">3.3.2 高斯分布（一元→多元→条件高斯）<a href="#332-高斯分布一元多元条件高斯" class="hash-link" aria-label="3.3.2 高斯分布（一元→多元→条件高斯）的直接链接" title="3.3.2 高斯分布（一元→多元→条件高斯）的直接链接" translate="no">​</a></h3>
+<p>高斯分布（正态分布）是机器人学中使用最频繁的概率分布。为什么？因为：</p>
+<ol>
+<li class=""><strong>中心极限定理</strong>：大量独立随机变量的和趋近于高斯分布——许多自然现象和传感器噪声因此近似高斯。</li>
+<li class=""><strong>数学优雅</strong>：高斯分布经过线性变换后仍是高斯分布，条件分布和边缘分布有闭式解。</li>
+<li class=""><strong>便于计算</strong>：只需均值和协方差两个参数即可完全描述。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="一元高斯分布">一元高斯分布<a href="#一元高斯分布" class="hash-link" aria-label="一元高斯分布的直接链接" title="一元高斯分布的直接链接" translate="no">​</a></h4>
+<p>$$
+\mathcal{N}(x \mid \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)
+$$</p>
+<ul>
+<li class="">$\mu$：均值（期望），分布的中心位置</li>
+<li class="">$\sigma^2$：方差，分布宽度的度量</li>
+<li class="">$\sigma$：标准差，与 $\mu$ 量纲相同，方便实际使用</li>
+</ul>
+<blockquote>
+<p><strong>直觉</strong>：高斯分布描述&quot;大部分样本集中在均值附近，越远离均值越罕见&quot;。具体来说：</p>
+<ul>
+<li class="">$\pm 1\sigma$ 范围内包含约 68% 的样本</li>
+<li class="">$\pm 2\sigma$ 范围内包含约 95% 的样本</li>
+<li class="">$\pm 3\sigma$ 范围内包含约 99.7% 的样本</li>
+</ul>
+<p>这就是著名的&quot;68-95-99.7&quot;经验法则。</p>
+</blockquote>
+<p><strong>高斯分布为什么在机器人学中如此普遍？</strong> 除了中心极限定理和数学优雅性之外，还有一个实际的工程原因：高斯分布的参数估计只需要两个统计量（均值和方差），这意味着我们可以在不存储全部历史数据的情况下，递归地更新对系统状态的估计。这对于内存和计算资源有限的嵌入式机器人系统至关重要。</p>
+<p><strong>概率论中的几个关键概念</strong>：在继续之前，让我们厘清几个在机器人文献中频繁出现的基础概念：</p>
+<ul>
+<li class=""><strong>期望（Expectation）</strong>：$\mathbb{E}[X] = \int x , p(x) dx$，即随机变量的加权平均。在机器人中，期望通常对应于&quot;最可能的状态估计&quot;。</li>
+<li class=""><strong>方差（Variance）</strong>：$	ext{Var}(X) = \mathbb{E}[(X - \mu)^2]$，衡量不确定性的大小。方差越大，我们对估计越没信心。</li>
+<li class=""><strong>协方差（Covariance）</strong>：$	ext{Cov}(X, Y) = \mathbb{E}[(X - \mu_X)(Y - \mu_Y)]$，衡量两个随机变量之间的线性相关性。</li>
+<li class=""><strong>独立 vs 不相关</strong>：独立一定不相关，但不相关不一定独立（对于高斯分布，二者等价）。</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="多元高斯分布">多元高斯分布<a href="#多元高斯分布" class="hash-link" aria-label="多元高斯分布的直接链接" title="多元高斯分布的直接链接" translate="no">​</a></h4>
+<p>当状态是多维向量时（例如机器人的位姿 $(x, y, \theta)$），使用多元高斯分布：</p>
+<p>$$
+\mathcal{N}(x \mid \mu, \Sigma) = \frac{1}{\sqrt{(2\pi)^d |\Sigma|}} \exp\left(-\frac{1}{2}(x - \mu)^\top \Sigma^{-1} (x - \mu)\right)
+$$</p>
+<p>其中：</p>
+<ul>
+<li class="">$x \in \mathbb{R}^d$：$d$ 维状态向量</li>
+<li class="">$\mu \in \mathbb{R}^d$：均值向量</li>
+<li class="">$\Sigma \in \mathbb{R}^{d \times d}$：<strong>协方差矩阵</strong>（对称正定）</li>
+</ul>
+<p><strong>协方差矩阵的结构</strong>：</p>
+<p>$$
+\Sigma = \begin{bmatrix}
+\sigma_{11}^2 &amp; \sigma_{12}^2 &amp; \cdots &amp; \sigma_{1d}^2 \
+\sigma_{21}^2 &amp; \sigma_{22}^2 &amp; \cdots &amp; \sigma_{2d}^2 \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+\sigma_{d1}^2 &amp; \sigma_{d2}^2 &amp; \cdots &amp; \sigma_{dd}^2
+\end{bmatrix}
+$$</p>
+<ul>
+<li class="">对角线元素 $\sigma_{ii}^2$：第 $i$ 个变量的方差</li>
+<li class="">非对角线元素 $\sigma_{ij}^2$：第 $i$ 个和第 $j$ 个变量的<strong>协方差</strong>，描述它们的相关性</li>
+</ul>
+<p><strong>协方差的意义</strong>：如果 $\sigma_{ij} &gt; 0$，说明 $x_i$ 和 $x_j$ 正相关（一个增大时另一个也倾向于增大）；如果 $\sigma_{ij} &lt; 0$，负相关；如果 $\sigma_{ij} = 0$，不相关（对高斯分布而言也意味着独立）。</p>
+<blockquote>
+<p><strong>直觉</strong>：协方差矩阵告诉你&quot;状态之间的关联关系&quot;。如果机器人的 $x$ 位置误差和 $y$ 位置误差正相关（比如 GPS 信号同时漂向东北方向），协方差矩阵的非对角项会捕捉到这一点。当你利用 $x$ 的观测更新 $x$ 的估计时，$y$ 的估计也会相应更新——这正是卡尔曼滤波中协方差传播的魔力。</p>
+</blockquote>
+<p><strong>马氏距离</strong>：指数中的二次型</p>
+<p>$$
+D_M(x) = (x - \mu)^\top \Sigma^{-1} (x - \mu)
+$$</p>
+<p>称为 $x$ 到 $\mu$ 的<strong>马氏距离</strong>（Mahalanobis distance）。与欧氏距离不同，马氏距离考虑了数据的协方差结构——各向异性的分布中，沿&quot;拉伸&quot;方向的相同欧氏距离对应不同的马氏距离。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="条件高斯分布">条件高斯分布<a href="#条件高斯分布" class="hash-link" aria-label="条件高斯分布的直接链接" title="条件高斯分布的直接链接" translate="no">​</a></h4>
+<p>在机器人学中，我们经常遇到这样的问题：已知部分状态变量的值，如何估计其余变量？例如，已知机器人看到了某个地标，如何更新对机器人位置和地标位置的联合估计？</p>
+<p>设 $x \sim \mathcal{N}(\mu, \Sigma)$，将 $x$ 分为两部分：</p>
+<p>$$
+x = \begin{bmatrix} x_a \ x_b \end{bmatrix}, \quad
+\mu = \begin{bmatrix} \mu_a \ \mu_b \end{bmatrix}, \quad
+\Sigma = \begin{bmatrix} \Sigma_{aa} &amp; \Sigma_{ab} \
+\Sigma_{ba} &amp; \Sigma_{bb} \end{bmatrix}
+$$</p>
+<p>已知 $x_a$ 的值后，$x_b$ 的条件分布为：</p>
+<p>$$
+P(x_b \mid x_a) = \mathcal{N}(\mu_{b|a}, \Sigma_{b|a})
+$$</p>
+<p>其中：</p>
+<p>$$
+\mu_{b|a} = \mu_b + \Sigma_{ba} \Sigma_{aa}^{-1} (x_a - \mu_a)
+$$</p>
+<p>$$
+\Sigma_{b|a} = \Sigma_{bb} - \Sigma_{ba} \Sigma_{aa}^{-1} \Sigma_{ab}
+$$</p>
+<blockquote>
+<p><strong>直觉理解</strong>：</p>
+<ul>
+<li class=""><strong>均值更新</strong>：$\mu_{b|a}$ 的公式可以理解为——观测到的 $x_a$ 与先验均值 $\mu_a$ 的差异，乘以&quot;相关性系数&quot; $\Sigma_{ba} \Sigma_{aa}^{-1}$，用来修正对 $x_b$ 的预测。如果 $x_a$ 和 $x_b$ 强相关，这个修正就大；如果它们不相关（$\Sigma_{ba} = 0$），修正为零。</li>
+<li class=""><strong>协方差更新</strong>：$\Sigma_{b|a}$ 总是不大于 $\Sigma_{bb}$（因为减去了一个半正定矩阵）。这符合直觉——获得更多信息后，不确定性总是减少（或不变）。</li>
+</ul>
+</blockquote>
+<p>条件高斯公式是<strong>卡尔曼滤波更新步骤的数学基础</strong>——卡尔曼滤波本质上就是在递归地应用条件高斯公式。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="333-蒙特卡洛方法">3.3.3 蒙特卡洛方法<a href="#333-蒙特卡洛方法" class="hash-link" aria-label="3.3.3 蒙特卡洛方法的直接链接" title="3.3.3 蒙特卡洛方法的直接链接" translate="no">​</a></h3>
+<p>高斯分布虽然数学优雅，但现实问题往往是非高斯、非线性的。例如：机器人全局定位时，信念可能是多峰的（机器人在走廊的多个可能位置都有高概率）。蒙特卡洛方法用<strong>大量随机样本</strong>来近似任意概率分布，不依赖解析形式。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="基本思想">基本思想<a href="#基本思想" class="hash-link" aria-label="基本思想的直接链接" title="基本思想的直接链接" translate="no">​</a></h4>
+<p>用 $N$ 个带权重的样本 $&amp;#123;(x^{(i)}, w^{(i)})&amp;#125;_{i=1}^N$ 来近似目标分布 $p(x)$：</p>
+<p>$$
+p(x) \approx \sum_{i=1}^N w^{(i)} \delta(x - x^{(i)})
+$$</p>
+<p>其中 $\delta$ 是狄拉克 delta 函数，$w^{(i)}$ 是权重且 $\sum_i w^{(i)} = 1$。</p>
+<p><strong>重要性采样</strong>：当从目标分布 $p(x)$ 直接采样困难时，从建议分布 $q(x)$ 采样，用权重修正：</p>
+<p>$$
+\mathbb{E}<em>{p}[f(x)] = \int f(x) p(x) dx = \int f(x) \frac{p(x)}{q(x)} q(x) dx \approx \sum</em>{i=1}^N w^{(i)} f(x^{(i)})
+$$</p>
+<p>其中 $w^{(i)}$</p>
+<p><strong>蒙特卡洛方法为什么适用于机器人学？</strong> 现实中的机器人状态估计问题往往面临三个挑战：</p>
+<ol>
+<li class=""><strong>非线性</strong>：机器人的运动模型和观测模型通常是非线性的（例如，从激光雷达距离观测反推位置）</li>
+<li class=""><strong>非高斯</strong>：全局定位时的信念可能是多峰的（机器人可能在一模一样的多个走廊中）</li>
+<li class=""><strong>高维度</strong>：同时估计机器人位置和地图（SLAM）时，状态空间维数极高</li>
+</ol>
+<p>对于前两个挑战，粒子滤波提供了一种自然的解决方案（用粒子表示任意分布）。对于第三个挑战，我们需要更精巧的方法（如 Rao-Blackwellized 粒子滤波），这将在第5章状态估计中深入讨论。</p>
+<p><strong>蒙特卡洛方法的应用示例</strong>：除了状态估计，蒙特卡洛方法还广泛应用于机器人路径规划（RRT、PRM 等采样-based 方法）和仿真验证（Monte Carlo 仿真评估控制策略的鲁棒性）。</p>
+<p>$= \frac{p(x^{(i)})}{q(x^{(i)})}$ 是重要性权重。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="机器人中的粒子滤波">机器人中的粒子滤波<a href="#机器人中的粒子滤波" class="hash-link" aria-label="机器人中的粒子滤波的直接链接" title="机器人中的粒子滤波的直接链接" translate="no">​</a></h4>
+<p>粒子滤波是蒙特卡洛方法在机器人状态估计中的直接应用。它用一组粒子（每个粒子是一个假想的机器人状态）表示信念分布。</p>
+<p><strong>算法流程</strong>：</p>
+<ol>
+<li class=""><strong>初始化</strong>：在状态空间中均匀撒 $N$ 个粒子，每个权重 $1/N$。</li>
+<li class=""><strong>预测</strong>：对每个粒子，根据控制输入 $u_t$ 和运动模型 $P(x_t \mid x_{t-1}, u_t)$ 进行状态转移（加上随机噪声）。</li>
+<li class=""><strong>更新</strong>：根据传感器观测 $z_t$，计算每个粒子的似然 $P(z_t \mid x_t^{(i)})$，更新权重 $w_t^{(i)} \propto w_{t-1}^{(i)} \cdot P(z_t \mid x_t^{(i)})$。</li>
+<li class=""><strong>重采样</strong>：根据权重重新抽取 $N$ 个粒子（权重高的粒子被复制，权重低的粒子被淘汰），权重重置为 $1/N$。</li>
+<li class="">回到步骤 2，循环。</li>
+</ol>
+<blockquote>
+<p><strong>直觉</strong>：想象 1000 个机器人在地图上随机游走。每个机器人遇到地标时检查&quot;根据我的位置，我应该看到什么？&quot;——如果实际看到的与预期差异很大，这个机器人的权重降低；如果吻合得好，权重升高。经过几轮&quot;优胜劣汰&quot;，权重低的机器人被淘汰，权重高的机器人生出&quot;后代&quot;。最终，所有存活的机器人聚在真实位置附近。</p>
+</blockquote>
+<p><strong>粒子滤波 vs 卡尔曼滤波</strong>：</p>
+<table><thead><tr><th>特性</th><th>卡尔曼滤波</th><th>粒子滤波</th></tr></thead><tbody><tr><td>模型假设</td><td>线性高斯</td><td>任意非线性、非高斯</td></tr><tr><td>计算复杂度</td><td>$O(d^3)$（$d$ 为状态维度）</td><td>$O(Nd)$（$N$ 为粒子数）</td></tr><tr><td>高维状态</td><td>高效</td><td>维度灾难（需要指数级粒子）</td></tr><tr><td>多峰分布</td><td>不支持</td><td>天然支持</td></tr><tr><td>典型机器人应用</td><td>传感器融合、姿态跟踪</td><td>全局定位、SLAM</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="334-卡尔曼滤波的数学基础预测更新">3.3.4 卡尔曼滤波的数学基础（预测+更新）<a href="#334-卡尔曼滤波的数学基础预测更新" class="hash-link" aria-label="3.3.4 卡尔曼滤波的数学基础（预测+更新）的直接链接" title="3.3.4 卡尔曼滤波的数学基础（预测+更新）的直接链接" translate="no">​</a></h3>
+<p>卡尔曼滤波是<strong>贝叶斯滤波在高斯线性系统下的闭式解</strong>。当系统模型是线性的且所有噪声服从高斯分布时，后验分布始终是高斯分布，其均值和协方差矩阵可以解析计算。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="系统模型">系统模型<a href="#系统模型" class="hash-link" aria-label="系统模型的直接链接" title="系统模型的直接链接" translate="no">​</a></h4>
+<p><strong>状态转移方程</strong>（描述系统如何随时间演化）：</p>
+<p>$$
+x_t = A_t x_{t-1} + B_t u_t + \epsilon_t, \quad \epsilon_t \sim \mathcal{N}(0, Q_t)
+$$</p>
+<ul>
+<li class="">$A_t$：状态转移矩阵（如何从上一步状态预测当前状态）</li>
+<li class="">$B_t$：控制输入矩阵（控制 $u_t$ 如何影响状态）</li>
+<li class="">$\epsilon_t$：过程噪声，协方差 $Q_t$（模型的不确定性）</li>
+</ul>
+<p><strong>观测方程</strong>（描述传感器如何测量状态）：</p>
+<p>$$
+z_t = C_t x_t + \delta_t, \quad \delta_t \sim \mathcal{N}(0, R_t)
+$$</p>
+<ul>
+<li class="">$C_t$：观测矩阵（如何从状态映射到观测）</li>
+<li class="">$\delta_t$：观测噪声，协方差 $R_t$（传感器的不确定性）</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="预测步骤">预测步骤<a href="#预测步骤" class="hash-link" aria-label="预测步骤的直接链接" title="预测步骤的直接链接" translate="no">​</a></h4>
+<p>基于上一时刻的后验 $\hat{x}<em>{t-1}$ 和 $P</em>{t-1}$，预测当前时刻的状态：</p>
+<p><strong>状态预测</strong>：</p>
+<p>$$
+\hat{x}<em>{t|t-1} = A_t \hat{x}</em>{t-1} + B_t u_t
+$$</p>
+<p><strong>协方差预测</strong>：</p>
+<p>$$
+P_{t|t-1} = A_t P_{t-1} A_t^\top + Q_t
+$$</p>
+<blockquote>
+<p><strong>直觉</strong>：预测步骤增加不确定性（$+Q_t$），因为模型不是完美的。协方差传播公式 $A_t P_{t-1} A_t^\top$ 可能看起来复杂，但它本质上就是&quot;线性变换下的协方差变换公式&quot;——如果你熟悉 $Var(Ax) = A Var(x) A^\top$，这就是它的矩阵版本。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="更新步骤">更新步骤<a href="#更新步骤" class="hash-link" aria-label="更新步骤的直接链接" title="更新步骤的直接链接" translate="no">​</a></h4>
+<p>当观测 $z_t$ 到达时，用观测修正预测：</p>
+<p><strong>卡尔曼增益</strong>：</p>
+<p>$$
+K_t = P_{t|t-1} C_t^\top (C_t P_{t|t-1} C_t^\top + R_t)^{-1}
+$$</p>
+<p><strong>状态更新</strong>：</p>
+<p>$$
+\hat{x}<em>t = \hat{x}</em>{t|t-1} + K_t (z_t - C_t \hat{x}_{t|t-1})
+$$</p>
+<p><strong>协方差更新</strong>：</p>
+<p>$$
+P_t = (I - K_t C_t) P_{t|t-1}
+$$</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="理解卡尔曼增益-k_t">理解卡尔曼增益 $K_t$<a href="#理解卡尔曼增益-k_t" class="hash-link" aria-label="理解卡尔曼增益 $K_t$的直接链接" title="理解卡尔曼增益 $K_t$的直接链接" translate="no">​</a></h4>
+<p>卡尔曼增益决定了预测和观测的权重分配——它是整个滤波器的&quot;智能&quot;所在。</p>
+<p>分析两种极端情况：</p>
+<p><strong>情况1：观测非常可靠（$R_t \to 0$）</strong></p>
+<p>$$
+K_t = P_{t|t-1} C_t^\top (C_t P_{t|t-1} C_t^\top + 0)^{-1} = C_t^{-1}
+$$</p>
+<p>此时 $\hat{x}_t = C_t^{-1} z_t$，完全信赖观测，丢弃预测。</p>
+<p><strong>情况2：预测非常可靠（$P_{t|t-1} \to 0$）</strong></p>
+<p>$$
+K_t = 0 \cdot C_t^\top (0 + R_t)^{-1} = 0
+$$</p>
+<p>此时 $\hat{x}<em>t = \hat{x}</em>{t|t-1}$，完全信赖预测，忽略观测。</p>
+<p>在一般情况下，卡尔曼增益自动在两者之间找到最优权衡——这就是卡尔曼滤波被称为&quot;最优滤波器&quot;的原因（在线性高斯假设下）。</p>
+<blockquote>
+<p><strong>一句话记住卡尔曼滤波</strong>：预测（相信模型）+ 测量（相信传感器）= 最优估计。</p>
+</blockquote>
+<p><strong>卡尔曼滤波在机器人中的典型应用</strong>：</p>
+<ul>
+<li class="">无人机姿态估计（融合 IMU 和视觉数据）</li>
+<li class="">人形机器人足端接触力估计（融合关节力矩传感器和 IMU）</li>
+<li class="">轮式机器人定位（融合编码器和激光雷达）</li>
+<li class="">视觉目标跟踪（融合卡尔曼预测和目标检测结果）</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="34-最优化方法5000字">3.4 最优化方法（5,000字）<a href="#34-最优化方法5000字" class="hash-link" aria-label="3.4 最优化方法（5,000字）的直接链接" title="3.4 最优化方法（5,000字）的直接链接" translate="no">​</a></h2>
+<blockquote>
+<p><strong>一句话核心</strong>：机器人的所有&quot;智能行为&quot;最终都可以归结为优化问题——找到一个决策，使得某个目标函数（如行走稳定性、能量消耗、任务完成时间）最小化或最大化。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="341-梯度下降与变体sgdadam">3.4.1 梯度下降与变体（SGD、Adam）<a href="#341-梯度下降与变体sgdadam" class="hash-link" aria-label="3.4.1 梯度下降与变体（SGD、Adam）的直接链接" title="3.4.1 梯度下降与变体（SGD、Adam）的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="梯度下降法">梯度下降法<a href="#梯度下降法" class="hash-link" aria-label="梯度下降法的直接链接" title="梯度下降法的直接链接" translate="no">​</a></h4>
+<p>梯度下降（Gradient Descent）是最基础也是最直观的一阶优化方法。给定目标函数 $f(\theta)$，我们沿着梯度（一阶导数）的反方向更新参数，因为梯度指向函数局部增长最快的方向：</p>
+<p>$$
+\theta_{k+1} = \theta_k - \alpha \nabla f(\theta_k)
+$$</p>
+<p>其中 $\alpha &gt; 0$ 是<strong>学习率</strong>（步长），$\nabla f(\theta_k)$ 是梯度向量。</p>
+<blockquote>
+<p><strong>直觉</strong>：想象你站在雾中的山上想走到山谷。你四处踩踩，感觉哪个方向坡最陡最向下，就往哪走一步。梯度下降做的就是这件事——计算山坡的坡度（梯度），往最陡的下降方向走一步。学习率就是这一步的大小：太大可能跨过山谷，太小则走得极慢。</p>
+</blockquote>
+<p><strong>学习率的选择</strong>：学习率是梯度下降最关键的超参数。</p>
+<ul>
+<li class=""><strong>学习率过小</strong>：收敛极慢，且容易陷入局部极小值</li>
+<li class=""><strong>学习率过大</strong>：在最小值附近震荡甚至发散</li>
+<li class=""><strong>好的策略</strong>：开始时用较大学习率快速接近最优区域，然后逐渐减小学习率（学习率衰减）</li>
+</ul>
+<p><strong>梯度下降的局限性</strong>：</p>
+<ol>
+<li class="">在&quot;峡谷&quot;地形中震荡（梯度沿某个方向反复正负跳跃）</li>
+<li class="">容易陷入局部极小值（非凸函数）</li>
+<li class="">鞍点处梯度为零但非最优点（高维空间中常见）</li>
+<li class="">计算完整梯度需要遍历全部数据（大规模问题中不可行）</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="随机梯度下降sgd">随机梯度下降（SGD）<a href="#随机梯度下降sgd" class="hash-link" aria-label="随机梯度下降（SGD）的直接链接" title="随机梯度下降（SGD）的直接链接" translate="no">​</a></h4>
+<p>当目标函数是大量数据点损失和（如神经网络训练）时，每次计算全部数据的梯度太慢。SGD 每次随机选择一个样本（或一个小批量 mini-batch）来估计梯度：</p>
+<p>$$
+\theta_{k+1} = \theta_k - \alpha \nabla f_i(\theta_k)
+$$</p>
+<p>其中 $f_i$ 是第 $i$ 个样本的损失。</p>
+<blockquote>
+<p><strong>直觉</strong>：完整梯度下降就像用整个军队的步伐来调整方向——准确但缓慢。SGD 就像用侦察兵的报告来调整——不精确但快速。有趣的是，SGD 的随机性反而是一种优势：噪声可以帮助跳出局部极小值。</p>
+</blockquote>
+<p><strong>小批量 SGD</strong>：实践中常用的是 mini-batch SGD——每次用 $m$ 个样本（如 32、64、128）计算平均梯度。这样既利用了矩阵运算的并行加速，又保持了随机性的好处。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="动量法momentum">动量法（Momentum）<a href="#动量法momentum" class="hash-link" aria-label="动量法（Momentum）的直接链接" title="动量法（Momentum）的直接链接" translate="no">​</a></h4>
+<p>动量法在 SGD 基础上引入了&quot;速度&quot;（velocity）概念：</p>
+<p>$$
+v_{k+1} = \beta v_k + (1 - \beta) \nabla f(\theta_k)
+$$</p>
+<p>$$
+\theta_{k+1} = \theta_k - \alpha v_{k+1}
+$$</p>
+<p>其中 $\beta$ 是动量系数（通常 0.9）。</p>
+<blockquote>
+<p><strong>直觉</strong>：想象一个小球从山坡滚下。它不仅受当前坡度的推动，还保留着之前的运动惯性。这有三个好处：</p>
+<ol>
+<li class="">穿越狭窄峡谷时不会来回震荡（惯性平滑了方向变化）</li>
+<li class="">更快地通过平坦区域（累积的速度帮助通过）</li>
+<li class="">能&quot;冲出&quot;局部极小值和鞍点</li>
+</ol>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="adam-优化器">Adam 优化器<a href="#adam-优化器" class="hash-link" aria-label="Adam 优化器的直接链接" title="Adam 优化器的直接链接" translate="no">​</a></h4>
+<p>Adam（Adaptive Moment Estimation）是目前深度学习中最广泛使用的优化器，结合了<strong>动量</strong>和<strong>自适应学习率</strong>两大思想。</p>
+<p><strong>核心思想</strong>：为每个参数维护独立的学习率，根据该参数的历史梯度大小自动调整——频繁出现大梯度的参数学习率自动减小，梯度稀疏的参数学习率自动增大。</p>
+<p><strong>更新规则</strong>：</p>
+<p>$$
+m_k = \beta_1 m_{k-1} + (1 - \beta_1) g_k \quad (\text{一阶动量：梯度均值})
+$$</p>
+<p>$$
+v_k = \beta_2 v_{k-1} + (1 - \beta_2) g_k^2 \quad (\text{二阶动量：梯度方差})
+$$</p>
+<p>偏差校正（初始化接近零时的补偿）：</p>
+<p>$$
+\hat{m}_k = \frac{m_k}{1 - \beta_1^k}, \quad \hat{v}_k = \frac{v_k}{1 - \beta_2^k}
+$$</p>
+<p>参数更新：</p>
+<p>$$
+\theta_{k+1} = \theta_k - \alpha \frac{\hat{m}_k}{\sqrt{\hat{v}_k} + \epsilon}
+$$</p>
+<p>典型参数：$\beta_1 = 0.9$，$\beta_2 = 0.999$，$\epsilon = 10^{-8}$。</p>
+<blockquote>
+<p><strong>直觉</strong>：Adam 像是一个&quot;自适应且有记忆的梯度下降&quot;：</p>
+<ul>
+<li class="">$m_k$ 记住了梯度方向（就像动量），使更新更平滑</li>
+<li class="">$v_k$ 记住了梯度大小，对于梯度大的参数自动减小学习率，梯度小的参数自动增大学习率</li>
+<li class="">偏差校正解决初始时估计不准的问题</li>
+</ul>
+<p>你可以把 Adam 想象成一位经验丰富的登山者：他知道哪些坡面容易打滑（大梯度），就放慢脚步；哪些坡面稳固（小梯度），就大步快走。</p>
+</blockquote>
+<p><strong>在机器人中的应用</strong>：训练神经网络策略（如模仿学习、强化学习）几乎默认使用 Adam。在端到端的人形机器人控制中，策略网络可能有数百万参数，Adam 的鲁棒性和高效性使其成为首选。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="342-牛顿法与拟牛顿法直观理解">3.4.2 牛顿法与拟牛顿法（直观理解）<a href="#342-牛顿法与拟牛顿法直观理解" class="hash-link" aria-label="3.4.2 牛顿法与拟牛顿法（直观理解）的直接链接" title="3.4.2 牛顿法与拟牛顿法（直观理解）的直接链接" translate="no">​</a></h3>
+<p>梯度下降只用一阶导数信息（梯度），而<strong>牛顿法</strong>利用了二阶导数（曲率）信息，可以更快地收敛。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="牛顿法">牛顿法<a href="#牛顿法" class="hash-link" aria-label="牛顿法的直接链接" title="牛顿法的直接链接" translate="no">​</a></h4>
+<p>牛顿法的核心思想是用<strong>二次函数</strong>近似目标函数，然后直接跳到该二次函数的最小值点。</p>
+<p><strong>更新公式</strong>：</p>
+<p>$$
+\theta_{k+1} = \theta_k - H^{-1}(\theta_k) \nabla f(\theta_k)
+$$</p>
+<p>其中 $H(\theta_k) = \nabla^2 f(\theta_k)$ 是 <strong>Hessian 矩阵</strong>（二阶偏导数矩阵）。</p>
+<blockquote>
+<p><strong>直觉</strong>：梯度下降只告诉你&quot;往哪个方向走&quot;（梯度方向），而牛顿法还告诉你&quot;每一步应该走多远&quot;（Hessian 的逆提供了步长信息）。</p>
+<p><strong>一维类比</strong>：梯度下降像盲人摸坡——摸到上坡就往后退一步；牛顿法像是能看到整段山坡的抛物线形状——直接跳到谷底。如果目标函数恰好是二次函数，牛顿法一步就到最小值！</p>
+</blockquote>
+<p><strong>牛顿法的优点</strong>：</p>
+<ul>
+<li class="">收敛速度快（二次收敛，即误差平方减小）</li>
+<li class="">不受&quot;峡谷&quot;地形的影响（Hessian 信息自动调整方向）</li>
+<li class="">无需手动调整学习率（Hessian 的逆自动确定步长）</li>
+</ul>
+<p><strong>牛顿法的致命缺点</strong>：</p>
+<ul>
+<li class="">Hessian 矩阵的计算成本极高：$O(n^2)$ 存储，$O(n^3)$ 求逆</li>
+<li class="">对 $n$ 个参数，Hessian 是 $n \times n$ 矩阵</li>
+<li class="">在机器人学中，$n$ 可能是几千甚至几百万——Hessian 根本算不了</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="拟牛顿法">拟牛顿法<a href="#拟牛顿法" class="hash-link" aria-label="拟牛顿法的直接链接" title="拟牛顿法的直接链接" translate="no">​</a></h4>
+<p>拟牛顿法（Quasi-Newton Methods）在保留牛顿法优点的同时，避开了 Hessian 计算的高昂成本。核心思想是<strong>用梯度差来近似 Hessian 矩阵</strong>。</p>
+<p>最著名的拟牛顿法是 BFGS（Broyden-Fletcher-Goldfarb-Shanno），其更新公式为：</p>
+<p>$$
+B_{k+1} = B_k + \frac{y_k y_k^\top}{y_k^\top s_k} - \frac{B_k s_k s_k^\top B_k}{s_k^\top B_k s_k}
+$$</p>
+<p>其中 $s_k = \theta_{k+1} - \theta_k$ 是参数变化，$y_k = \nabla f(\theta_{k+1}) - \nabla f(\theta_k)$ 是梯度变化。</p>
+<p><strong>L-BFGS</strong>（Limited-memory BFGS）更进一步——不存储完整的 $B_k$（$n \times n$），而是只存储最近的 $m$ 次 $(s_k, y_k)$ 对（通常 $m = 5 \sim 20$），用这些信息隐式地表示 Hessian 近似。</p>
+<blockquote>
+<p><strong>直觉</strong>：拟牛顿法像是一个&quot;聪明的梯度下降&quot;，它通过观察过去几步的梯度变化，推断出曲率信息，从而调整步长和方向。就像通过反复踢球来感知地面的软硬——踢一下就知道硬地反弹大（曲率大），软地反弹小（曲率小）。</p>
+</blockquote>
+<p><strong>在机器人中的应用</strong>：L-BFGS 是机器人轨迹优化的常用选择。例如，在求解最优控制问题时，轨迹参数可能有几百到几千维——存储完整的 Hessian 不现实，但 L-BFGS 可以高效地利用梯度历史信息加速收敛。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="343-约束优化拉格朗日乘子法">3.4.3 约束优化（拉格朗日乘子法）<a href="#343-约束优化拉格朗日乘子法" class="hash-link" aria-label="3.4.3 约束优化（拉格朗日乘子法）的直接链接" title="3.4.3 约束优化（拉格朗日乘子法）的直接链接" translate="no">​</a></h3>
+<p>机器人学中的很多问题带有约束条件——关节有角度限制、足端接触力必须在摩擦锥内、质心投影必须在支撑多边形内。这些约束条件构成了机器人安全、稳定运行的前提。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="等式约束">等式约束<a href="#等式约束" class="hash-link" aria-label="等式约束的直接链接" title="等式约束的直接链接" translate="no">​</a></h4>
+<p><strong>问题形式</strong>：</p>
+<p>$$
+\min_x f(x) \quad \text{s.t.} \quad g(x) = 0
+$$</p>
+<p>其中 $g(x) = (g_1(x), \dots, g_m(x))^\top$ 是 $m$ 个等式约束。</p>
+<p><strong>拉格朗日乘子法</strong>：引入 $m$ 个乘子变量 $\lambda = (\lambda_1, \dots, \lambda_m)^\top$，构造拉格朗日函数：</p>
+<p>$$
+\mathcal{L}(x, \lambda) = f(x) + \lambda^\top g(x)
+$$</p>
+<p>最优解 $x^*$ 满足以下必要条件（KKT 条件的一部分）：</p>
+<p>$$
+\nabla_x \mathcal{L}(x^<em>, \lambda^</em>) = \nabla f(x^<em>) + \sum_{i=1}^m \lambda_i^</em> \nabla g_i(x^*) = 0
+$$</p>
+<p>$$
+\nabla_\lambda \mathcal{L}(x^<em>, \lambda^</em>) = g(x^*) = 0
+$$</p>
+<blockquote>
+<p><strong>直觉</strong>：拉格朗日乘子法的几何解释非常优雅——在最优解处，目标函数的梯度 $\nabla f$ 必须与所有约束梯度的线性组合共线。换句话说，你不能沿着约束曲面的切线方向进一步减小 $f$（如果有这种方向，你就不是最优解）。拉格朗日乘子 $\lambda_i$ 正是这个&quot;线性组合系数&quot;。</p>
+<p>物理类比：一个被绳子拴住的小球在重力场中下落。小球停下的位置（最优解）满足：重力（目标梯度）与绳子拉力（约束梯度）平衡。绳子拉力的大小就是 $\lambda$。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="不等式约束">不等式约束<a href="#不等式约束" class="hash-link" aria-label="不等式约束的直接链接" title="不等式约束的直接链接" translate="no">​</a></h4>
+<p><strong>问题形式</strong>：</p>
+<p>$$
+\min_x f(x) \quad \text{s.t.} \quad h(x) \leq 0
+$$</p>
+<p><strong>KKT 条件</strong>（Karush-Kuhn-Tucker Conditions）是不等式约束优化的必要条件：</p>
+<ol>
+<li class=""><strong>主条件</strong>：$\nabla f(x^<em>) + \sum_{i} \mu_i^</em> \nabla h_i(x^*) = 0$</li>
+<li class=""><strong>原始可行</strong>：$h_i(x^*) \leq 0$（约束必须满足）</li>
+<li class=""><strong>对偶可行</strong>：$\mu_i^* \geq 0$（乘子非负）</li>
+<li class=""><strong>互补松弛</strong>：$\mu_i^* h_i(x^*) = 0$（关键条件）</li>
+</ol>
+<p><strong>互补松弛条件的含义</strong>：要么约束起&quot;紧&quot;（$h_i(x^<em>) = 0$，约束边界上，$\mu_i^</em> &gt; 0$），要么约束不起作用（$h_i(x^<em>) &lt; 0$，约束内部，$\mu_i^</em> = 0$）。这直观上很合理——如果约束没有紧，那它就不应该影响最优解。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="在机器人中的具体应用">在机器人中的具体应用<a href="#在机器人中的具体应用" class="hash-link" aria-label="在机器人中的具体应用的直接链接" title="在机器人中的具体应用的直接链接" translate="no">​</a></h4>
+<p><strong>关节限位约束</strong>：</p>
+<p>$$
+q_{\min} \leq q \leq q_{\max}
+$$</p>
+<p>这是最常见的约束——人形机器人每个关节都有物理角度限制（如膝关节不能过度伸直）。在轨迹优化中，这些约束通常作为不等式约束处理。</p>
+<p><strong>接触力摩擦锥约束</strong>：</p>
+<p>$$
+f_{x}^2 + f_{y}^2 \leq \mu^2 f_{z}^2, \quad f_z \geq 0
+$$</p>
+<p>其中 $f_x, f_y$ 是切向摩擦力，$f_z$ 是法向压力，$\mu$ 是摩擦系数。这个圆锥形约束确保足端不会打滑——在行走控制中至关重要。</p>
+<p><strong>质心位置约束</strong>：为了保持平衡，机器人的质心投影必须在支撑多边形（如单脚站立时的脚底面积）内。这是一个线性不等式约束。</p>
+<p>这些约束条件在<strong>二次规划</strong>（Quadratic Programming, QP）求解器中统一处理，形成机器人全身控制的数学基础。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="随机优化与确定性优化">随机优化与确定性优化<a href="#随机优化与确定性优化" class="hash-link" aria-label="随机优化与确定性优化的直接链接" title="随机优化与确定性优化的直接链接" translate="no">​</a></h4>
+<p>根据被优化问题的性质，优化方法还可分为<strong>确定性优化</strong>和<strong>随机优化</strong>两大类：</p>
+<ul>
+<li class="">
+<p><strong>确定性优化</strong>：目标函数和约束都是确定性的，每次评估得到相同结果。典型的确定性优化方法包括梯度下降（全批量）、牛顿法、内点法等。这类方法适用于系统动力学模型已知、环境可预测的场景，如轨迹规划和全身控制。</p>
+</li>
+<li class="">
+<p><strong>随机优化</strong>：目标函数或约束中包含随机性（噪声），每次评估得到不同结果。典型的随机优化方法包括 SGD（由于随机采样子集）、模拟退火、进化算法（EA）等。这类方法适用于存在不确定性的场景，如仿真中训练控制策略（需要泛化到多种随机初始条件）。</p>
+</li>
+</ul>
+<p><strong>在机器人中的选择指南</strong>：</p>
+<ul>
+<li class="">如果你有精确的物理模型且追求实时性能，选择确定性凸优化（QP）</li>
+<li class="">如果你在仿真中训练策略且需要泛化性，选择随机优化（SGD/Adam）</li>
+<li class="">如果你的问题高度非凸且维数不高，选择随机搜索或进化算法</li>
+<li class="">如果你需要处理混合整数变量（如选择接触顺序），选择混合整数规划</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="344-凸优化概述">3.4.4 凸优化概述<a href="#344-凸优化概述" class="hash-link" aria-label="3.4.4 凸优化概述的直接链接" title="3.4.4 凸优化概述的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="什么是凸优化">什么是凸优化？<a href="#什么是凸优化" class="hash-link" aria-label="什么是凸优化？的直接链接" title="什么是凸优化？的直接链接" translate="no">​</a></h4>
+<p>凸优化是&quot;好&quot;的优化问题——任何<strong>局部最优解就是全局最优解</strong>。好比在一个碗状的山谷中，不管从哪开始走，最终都会到达同一个最低点。</p>
+<p><strong>凸优化问题的三个条件</strong>：</p>
+<ol>
+<li class=""><strong>目标函数是凸函数</strong>：$f(\theta x + (1-\theta) y) \leq \theta f(x) + (1-\theta) f(y)$，$\forall \theta \in [0,1]$</li>
+<li class=""><strong>可行域是凸集</strong>：集合中任意两点连线上的所有点都在集合内</li>
+<li class=""><strong>约束函数是凸函数</strong>（如果存在不等式约束）</li>
+</ol>
+<p><strong>凸函数的一阶特征</strong>：</p>
+<p>$$
+f(y) \geq f(x) + \nabla f(x)^\top (y - x), \quad \forall x, y
+$$</p>
+<p>这意味着凸函数的切线总是在函数曲线下方——因此凸函数看起来像是&quot;碗形&quot;。</p>
+<p><strong>常见凸函数</strong>：</p>
+<ul>
+<li class="">线性函数：$f(x) = a^\top x + b$</li>
+<li class="">二次函数：$f(x) = x^\top Q x$（$Q$ 半正定）</li>
+<li class="">范数：$|x|$（任意范数都是凸函数）</li>
+<li class="">指数函数、对数函数的负（在定义域内）</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="为什么凸优化如此重要">为什么凸优化如此重要？<a href="#为什么凸优化如此重要" class="hash-link" aria-label="为什么凸优化如此重要？的直接链接" title="为什么凸优化如此重要？的直接链接" translate="no">​</a></h4>
+<p>在机器人学中，凸优化的价值体现在两个方面：</p>
+<p><strong>1. 可求解性保证</strong></p>
+<p>凸优化问题有高效的求解算法（内点法、对偶梯度法、交替方向乘子法等）</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="实际优化中的工程考量">实际优化中的工程考量<a href="#实际优化中的工程考量" class="hash-link" aria-label="实际优化中的工程考量的直接链接" title="实际优化中的工程考量的直接链接" translate="no">​</a></h4>
+<p>在机器人学中应用优化方法时，有几个重要的工程实践需要注意：</p>
+<p><strong>1. 目标函数的标定（Scaling）</strong></p>
+<p>优化问题的数值条件数（condition number）对求解效率影响巨大。如果不同决策变量的量级差异过大（例如，关节角度在 $[0, 2\pi]$ 量级，而力矩在 $[0, 200]$ 量级），Hessian 矩阵的条件数会很大，导致梯度下降收敛极慢。<strong>解决方案</strong>：对变量进行归一化，使得所有变量大致在同一量级。</p>
+<p><strong>2. 软约束 vs 硬约束</strong></p>
+<ul>
+<li class=""><strong>硬约束</strong>：必须满足的物理约束（如关节限位），违反会导致损坏</li>
+<li class=""><strong>软约束</strong>：希望满足但可以妥协的约束（如轨迹平滑度），通常作为惩罚项加入目标函数</li>
+</ul>
+<p>在实际系统中，通常将安全相关的约束作为硬约束（通过不等式约束施加），将性能指标作为软约束（通过目标函数中的惩罚项施加）。</p>
+<p><strong>3. 初始化策略</strong></p>
+<p>非凸优化对初始猜测非常敏感。在机器人运动规划中，常用的初始化策略包括：</p>
+<ul>
+<li class=""><strong>线性插值</strong>：在起始和目标状态之间做线性插值作为初始轨迹</li>
+<li class=""><strong>先验知识</strong>：从之前的求解结果出发（温度启动/warm start）</li>
+<li class=""><strong>多起点</strong>：从多个不同的初始猜测出发，选择最优结果</li>
+</ul>
+<p><strong>4. 求解时间 vs 解质量的权衡</strong></p>
+<p>在实时控制中，必须在有限时间内得到一个&quot;足够好&quot;的解，而非等待最优解。这引出了<strong>在线优化</strong>和<strong>离线优化</strong>的区别：</p>
+<ul>
+<li class=""><strong>离线优化</strong>：计算时间不限，追求高质量解（如轨迹规划）</li>
+<li class=""><strong>在线优化</strong>：有严格的时间预算（如 1ms），追求可行解（如 MPC 控制）</li>
+</ul>
+<p>，可以在多项式时间内收敛到全局最优解。这意味着：</p>
+<ul>
+<li class="">解的存在性和唯一性有理论保证</li>
+<li class="">求解时间可预测——对实时控制至关重要</li>
+<li class="">不需要担心&quot;调参式&quot;地寻找好的初始解</li>
+</ul>
+<p><strong>2. 实时控制中的核心地位</strong></p>
+<p>**二次规划（QP）**是机器人控制中最常见的凸优化形式：</p>
+<p>$$
+\min_x \frac{1}{2} x^\top Q x + c^\top x \quad \text{s.t.} \quad A x \leq b
+$$</p>
+<p>其中 $Q$ 是对称半正定矩阵（保证凸性）。</p>
+<p>QP 在机器人中的应用：</p>
+<ul>
+<li class=""><strong>模型预测控制（MPC）</strong>：在每个控制周期求解一个 QP，优化未来 $N$ 步的控制输入</li>
+<li class=""><strong>全身控制（Whole-Body Control, WBC）</strong>：在每个时间步求解一个 QP，分配各关节力矩满足任务优先级和约束</li>
+<li class=""><strong>运动规划</strong>：将避障约束线性化后，求解 QP 得到平滑轨迹</li>
+</ul>
+<blockquote>
+<p><strong>直觉</strong>：人形机器人实时控制中，每毫秒都要重新计算关节力矩。这些计算的核心就是一个凸优化（QP）问题——因为必须在保证安全约束的前提下，以最快速度求解，而凸优化提供了这个&quot;确定性&quot;。</p>
+</blockquote>
+<p><strong>非凸优化 vs 凸优化</strong>：</p>
+<table><thead><tr><th>特性</th><th>凸优化</th><th>非凸优化</th></tr></thead><tbody><tr><td>全局解</td><td>任何局部解就是全局解</td><td>可能有多个局部解</td></tr><tr><td>求解效率</td><td>多项式时间</td><td>NP-hard（一般情况）</td></tr><tr><td>初始化敏感性</td><td>不敏感</td><td>敏感</td></tr><tr><td>典型算法</td><td>内点法、QP 求解器</td><td>SGD、Adam、模拟退火</td></tr><tr><td>机器人应用</td><td>MPC、WBC、逆运动学</td><td>策略学习、抓取规划</td></tr></tbody></table>
+<p>在实际机器人系统中，两种优化方法各司其职：<strong>凸优化</strong>用于实时控制层面（每毫秒运行），保证安全性和稳定性；<strong>非凸优化</strong>（如神经网络训练）用于离线学习或规划层面（分钟到小时级别），追求更复杂的任务目标。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="35-机器学习基础速览3000字">3.5 机器学习基础速览（3,000字）<a href="#35-机器学习基础速览3000字" class="hash-link" aria-label="3.5 机器学习基础速览（3,000字）的直接链接" title="3.5 机器学习基础速览（3,000字）的直接链接" translate="no">​</a></h2>
+<blockquote>
+<p><strong>一句话核心</strong>：机器学习让机器人<strong>从数据中学习</strong>而非由人类手动编程——这是现代人形机器人智能化的关键推动力。从物体识别到运动控制，从感知到决策，机器学习方法正在重塑机器人开发的每一个环节。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="351-监督无监督强化学习分类">3.5.1 监督/无监督/强化学习分类<a href="#351-监督无监督强化学习分类" class="hash-link" aria-label="3.5.1 监督/无监督/强化学习分类的直接链接" title="3.5.1 监督/无监督/强化学习分类的直接链接" translate="no">​</a></h3>
+<p>机器学习通常分为三大范式，它们在机器人学中各有重要应用：</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="监督学习supervised-learning">监督学习（Supervised Learning）<a href="#监督学习supervised-learning" class="hash-link" aria-label="监督学习（Supervised Learning）的直接链接" title="监督学习（Supervised Learning）的直接链接" translate="no">​</a></h4>
+<p><strong>核心设定</strong>：给定包含输入和标签的数据集 $&amp;#123;(x_i, y_i)&amp;#125;<em>{i=1}^N$，学习从 $x$ 到 $y$ 的映射函数 $f</em>\theta(x)$。</p>
+<p><strong>数学目标</strong>：</p>
+<p>$$
+\theta^* = \arg\min_\theta \frac{1}{N} \sum_{i=1}^N \mathcal{L}(f_\theta(x_i), y_i)
+$$</p>
+<p>其中 $\mathcal{L}$ 是损失函数，衡量预测与真实标签的差异。</p>
+<p><strong>机器人典型应用</strong>：</p>
+<ul>
+<li class=""><strong>视觉感知</strong>：从 RGB 图像检测和识别物体（如门把手、楼梯）</li>
+<li class=""><strong>姿态估计</strong>：从图像估计人体或物体的 6D 位姿</li>
+<li class=""><strong>触觉分类</strong>：从触觉传感器信号判断物体材质</li>
+<li class=""><strong>运动预测</strong>：从历史轨迹预测人的运动意图</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="无监督学习unsupervised-learning">无监督学习（Unsupervised Learning）<a href="#无监督学习unsupervised-learning" class="hash-link" aria-label="无监督学习（Unsupervised Learning）的直接链接" title="无监督学习（Unsupervised Learning）的直接链接" translate="no">​</a></h4>
+<p><strong>核心设定</strong>：只有输入数据 $&amp;#123;x_i&amp;#125;_{i=1}^N$，没有标签。目标是发现数据中的<strong>潜在结构</strong>。</p>
+<p><strong>常见任务</strong>：</p>
+<ul>
+<li class=""><strong>聚类</strong>：将相似的数据点分组</li>
+<li class=""><strong>降维</strong>：将高维数据映射到低维空间（PCA、t-SNE）</li>
+<li class=""><strong>密度估计</strong>：估计数据的概率分布</li>
+<li class=""><strong>异常检测</strong>：识别与大部分数据不同的样本</li>
+</ul>
+<p><strong>机器人典型应用</strong>：</p>
+<ul>
+<li class=""><strong>运动模式发现</strong>：从人的运动数据中自动发现行走、跑步、跳跃等步态模式</li>
+<li class=""><strong>异常检测</strong>：检测机器人关节的异常振动（预测性维护）</li>
+<li class=""><strong>自监督表示学习</strong>：通过预测视频帧来学习视觉特征（训练视觉编码器）</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="强化学习reinforcement-learning">强化学习（Reinforcement Learning）<a href="#强化学习reinforcement-learning" class="hash-link" aria-label="强化学习（Reinforcement Learning）的直接链接" title="强化学习（Reinforcement Learning）的直接链接" translate="no">​</a></h4>
+<p><strong>核心设定</strong>：Agent 与环境交互，通过试错学习最优策略来最大化累积奖励。</p>
+<p><strong>形式化描述（马尔可夫决策过程, MDP）</strong>：</p>
+<ul>
+<li class="">状态 $s \in \mathcal{S}$（如机器人关节角度、速度）</li>
+<li class="">动作 $a \in \mathcal{A}$（如目标关节力矩）</li>
+<li class="">转移概率 $P(s&#x27; \mid s, a)$（环境动力学）</li>
+<li class="">奖励函数 $r(s, a)$（任务目标）</li>
+<li class="">折扣因子 $\gamma \in [0, 1]$</li>
+</ul>
+<p><strong>优化目标</strong>：找到最优策略 $\pi^*(a \mid s)$ 最大化期望累积折扣奖励：</p>
+<p>$$
+\pi^* = \arg\max_\pi \mathbb{E}<em>{\tau \sim \pi} \left[ \sum</em>{t=0}^\infty \gamma^t r(s_t, a_t) \right]
+$$</p>
+<blockquote>
+<p><strong>直觉</strong>：RL 就像训练一只小狗——做对了给零食（正奖励），做错了不给（负奖励）。慢慢地，小狗学会了哪些行为能获得更多奖励。机器人也是一样，在仿真中摔了无数次，终于学会了行走。关键区别：狗需要成千上万次尝试，而机器人可以在仿真中并行进行数百万次尝试。</p>
+</blockquote>
+<p><strong>机器人典型应用</strong>：</p>
+<ul>
+<li class=""><strong>运动控制</strong>：行走、奔跑、跳跃（如基于深度强化学习的四足/双足控制）</li>
+<li class=""><strong>灵巧操作</strong>：物体抓取、翻转、插入</li>
+<li class=""><strong>导航</strong>：在未知环境中避障到达目标</li>
+<li class=""><strong>Sim-to-Real 迁移</strong>：在仿真中训练策略，迁移到实物</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="352-神经网络与反向传播">3.5.2 神经网络与反向传播<a href="#352-神经网络与反向传播" class="hash-link" aria-label="3.5.2 神经网络与反向传播的直接链接" title="3.5.2 神经网络与反向传播的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="神经网络的基本结构">神经网络的基本结构<a href="#神经网络的基本结构" class="hash-link" aria-label="神经网络的基本结构的直接链接" title="神经网络的基本结构的直接链接" translate="no">​</a></h4>
+<p><strong>神经元</strong>（感知机）：最基本的计算单元</p>
+<p>$$
+h = \sigma(w^\top x + b)
+$$</p>
+<p>其中 $x$ 是输入向量，$w$ 是权重，$b$ 是偏置，$\sigma$ 是非线性激活函数。</p>
+<p><strong>多层感知机（MLP）</strong>：将多个神经元分层连接</p>
+<p>$$
+h^{(l)} = \sigma(W^{(l)} h^{(l-1)} + b^{(l)})
+$$</p>
+<p>其中 $h^{(l)}$ 是第 $l$ 层的输出（隐藏层激活），$W^{(l)}$ 是权重矩阵，$b^{(l)}$ 是偏置向量。</p>
+<p><strong>常见激活函数</strong>：</p>
+<ul>
+<li class=""><strong>ReLU</strong>（Rectified Linear Unit）：$\sigma(x) = \max(0, x)$ — 最常用的激活函数，计算简单且缓解梯度消失</li>
+<li class=""><strong>tanh</strong>：$\sigma(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \in (-1, 1)$ — 输出有界，常用于 RNN</li>
+<li class=""><strong>Sigmoid</strong>：$\sigma(x) = \frac{1}{1 + e^{-x}} \in (0, 1)$ — 输出可解释为概率</li>
+<li class=""><strong>Softmax</strong>：$\sigma(x_i) = \frac{e^{x_i}}{\sum_j e^{x_j}}$ — 多分类的输出层</li>
+</ul>
+<p><strong>万能近似定理</strong>：一个足够宽的单隐藏层前馈神经网络，在合适的激活函数下，可以以任意精度逼近任意连续函数。这意味着神经网络的表达能力非常强——问题在于如何找到正确的权重（训练）。</p>
+<blockquote>
+<p><strong>直觉</strong>：神经网络就是&quot;带参数的可微函数逼近器&quot;。层数越多（深），能表达的函数越复杂，且可以用更少的参数达到同样的表达精度（深度的&quot;分层特征提取&quot;优势）。</p>
+</blockquote>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="反向传播backpropagation">反向传播（Backpropagation）<a href="#反向传播backpropagation" class="hash-link" aria-label="反向传播（Backpropagation）的直接链接" title="反向传播（Backpropagation）的直接链接" translate="no">​</a></h4>
+<p>反向传播是训练神经网络的基石算法，它利用<strong>链式法则</strong>高效计算损失函数对每个参数的梯度。</p>
+<p><strong>前向传播</strong>：数据从输入层逐层向前传递到输出层，计算预测值和损失函数。</p>
+<p><strong>反向传播</strong>：从输出层开始，逐层向后计算损失函数对各层参数的梯度。</p>
+<p>以简单的三层网络为例：设损失函数为 $L$，第 $l$ 层的输出为 $h^{(l)}$，权重为 $W^{(l)}$。</p>
+<p>输出层的梯度：</p>
+<p>$$
+\frac{\partial L}{\partial W^{(L)}} = \frac{\partial L}{\partial h^{(L)}} \cdot \frac{\partial h^{(L)}}{\partial W^{(L)}} = (h^{(L)} - y) \cdot h^{(L-1)^\top}
+$$</p>
+<p>利用链式法则反向传播到前面各层：</p>
+<p>$$
+\frac{\partial L}{\partial h^{(l)}} = \left( \frac{\partial h^{(l+1)}}{\partial h^{(l)}} \right)^\top \frac{\partial L}{\partial h^{(l+1)}} = W^{(l+1)^\top} \cdot \frac{\partial L}{\partial h^{(l+1)}} \odot \sigma&#x27;(z^{(l)})
+$$</p>
+<p>其中 $\odot$ 是逐元素乘法（Hadamard 积），$\sigma&#x27;$ 是激活函数的导数。</p>
+<blockquote>
+<p><strong>直觉</strong>：前向传播是&quot;预测&quot;——输入数据，得到输出。反向传播是&quot;问责&quot;——输出错了，沿着网络反向追责，每个参数按&quot;贡献比例&quot;分担修正责任。想象一个生产线：产品出问题（大损失），从最后一道工序往前查，每道工序的责任大小由它在前向传播中的贡献决定。</p>
+</blockquote>
+<p>反向传播与梯度下降结合，构成了神经网络训练的核心循环：</p>
+<ol>
+<li class="">前向传播：计算预测和损失</li>
+<li class="">反向传播：计算梯度</li>
+<li class="">参数更新（如 Adam）：$\theta \leftarrow \theta - \alpha \cdot \text{optimizer}(\nabla_\theta L)$</li>
+</ol>
+<p><strong>为什么反向传播如此重要？</strong> 没有反向传播之前，训练神经网络需要在参数空间中随机扰动来近似梯度——效率极低。反向传播使得梯度计算只需一次前向传播和一次反向传播，效率提高了数个数量级，使得大规模深度学习成为可能。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="353-损失函数与正则化">3.5.3 损失函数与正则化<a href="#353-损失函数与正则化" class="hash-link" aria-label="3.5.3 损失函数与正则化的直接链接" title="3.5.3 损失函数与正则化的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="常见损失函数">常见损失函数<a href="#常见损失函数" class="hash-link" aria-label="常见损失函数的直接链接" title="常见损失函数的直接链接" translate="no">​</a></h4>
+<p><strong>回归任务</strong>（预测连续值，如关节力矩预测）：</p>
+<ul>
+<li class="">
+<p><strong>均方误差（MSE）</strong>：$\mathcal{L} = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y}_i)^2$</p>
+<ul>
+<li class="">对大误差惩罚较重（平方放大）</li>
+<li class="">对异常值敏感</li>
+</ul>
+</li>
+<li class="">
+<p><strong>平均绝对误差（MAE）</strong>：$\mathcal{L} = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y}_i|$</p>
+<ul>
+<li class="">对所有误差一视同仁</li>
+<li class="">对异常值更鲁棒</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Huber 损失</strong>：MSE 和 MAE 的组合，小误差时用 MSE（平滑可微），大误差时用 MAE（鲁棒）</p>
+</li>
+</ul>
+<p><strong>分类任务</strong>（预测离散类别，如物体分类）：</p>
+<ul>
+<li class=""><strong>交叉熵损失</strong>：$\mathcal{L} = -\sum_{i=1}^N y_i \log(\hat{y}_i)$<!-- -->
+<ul>
+<li class="">与 KL 散度等价——衡量预测分布与真实分布的差异</li>
+<li class="">分类任务的标准选择</li>
+</ul>
+</li>
+</ul>
+<p><strong>机器人特有的损失函数</strong>：</p>
+<p>在机器人控制中，损失函数往往包含多个物理量：</p>
+<p>$$
+\mathcal{L} = w_1 \cdot \mathcal{L}<em>{\text{task}} + w_2 \cdot \mathcal{L}</em>{\text{smoothness}} + w_3 \cdot \mathcal{L}_{\text{constraint}}
+$$</p>
+<p>其中 $\mathcal{L}<em>{\text{task}}$ 是任务完成度（如末端执行器位置误差），$\mathcal{L}</em>{\text{smoothness}}$ 惩罚剧烈的关节运动（如加速度过大），$\mathcal{L}_{\text{constraint}}$ 惩罚违反约束（如关节超限）。$w_1, w_2, w_3$ 是权重，平衡不同目标之间的优先级。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="正则化防止过拟合">正则化防止过拟合<a href="#正则化防止过拟合" class="hash-link" aria-label="正则化防止过拟合的直接链接" title="正则化防止过拟合的直接链接" translate="no">​</a></h4>
+<p>过拟合是指模型在训练数据上表现极好但在新数据上表现差——本质上是模型记忆了训练数据的噪声而非学习到泛化规律。</p>
+<p><strong>L2 正则化（权重衰减）</strong>：</p>
+<p>$$
+\mathcal{L}_{\text{total}} = \mathcal{L} + \frac{\lambda}{2} |W|_2^2
+$$</p>
+<p>L2 正则化惩罚过大的权重值，迫使网络学习&quot;简单&quot;的映射（小权重意味着输出对输入变化不敏感）。在优化中，L2 正则会等比缩小每个权重：</p>
+<p>$$
+W \leftarrow W - \alpha \left( \nabla_W \mathcal{L} + \lambda W \right) = (1 - \alpha \lambda) W - \alpha \nabla_W \mathcal{L}
+$$</p>
+<p>因此 L2 正则化也称为&quot;权重衰减&quot;——每次更新前先将权重缩小一点。</p>
+<p><strong>L1 正则化</strong>：</p>
+<p>$$
+\mathcal{L}_{\text{total}} = \mathcal{L} + \lambda |W|_1
+$$</p>
+<p>L1 正则化倾向于产生<strong>稀疏权重</strong>（许多权重精确为零）。这在某些需要特征选择的场景中有用。</p>
+<p><strong>Dropout</strong>：训练时随机将一部分神经元的输出置零（通常 20% ∼ 50%）。这迫使网络不依赖单个神经元，而是发展冗余表示——像是一个子网络的集成。</p>
+<blockquote>
+<p><strong>直觉</strong>：正则化相当于&quot;保持简单&quot;。如果一个函数可以用两种复杂度不同的方式拟合数据，正则化会让模型选择更简单的那个（奥卡姆剃刀原则）。L2 正则化让权重变小，Dropout 让网络不依赖特定连接——两者都提高了泛化能力。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="354-评估指标">3.5.4 评估指标<a href="#354-评估指标" class="hash-link" aria-label="3.5.4 评估指标的直接链接" title="3.5.4 评估指标的直接链接" translate="no">​</a></h3>
+<p>评估机器学习模型需要定量指标。不同任务关注不同指标：</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="回归指标">回归指标<a href="#回归指标" class="hash-link" aria-label="回归指标的直接链接" title="回归指标的直接链接" translate="no">​</a></h4>
+<p><strong>RMSE（Root Mean Squared Error）</strong>：</p>
+<p>$$
+\text{RMSE} = \sqrt{\frac{1}{N} \sum_{i=1}^N (y_i - \hat{y}_i)^2}
+$$</p>
+<p>与原始数据的量纲相同，易于解释。例如，关节角度预测的 RMSE 为 2°，意味着平均预测误差约为 2°。</p>
+<p><strong>$R^2$（决定系数）</strong>：</p>
+<p>$$
+R^2 = 1 - \frac{\sum_i (y_i - \hat{y}_i)^2}{\sum_i (y_i - \bar{y})^2}
+$$</p>
+<p>$R^2 = 1$ 意味着完美预测，$R^2 = 0$ 意味着模型不比常数均值 $\bar{y}$ 好。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="分类指标">分类指标<a href="#分类指标" class="hash-link" aria-label="分类指标的直接链接" title="分类指标的直接链接" translate="no">​</a></h4>
+<p><strong>准确率（Accuracy）</strong>：$(TP + TN) / (TP + TN + FP + FN)$</p>
+<p><strong>精确率（Precision）</strong>：$TP / (TP + FP)$ — 预测为正类的样本中，实际真的为正的比例</p>
+<p><strong>召回率（Recall）</strong>：$TP / (TP + FN)$ — 实际为正类的样本中，被正确识别出的比例</p>
+<p><strong>$F_1$ 分数</strong>：$2 \cdot \text{Precision} \cdot \text{Recall} / (\text{Precision} + \text{Recall})$ — Precision 和 Recall 的调和平均，在两者之间平衡</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="机器人特有的评估">机器人特有的评估<a href="#机器人特有的评估" class="hash-link" aria-label="机器人特有的评估的直接链接" title="机器人特有的评估的直接链接" translate="no">​</a></h4>
+<p>在机器人任务中，除了标准的机器学习指标外，还有领域特定的评估维度：</p>
+<p><strong>运动控制</strong>：</p>
+<ul>
+<li class="">成功完成率（如行走 10 米的成功率）</li>
+<li class="">跟踪误差（期望轨迹与实际轨迹的偏差）</li>
+<li class="">能耗效率（每米行走消耗的能量）</li>
+<li class="">抗扰能力（受到外部推力后的恢复时间）</li>
+</ul>
+<p><strong>操作任务</strong>：</p>
+<ul>
+<li class="">抓取成功率</li>
+<li class="">操作时间</li>
+<li class="">平均力矩载荷</li>
+</ul>
+<p><strong>Sim-to-Real 迁移</strong>：</p>
+<ul>
+<li class="">仿真性能 vs 实物性能的差距（Sim-to-Real gap）</li>
+<li class="">域随机化下的鲁棒性</li>
+</ul>
+<blockquote>
+<p><strong>一句话总结</strong>：评估指标必须与机器人的<strong>最终任务目标</strong>对齐——不是追求模型在测试集上的精度，而是追求机器人在真实世界中稳定、安全、高效地完成任务。</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="️-仿真实操旋转与变换可视化1500字--代码说明">🛠️ 仿真实操：旋转与变换可视化（1,500字 + 代码说明）<a href="#️-仿真实操旋转与变换可视化1500字--代码说明" class="hash-link" aria-label="🛠️ 仿真实操：旋转与变换可视化（1,500字 + 代码说明）的直接链接" title="🛠️ 仿真实操：旋转与变换可视化（1,500字 + 代码说明）的直接链接" translate="no">​</a></h2>
+<blockquote>
+<p><strong>实操目标</strong>：通过 Python 代码直观体验旋转矩阵、四元数和轴角之间的转换，理解&quot;数学公式不再是抽象的符号，而是可观察、可交互的几何变换&quot;。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="代码与运行">代码与运行<a href="#代码与运行" class="hash-link" aria-label="代码与运行的直接链接" title="代码与运行的直接链接" translate="no">​</a></h3>
+<p>代码位于：<code>code/ch03-rotation-math/rotation_visualizer.py</code></p>
+<p>该代码文件实现了本章介绍的所有核心数学运算的可视化版本，使用 <code>NumPy</code> 进行数值计算，使用 <code>Matplotlib</code> 的 <code>mplot3d</code> 工具包进行三维可视化，并集成了 <code>MuJoCo</code> 物理引擎用于机器人姿态展示。</p>
+<p><strong>依赖安装</strong>：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">pip </span><span class="token function" style="color:#d73a49">install</span><span class="token plain"> </span><span class="token parameter variable" style="color:#36acaa">-r</span><span class="token plain"> code/ch03-rotation-math/requirements.txt</span><br></div></code></pre></div></div>
+<p>依赖包括：<code>mujoco&gt;=3.0</code>（物理引擎）、<code>numpy&gt;=1.24</code>（数值计算）、<code>matplotlib&gt;=3.7</code>（可视化）。</p>
+<p><strong>运行</strong>：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">python code/ch03-rotation-math/rotation_visualizer.py</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验1旋转矩阵可视化">实验1：旋转矩阵可视化<a href="#实验1旋转矩阵可视化" class="hash-link" aria-label="实验1：旋转矩阵可视化的直接链接" title="实验1：旋转矩阵可视化的直接链接" translate="no">​</a></h3>
+<p>程序启动后，在三维空间中绘制一个带有 $x$（红色）、$y$（绿色）、$z$（蓝色）轴的坐标系。用户通过键盘或滑块输入绕各轴的旋转角度（欧拉角 ZYX 顺序），程序实时计算复合旋转矩阵：</p>
+<p>$$
+R = R_z(\alpha) R_y(\beta) R_x(\gamma)
+$$</p>
+<p>并将原始坐标轴（作为 $3 \times 3$ 矩阵的列向量）变换为旋转后的新姿态。</p>
+<p><strong>观察要点</strong>：</p>
+<ul>
+<li class="">旋转矩阵的每一列就是变换后的单位坐标轴方向</li>
+<li class="">三个轴的相对位置关系始终保持（右手定则）</li>
+<li class="">尝试 $\beta = 90^\circ$，观察万向锁效应——此时 $\alpha$ 和 $\gamma$ 的旋转轴重合</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验2旋转矩阵--四元数转换">实验2：旋转矩阵 ↔ 四元数转换<a href="#实验2旋转矩阵--四元数转换" class="hash-link" aria-label="实验2：旋转矩阵 ↔ 四元数转换的直接链接" title="实验2：旋转矩阵 ↔ 四元数转换的直接链接" translate="no">​</a></h3>
+<p>程序实现了完整的双向转换函数。用户输入一个四元数或旋转矩阵，程序自动计算对应的另一种表示，并验证：</p>
+<ol>
+<li class=""><strong>往返一致性</strong>：$q \to R(q) \to q&#x27;$ 是否与原四元数一致（允许符号差异）</li>
+<li class=""><strong>变换向量验证</strong>：将向量 $(1, 0, 0)$ 用两种表示分别旋转，对比结果</li>
+</ol>
+<p>核心代码逻辑（以四元数到旋转矩阵为例）：</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">quaternion_to_rotation_matrix</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">q</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token triple-quoted-string string" style="color:#e3116c">&quot;&quot;&quot;四元数 → 旋转矩阵（主动旋转/坐标系变换两种模式）&quot;&quot;&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    w</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> x</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> y</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> z </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> q</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token comment" style="color:#999988;font-style:italic"># 归一化保证单位四元数</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    norm </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">sqrt</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">w</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">w </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> x</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">x </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> y</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">y </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> z</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    w</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> x</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> y</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> z </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> w</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">norm</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> x</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">norm</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> y</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">norm</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> z</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">norm</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">array</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">1</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">y</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">y </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> z</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">   </span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">x</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">y </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> w</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">     </span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">x</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> w</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">y</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">x</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">y </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> w</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">       </span><span class="token number" style="color:#36acaa">1</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">x</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">x </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> z</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">y</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> w</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">x</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">x</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> w</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">y</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">       </span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">y</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">z </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> w</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">x</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">     </span><span class="token number" style="color:#36acaa">1</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2</span><span class="token operator" style="color:#393A34">*</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">x</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">x </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> y</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">y</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验3轴角与罗德里格斯公式">实验3：轴角与罗德里格斯公式<a href="#实验3轴角与罗德里格斯公式" class="hash-link" aria-label="实验3：轴角与罗德里格斯公式的直接链接" title="实验3：轴角与罗德里格斯公式的直接链接" translate="no">​</a></h3>
+<p>程序接收轴角输入 $(\theta, u_x, u_y, u_z)$，用罗德里格斯公式计算对应的旋转矩阵：</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">axis_angle_to_rotation_matrix</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">theta</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> u</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token triple-quoted-string string" style="color:#e3116c">&quot;&quot;&quot;轴角 → 旋转矩阵（罗德里格斯公式）&quot;&quot;&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    u </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> u </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">linalg</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">norm</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">u</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic"># 确保单位轴</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    K </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">array</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain">u</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">2</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> u</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">u</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">2</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain">u</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">[</span><span class="token operator" style="color:#393A34">-</span><span class="token plain">u</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> u</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    R </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">eye</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">3</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">         </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">theta</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> K </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">         </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">cos</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">theta</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">K @ K</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> R</span><br></div></code></pre></div></div>
+<p>程序自动验证旋转矩阵的两个必要条件：</p>
+<ul>
+<li class="">正交性：$R^\top R \approx I$（打印误差范数）</li>
+<li class="">行列式：$\det(R) \approx 1$（打印差值）</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验4slerp-插值与可视化">实验4：Slerp 插值与可视化<a href="#实验4slerp-插值与可视化" class="hash-link" aria-label="实验4：Slerp 插值与可视化的直接链接" title="实验4：Slerp 插值与可视化的直接链接" translate="no">​</a></h3>
+<p>程序在两个随机生成的姿态四元数之间插值，在 3D 空间中实时显示旋转过程。</p>
+<p><strong>Slerp 实现</strong>：</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">slerp</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">q1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> q2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> t</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token triple-quoted-string string" style="color:#e3116c">&quot;&quot;&quot;球面线性插值&quot;&quot;&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token comment" style="color:#999988;font-style:italic"># 确保走最短路径</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    dot </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">dot</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">q1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> q2</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> dot </span><span class="token operator" style="color:#393A34">&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        q2 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain">q2</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        dot </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain">dot</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token comment" style="color:#999988;font-style:italic"># 角度接近时退化为线性插值（避免数值问题）</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> dot </span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.9995</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        result </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> q1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> t </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">q2 </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> q1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> result </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">linalg</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">norm</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">result</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    theta_0 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">arccos</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">dot</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic"># 四元数夹角</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    sin_theta_0 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">theta_0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    s1 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> t</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> theta_0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> sin_theta_0</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    s2 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">sin</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">t </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> theta_0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> sin_theta_0</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> s1 </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> q1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> s2 </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> q2</span><br></div></code></pre></div></div>
+<p><strong>观察要点</strong>：</p>
+<ul>
+<li class="">被旋转的向量沿球面大圆弧匀速运动</li>
+<li class="">对比 Lerp（线性插值+归一化）：Slerp 角速度恒定，Lerp 中间快两端慢</li>
+<li class="">在接近 $180^\circ$ 旋转时，Slerp 选择最短路径（自动处理符号）</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验5李代数扰动模型可视化进阶">实验5：李代数扰动模型可视化（进阶）<a href="#实验5李代数扰动模型可视化进阶" class="hash-link" aria-label="实验5：李代数扰动模型可视化（进阶）的直接链接" title="实验5：李代数扰动模型可视化（进阶）的直接链接" translate="no">​</a></h3>
+<p>这是 3.2.4 节内容的直观演示。程序实现了以下功能：</p>
+<ol>
+<li class="">接受用户输入的当前姿态四元数 $q$ 和微小角速度扰动 $\delta \omega \in \mathbb{R}^3$</li>
+<li class="">用指数映射计算扰动后的姿态：$q&#x27; = q \cdot \exp([\delta\omega]_	imes)$（右乘扰动）</li>
+<li class="">在 3D 场景中同时显示原始姿态和扰动后的姿态，对比差异</li>
+</ol>
+<p><strong>观察要点</strong>：</p>
+<ul>
+<li class="">微小扰动下，旋转的线性近似 $\exp([\delta\omega]_	imes) pprox I + [\delta\omega]_	imes$ 与精确指数映射的差异</li>
+<li class="">随着扰动量增大，一阶近似的误差如何增长（帮助你理解为什么在优化中需要使用迭代而非一步到位的方法）</li>
+<li class="">右乘扰动 vs 左乘扰动的区别：前者在局部坐标系中施加扰动，后者在世界坐标系中施加</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="实验6卡尔曼滤波-1d-可视化">实验6：卡尔曼滤波 1D 可视化<a href="#实验6卡尔曼滤波-1d-可视化" class="hash-link" aria-label="实验6：卡尔曼滤波 1D 可视化的直接链接" title="实验6：卡尔曼滤波 1D 可视化的直接链接" translate="no">​</a></h3>
+<p>程序实现了一个一维卡尔曼滤波器，模拟机器人沿直线运动的位置估计过程。</p>
+<p><strong>用户交互</strong>：用户通过滑块控制过程噪声 $Q$ 和观测噪声 $R$ 的大小，实时观察滤波器行为的变化。</p>
+<p><strong>可视化内容</strong>：</p>
+<ul>
+<li class="">真实位置轨迹（虚线）</li>
+<li class="">观测值（噪声点）</li>
+<li class="">卡尔曼滤波估计（实线）</li>
+<li class="">不确定性区间（$\pm 2\sigma$ 的阴影区域）</li>
+<li class="">卡尔曼增益随时间的动态变化（单独的子图）</li>
+</ul>
+<p><strong>观察要点</strong>：</p>
+<ul>
+<li class="">当 $R \gg Q$（观测噪声远大于过程噪声）时，滤波器更信赖预测，响应变慢但更平滑</li>
+<li class="">当 $Q \gg R$（过程噪声远大于观测噪声）时，滤波器更信赖观测，响应变快但更抖动</li>
+<li class="">卡尔曼增益自动在这两种极端之间找到最优平衡</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="延伸思考">延伸思考<a href="#延伸思考" class="hash-link" aria-label="延伸思考的直接链接" title="延伸思考的直接链接" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>数值稳定性</strong>：当旋转角度接近 $0^\circ$ 或 $180^\circ$ 时，四元数与旋转矩阵的转换会出现数值问题（除以接近零的小数）。试改进代码，增加对边界情况的处理（如当 $w$ 接近零时改用对角元素法提取四元数）。</p>
+</li>
+<li class="">
+<p><strong>从角速度到姿态</strong>：修改程序，让用户输入角速度向量 $\omega = (\omega_x, \omega_y, \omega_z)$ 和时间 $t$，用指数映射 $R(t) = \exp([\omega]_\times t)$ 计算经过 $t$ 时间后的旋转矩阵。这正是李代数到李群的指数映射——物理上对应恒定角速度的刚体旋转。</p>
+</li>
+<li class="">
+<p><strong>MuJoCo 姿态控制</strong>：将计算得到的四元数姿态发送给 MuJoCo 仿真环境，控制人形机器人模型的关节按指定姿态运动。观察不同插值方法（Slerp vs Lerp）对机器人关节运动平滑度的影响。</p>
+</li>
+<li class="">
+<p><strong>误差量化分析</strong>：设计对比实验——生成随机旋转矩阵，分别用欧拉角表示法和四元数表示法进行 100 步插值，计算每一步的角速度偏差。你会发现欧拉角在 $\beta \approx \pm 90^\circ$ 时出现明显的角速度突变（万向锁的表现），而四元数 Slerp 始终保持恒定角速度。</p>
+</li>
+<li class="">
+<p><strong>代码重构</strong>：将核心转换函数（四元数↔旋转矩阵、轴角↔旋转矩阵、Slerp）封装成一个 <code>Rotation</code> 类，支持链式调用和批量操作。这可以作为后续章节中运动学和动力学计算的基础工具库。</p>
+</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="编程练习建议">编程练习建议<a href="#编程练习建议" class="hash-link" aria-label="编程练习建议的直接链接" title="编程练习建议的直接链接" translate="no">​</a></h3>
+<p>为了巩固本章所学，建议你动手实现以下小型项目：</p>
+<ol>
+<li class="">
+<p><strong>四元数姿态控制器</strong>：用 Python 实现一个简单的姿态控制器，输入为目标四元数和当前四元数，输出为控制力矩或角速度指令。使用 Slerp 计算期望轨迹，用 PD 控制器跟踪。</p>
+</li>
+<li class="">
+<p><strong>简易粒子滤波器</strong>：实现一个 2D 粒子滤波器，模拟机器人在平面上运动、观测地标的定位过程。观察粒子数对定位精度和计算时间的影响。</p>
+</li>
+<li class="">
+<p><strong>梯度下降可视化</strong>：实现一个 2D 曲面的梯度下降可视化工具，对比全梯度下降、SGD、带动量的 SGD 和 Adam 在 Rosenbrock 函数（&quot;香蕉函数&quot;）上的收敛行为。</p>
+</li>
+</ol>
+<p>这些练习将帮助你从&quot;理解公式&quot;跨越到&quot;能够实现&quot;——这是机器人工程师最核心的能力。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="常见问题与误区">常见问题与误区<a href="#常见问题与误区" class="hash-link" aria-label="常见问题与误区的直接链接" title="常见问题与误区的直接链接" translate="no">​</a></h3>
+<p>在学习和应用本章内容时，初学者常常会遇到以下困惑和误解：</p>
+<p><strong>Q1：四元数和旋转矩阵，到底用哪个？</strong></p>
+<p>A：没有绝对答案，取决于场景。四元数更适合<strong>存储</strong>和<strong>插值</strong>姿态（紧凑、数值稳定），而旋转矩阵更适合<strong>计算坐标变换</strong>（矩阵乘法可以直接作用在向量上）。在实际机器人系统中，常见做法是：内部计算使用旋转矩阵（或 $4 	imes 4$ 齐次矩阵），状态存储和通信使用四元数。</p>
+<p><strong>Q2：欧拉角已经够用了，为什么还要学四元数？</strong></p>
+<p>A：如果你的机器人永远不做大角度旋转（例如只在地面平面运动），欧拉角确实够用。但对于人形机器人这种需要全姿态运动的系统，万向锁是真实存在的风险——想象机器人在摔倒过程中，俯仰角经过 $90^\circ$ 时，偏航和滚转的控制会瞬间&quot;卡住&quot;。这不是理论上的小概率事件，而是实际调试中会反复遇到的麻烦。</p>
+<p><strong>Q3：卡尔曼滤波和粒子滤波，如何选择？</strong></p>
+<p>A：一个简单的判断标准：如果你的状态估计&quot;从未丢失过&quot;（即你知道机器人大致在哪里），使用卡尔曼滤波（或其非线性变体 EKF/UKF）；如果你的状态可能完全未知（&quot;全局定位&quot;问题），使用粒子滤波。卡尔曼滤波高效但要求单峰高斯假设，粒子滤波灵活但计算量大。</p>
+<p><strong>Q4：SGD 和 Adam，哪个更适合机器人学习？</strong></p>
+<p>A：如果你在训练一个小型网络（如策略网络），两者都可以，但 Adam 通常更省心（不需要精细调学习率）。如果你需要极致的推理速度和低功耗（如嵌入式部署），可能需要对训练好的模型做量化和剪枝——此时 SGD 训练出的模型通常更容易压缩。</p>
+<p><strong>Q5：我在代码中该用哪种优化方法求解逆运动学（IK）？</strong></p>
+<p>A：对于标准 IK，优先使用解析解（如果存在）。如果解析解不存在（如冗余机器人），使用数值方法——推荐 Levenberg-Marquardt 算法（结合了梯度下降和 Gauss-Newton 的优点），它是一种拟牛顿法的变体，在 IK 问题上表现稳定。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="本章小结">本章小结<a href="#本章小结" class="hash-link" aria-label="本章小结的直接链接" title="本章小结的直接链接" translate="no">​</a></h2>
+<p>本章为人形机器人研究所必需的数学基础搭建了一个完整的框架。我们从线性代数的核心概念出发，深入学习了三种旋转表示方法（旋转矩阵、四元数、轴角）的定义、性质、相互转换及其在机器人学中的适用场景。通过齐次坐标和 $4 \times 4$ 变换矩阵，我们将旋转和平移统一为刚体变换，理解了 $SE(3)$ 群的结构和意义。进一步地，我们探索了李群与李代数的初步知识——这是现代机器人状态估计（SLAM、平滑与建图）和优化算法（流形上的优化）的理论基础。</p>
+<p>概率统计部分为处理不确定性提供了完整的工具链：贝叶斯定理是状态估计的通用哲学框架，高斯分布是工程实践的主力建模工具（兼具数学优雅和计算高效），蒙特卡洛方法（粒子滤波）解决了非线性、非高斯情形下的状态推断问题。卡尔曼滤波作为&quot;预测-更新&quot;黄金范式的典型代表，建立了从理论到工程实践的桥梁——其核心思想将贯穿本书后续的所有状态估计章节。</p>
+<p>最优化方法构成了机器人&quot;智能行为&quot;的数学引擎。梯度下降及 Adam 优化器支撑了机器人学习（神经网络策略训练）的基础；拟牛顿法（尤其是 L-BFGS）是轨迹优化的主力工具；凸优化（尤其是二次规划 QP）则是实时控制（模型预测控制、全身控制）的首选公式化方法。</p>
+<p>最后，机器学习基础速览为后续章节的基于学习的控制方法（第7章模仿学习、第8章强化学习）铺设了道路，涵盖了三大学习范式、神经网络与反向传播的基础原理、常用损失函数和正则化技术，以及机器人领域特有的评估指标体系。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="学完本章后你应当能够">学完本章后，你应当能够<a href="#学完本章后你应当能够" class="hash-link" aria-label="学完本章后，你应当能够的直接链接" title="学完本章后，你应当能够的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>旋转表示</strong>：在手写推导和代码实现中自由切换旋转矩阵、四元数、轴角三种表示方法，理解各自的优劣和适用场景</li>
+<li class=""><strong>坐标变换</strong>：构建和应用齐次变换矩阵，理解 $SE(3)$ 群的结构，能够沿机器人运动学链进行坐标变换的复合和求逆</li>
+<li class=""><strong>状态估计</strong>：解释卡尔曼滤波的预测-更新过程，理解其与条件高斯分布和贝叶斯滤波的联系，区分卡尔曼滤波和粒子滤波的适用条件</li>
+<li class=""><strong>优化方法选择</strong>：根据问题特性（凸性、维度、实时性要求、精确度需求）选择合适的优化方法，理解梯度下降、牛顿法、凸优化的各自定位</li>
+<li class=""><strong>机器学习基础</strong>：理解神经网络的训练流程（前向传播→反向传播→参数更新），区分三大学习范式在机器人中的不同应用</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="下一步的数学学习路径">下一步的数学学习路径<a href="#下一步的数学学习路径" class="hash-link" aria-label="下一步的数学学习路径的直接链接" title="下一步的数学学习路径的直接链接" translate="no">​</a></h3>
+<p>本章只是数学基础的起点。后续章节将在具体上下文中深化这些概念：</p>
+<ul>
+<li class=""><strong>第5章（状态估计）</strong> 将深入应用卡尔曼滤波、粒子滤波和因子图优化，涉及李群李代数在 SLAM 中的实际应用</li>
+<li class=""><strong>第7章（模仿学习）</strong> 和 <strong>第8章（强化学习）</strong> 将大量使用 3.4 节和 3.5 节的优化和机器学习内容</li>
+<li class=""><strong>第9章（全身控制）</strong> 将用二次规划（QP）求解实时的关节力矩分配问题</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="习题">习题<a href="#习题" class="hash-link" aria-label="习题的直接链接" title="习题的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="题1旋转矩阵与四元数转换线性代数基础">题1：旋转矩阵与四元数转换（线性代数基础）<a href="#题1旋转矩阵与四元数转换线性代数基础" class="hash-link" aria-label="题1：旋转矩阵与四元数转换（线性代数基础）的直接链接" title="题1：旋转矩阵与四元数转换（线性代数基础）的直接链接" translate="no">​</a></h3>
+<p>给定四元数 $q = (0.7071, 0.0, 0.7071, 0.0)$：</p>
+<ol>
+<li class="">计算对应的旋转矩阵 $R$</li>
+<li class="">$R$ 代表的旋转是什么？（绕哪个轴转了多少度？）</li>
+<li class="">验证 $R^\top R = I$ 和 $\det(R) = 1$</li>
+<li class="">将向量 $v = (1, 0, 0)^\top$ 用 $R$ 旋转，结果是什么？用四元数乘法验证</li>
+</ol>
+<blockquote>
+<p><strong>提示</strong>：注意 $0.7071 \approx \sqrt{2}/2$，说明这是一个特殊角度的旋转。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="题2齐次变换复合运动学">题2：齐次变换复合（运动学）<a href="#题2齐次变换复合运动学" class="hash-link" aria-label="题2：齐次变换复合（运动学）的直接链接" title="题2：齐次变换复合（运动学）的直接链接" translate="no">​</a></h3>
+<p>一个简单机械臂有两根连杆。从基座（坐标系 0）到连杆 1（坐标系 1）的变换为：绕 $z$ 轴旋转 $30^\circ$，然后沿 $x$ 轴平移 $0.5$ 米。从连杆 1 到连杆 2（坐标系 2）的变换为：绕 $x$ 轴旋转 $45^\circ$，然后沿 $y$ 轴平移 $0.3$ 米。</p>
+<ol>
+<li class="">写出 $T_{01}$ 和 $T_{12}$ 的齐次变换矩阵</li>
+<li class="">计算从基座到连杆 2 的变换 $T_{02} = T_{01} T_{12}$</li>
+<li class="">基座原点 $(0, 0, 0)$ 在连杆 2 坐标系中的坐标是多少？</li>
+<li class="">连杆 2 的原点在基座坐标系中的坐标是多少？</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="题3slerp-插值姿态平滑过渡">题3：Slerp 插值（姿态平滑过渡）<a href="#题3slerp-插值姿态平滑过渡" class="hash-link" aria-label="题3：Slerp 插值（姿态平滑过渡）的直接链接" title="题3：Slerp 插值（姿态平滑过渡）的直接链接" translate="no">​</a></h3>
+<p>两个姿态的四元数分别为：</p>
+<ul>
+<li class="">$q_1 = (1, 0, 0, 0)$（单位姿态，无旋转）</li>
+<li class="">$q_2 = (0.7071, 0.7071, 0, 0)$（绕 $x$ 轴旋转 $90^\circ$）</li>
+</ul>
+<ol>
+<li class="">计算 $t = 0.25$ 时的 Slerp 插值结果</li>
+<li class="">对应的旋转角度和旋转轴是什么？</li>
+<li class="">如果直接用线性插值再归一化（Lerp）：$\tilde{q} = (1-t)q_1 + t q_2$，$\bar{q} = \tilde{q} / |\tilde{q}|$，结果与 Slerp 相同吗？为什么？</li>
+<li class="">分别用 Slerp 和 Lerp 计算 $t = 0.5$ 时的结果，比较其旋转角度。这说明了什么？</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="题4卡尔曼滤波一维示例概率与状态估计">题4：卡尔曼滤波一维示例（概率与状态估计）<a href="#题4卡尔曼滤波一维示例概率与状态估计" class="hash-link" aria-label="题4：卡尔曼滤波一维示例（概率与状态估计）的直接链接" title="题4：卡尔曼滤波一维示例（概率与状态估计）的直接链接" translate="no">​</a></h3>
+<p>一个小车在一维轨道上运动。系统模型为：</p>
+<p>$$
+x_t = x_{t-1} + u_t \Delta t + \epsilon_t, \quad \epsilon_t \sim \mathcal{N}(0, Q)
+$$</p>
+<p>其中 $Q = 0.1$（过程噪声方差），$\Delta t = 1$ 秒。</p>
+<p>观测方程：</p>
+<p>$$
+z_t = x_t + \delta_t, \quad \delta_t \sim \mathcal{N}(0, R)
+$$</p>
+<p>其中 $R = 1.0$（观测噪声方差）。</p>
+<p>初始估计：$\hat{x}_0 = 0$，$P_0 = 1$。</p>
+<p>给定控制输入 $u_1 = 1.0 \text{ m/s}$，实际观测 $z_1 = 1.5 \text{ m}$：</p>
+<ol>
+<li class="">计算预测步骤后的 $\hat{x}<em>{1|0}$ 和 $P</em>{1|0}$</li>
+<li class="">计算卡尔曼增益 $K_1$</li>
+<li class="">计算更新后的 $\hat{x}_1$ 和 $P_1$</li>
+<li class="">解释：为什么卡尔曼增益 $K_1 &lt; 1$？如果观测噪声 $R$ 从 1.0 降到 0.1，$K_1$ 如何变化？这说明了什么？</li>
+<li class="">如果过程噪声 $Q$ 从 0.1 增加到 10，对滤波结果有什么影响？</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="题5优化方法选择综合应用题">题5：优化方法选择（综合应用题）<a href="#题5优化方法选择综合应用题" class="hash-link" aria-label="题5：优化方法选择（综合应用题）的直接链接" title="题5：优化方法选择（综合应用题）的直接链接" translate="no">​</a></h3>
+<p>你正在开发人形机器人上楼梯的控制策略，需要解决以下三个子问题。请为每个选择合适的优化方法（从梯度下降/SGD/Adam、牛顿法/L-BFGS、凸优化/QP 中选择），并说明理由。</p>
+<p><strong>问题 A — 实时力矩分配</strong>：需要以 1 kHz 频率（每毫秒一次）求解机器人的全身关节力矩分配，满足接触力约束（摩擦锥）、关节力矩限位和运动学约束。状态维度约 30，约束约 50 条。</p>
+<p><strong>问题 B — 步态策略学习</strong>：在仿真环境中训练一个神经网络策略，让机器人学会上楼梯。仿真环境可并行运行 100 个实例，训练时间可达数小时。策略网络参数约 200 万。</p>
+<p><strong>问题 C — 离线轨迹优化</strong>：离线规划一个从 A 点到 B 点的最优运动轨迹（行走路径），需考虑动力学约束、关节限位和避障。参数维度约 500，要求解的高质量。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="参考文献">参考文献<a href="#参考文献" class="hash-link" aria-label="参考文献的直接链接" title="参考文献的直接链接" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><strong>Murray, R. M., Li, Z., &amp; Sastry, S. S.</strong> (1994). <em>A Mathematical Introduction to Robotic Manipulation</em>. CRC Press.</p>
+<ul>
+<li class="">机器人数学基础的经典教材，对 $SE(3)$、李群李代数有深度覆盖。3.1 和 3.2 节的重要参考。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Lynch, K. M., &amp; Park, F. C.</strong> (2017). <em>Modern Robotics: Mechanics, Planning, and Control</em>. Cambridge University Press.</p>
+<ul>
+<li class="">现代机器人学教材，数学直观清晰，附有配套 Python 代码库。特别推荐其旋量理论（screw theory）和指数坐标的讲解。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Thrun, S., Burgard, W., &amp; Fox, D.</strong> (2005). <em>Probabilistic Robotics</em>. MIT Press.</p>
+<ul>
+<li class="">概率机器人学的标准教材。3.3 节卡尔曼滤波和粒子滤波的权威参考。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>MacKay, D. J. C.</strong> (2003). <em>Information Theory, Inference, and Learning Algorithms</em>. Cambridge University Press.</p>
+<ul>
+<li class="">贝叶斯推断和高斯分布的直觉化讲解，适合作为 3.3.1 和 3.3.2 节的补充读物。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Goodfellow, I., Bengio, Y., &amp; Courville, A.</strong> (2016). <em>Deep Learning</em>. MIT Press.</p>
+<ul>
+<li class="">深度学习标准教材。3.5 节神经网络和反向传播的深度参考。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Boyd, S., &amp; Vandenberghe, L.</strong> (2004). <em>Convex Optimization</em>. Cambridge University Press.</p>
+<ul>
+<li class="">凸优化圣经。3.4.4 节凸优化和二次规划的权威参考，也适用于机器人 MPC 的背景阅读。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Shoemake, K.</strong> (1985). &quot;Animating Rotation with Quaternion Curves&quot;. <em>ACM SIGGRAPH</em>.</p>
+<ul>
+<li class="">四元数 Slerp 的原始论文，计算机图形学与机器人学的共同基础。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Kingma, D. P., &amp; Ba, J.</strong> (2015). &quot;Adam: A Method for Stochastic Optimization&quot;. <em>ICLR</em>.</p>
+<ul>
+<li class="">Adam 优化器的原始论文。3.4.1 节的权威参考。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Solà, J., Deray, J., &amp; Atchuthan, D.</strong> (2018). &quot;A micro Lie theory for state estimation in robotics&quot;. <em>arXiv preprint</em>.</p>
+<ul>
+<li class="">面向机器人学者的李理论入门教程，适合作为 3.2.4 节的进阶读物。公式清晰，附有代码实现。</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Tedrake, R.</strong> (2023). <em>Robotic Manipulation: Perception, Planning, and Control</em>. MIT Course Notes.</p>
+<ul>
+<li class="">MIT 机器人学课程笔记，凸优化在机器人控制中的应用示例丰富，特别是模型预测控制和全身控制的数学公式化。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>下一步</strong>：第4章将带你搭建实际的开发环境——从仿真器（MuJoCo / Isaac Sim）到代码框架（ROS 2），让你能够把本章的数学公式运行起来。你将学会如何配置开发环境、安装依赖、运行第一个仿真模型，并编写控制代码来驱动机器人模型运动。</p>
+</blockquote></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/your-username/humanoid-embodied-textbook/edit/main/website/docs/part1-foundations/ch03-math-foundations.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->于 <b><time datetime="2026-06-05T14:45:31.000Z" itemprop="dateModified">2026年6月5日</time></b> <!-- -->更新</span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/humanoid-embodied-textbook/docs/part1-foundations/ch02-embodied-intro"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">第2章：具身智能导论</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/humanoid-embodied-textbook/docs/part1-foundations/ch04-dev-env"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">第4章：开发环境与工具链</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#如何高效学习本章" class="table-of-contents__link toc-highlight">如何高效学习本章？</a></li><li><a href="#无论哪种方式都强烈建议亲手推导关键公式哪怕只是一维版本并用代码实现算法直觉的建立三分靠读七分靠写" class="table-of-contents__link toc-highlight">无论哪种方式，都强烈建议亲手推导关键公式（哪怕只是一维版本）并用代码实现。算法直觉的建立，三分靠读，七分靠写。</a></li><li><a href="#31-线性代数核心6000字" class="table-of-contents__link toc-highlight">3.1 线性代数核心（6,000字）</a><ul><li><a href="#311-向量矩阵与基本运算" class="table-of-contents__link toc-highlight">3.1.1 向量、矩阵与基本运算</a></li><li><a href="#312-旋转矩阵2d旋转--3d旋转--三个主轴旋转" class="table-of-contents__link toc-highlight">3.1.2 旋转矩阵（2D旋转 → 3D旋转 → 三个主轴旋转）</a></li><li><a href="#313-四元数复数类比定义运算与旋转的关系" class="table-of-contents__link toc-highlight">3.1.3 四元数（复数类比、定义、运算、与旋转的关系）</a></li><li><a href="#314-轴角表示法罗德里格斯公式" class="table-of-contents__link toc-highlight">3.1.4 轴角表示法（罗德里格斯公式）</a></li><li><a href="#315-三种表示的转换与对比表格" class="table-of-contents__link toc-highlight">3.1.5 三种表示的转换与对比表格</a></li></ul></li><li><a href="#32-刚体变换5000字" class="table-of-contents__link toc-highlight">3.2 刚体变换（5,000字）</a><ul><li><a href="#321-齐次坐标与变换矩阵" class="table-of-contents__link toc-highlight">3.2.1 齐次坐标与变换矩阵</a></li><li><a href="#322-se3-群的直观理解" class="table-of-contents__link toc-highlight">3.2.2 SE(3) 群的直观理解</a></li><li><a href="#323-旋转的复合与插值slerp" class="table-of-contents__link toc-highlight">3.2.3 旋转的复合与插值（Slerp）</a></li><li><a href="#324-李群与李代数初步so3se3微小扰动" class="table-of-contents__link toc-highlight">3.2.4 李群与李代数初步（SO(3)/SE(3)微小扰动）</a></li></ul></li><li><a href="#33-概率与统计基础4000字" class="table-of-contents__link toc-highlight">3.3 概率与统计基础（4,000字）</a><ul><li><a href="#331-贝叶斯定理与机器人中的贝叶斯推断" class="table-of-contents__link toc-highlight">3.3.1 贝叶斯定理与机器人中的贝叶斯推断</a></li><li><a href="#332-高斯分布一元多元条件高斯" class="table-of-contents__link toc-highlight">3.3.2 高斯分布（一元→多元→条件高斯）</a></li><li><a href="#333-蒙特卡洛方法" class="table-of-contents__link toc-highlight">3.3.3 蒙特卡洛方法</a></li><li><a href="#334-卡尔曼滤波的数学基础预测更新" class="table-of-contents__link toc-highlight">3.3.4 卡尔曼滤波的数学基础（预测+更新）</a></li></ul></li><li><a href="#34-最优化方法5000字" class="table-of-contents__link toc-highlight">3.4 最优化方法（5,000字）</a><ul><li><a href="#341-梯度下降与变体sgdadam" class="table-of-contents__link toc-highlight">3.4.1 梯度下降与变体（SGD、Adam）</a></li><li><a href="#342-牛顿法与拟牛顿法直观理解" class="table-of-contents__link toc-highlight">3.4.2 牛顿法与拟牛顿法（直观理解）</a></li><li><a href="#343-约束优化拉格朗日乘子法" class="table-of-contents__link toc-highlight">3.4.3 约束优化（拉格朗日乘子法）</a></li><li><a href="#344-凸优化概述" class="table-of-contents__link toc-highlight">3.4.4 凸优化概述</a></li></ul></li><li><a href="#35-机器学习基础速览3000字" class="table-of-contents__link toc-highlight">3.5 机器学习基础速览（3,000字）</a><ul><li><a href="#351-监督无监督强化学习分类" class="table-of-contents__link toc-highlight">3.5.1 监督/无监督/强化学习分类</a></li><li><a href="#352-神经网络与反向传播" class="table-of-contents__link toc-highlight">3.5.2 神经网络与反向传播</a></li><li><a href="#353-损失函数与正则化" class="table-of-contents__link toc-highlight">3.5.3 损失函数与正则化</a></li><li><a href="#354-评估指标" class="table-of-contents__link toc-highlight">3.5.4 评估指标</a></li></ul></li><li><a href="#️-仿真实操旋转与变换可视化1500字--代码说明" class="table-of-contents__link toc-highlight">🛠️ 仿真实操：旋转与变换可视化（1,500字 + 代码说明）</a><ul><li><a href="#代码与运行" class="table-of-contents__link toc-highlight">代码与运行</a></li><li><a href="#实验1旋转矩阵可视化" class="table-of-contents__link toc-highlight">实验1：旋转矩阵可视化</a></li><li><a href="#实验2旋转矩阵--四元数转换" class="table-of-contents__link toc-highlight">实验2：旋转矩阵 ↔ 四元数转换</a></li><li><a href="#实验3轴角与罗德里格斯公式" class="table-of-contents__link toc-highlight">实验3：轴角与罗德里格斯公式</a></li><li><a href="#实验4slerp-插值与可视化" class="table-of-contents__link toc-highlight">实验4：Slerp 插值与可视化</a></li><li><a href="#实验5李代数扰动模型可视化进阶" class="table-of-contents__link toc-highlight">实验5：李代数扰动模型可视化（进阶）</a></li><li><a href="#实验6卡尔曼滤波-1d-可视化" class="table-of-contents__link toc-highlight">实验6：卡尔曼滤波 1D 可视化</a></li><li><a href="#延伸思考" class="table-of-contents__link toc-highlight">延伸思考</a></li><li><a href="#编程练习建议" class="table-of-contents__link toc-highlight">编程练习建议</a></li><li><a href="#常见问题与误区" class="table-of-contents__link toc-highlight">常见问题与误区</a></li></ul></li><li><a href="#本章小结" class="table-of-contents__link toc-highlight">本章小结</a><ul><li><a href="#学完本章后你应当能够" class="table-of-contents__link toc-highlight">学完本章后，你应当能够</a></li><li><a href="#下一步的数学学习路径" class="table-of-contents__link toc-highlight">下一步的数学学习路径</a></li></ul></li><li><a href="#习题" class="table-of-contents__link toc-highlight">习题</a><ul><li><a href="#题1旋转矩阵与四元数转换线性代数基础" class="table-of-contents__link toc-highlight">题1：旋转矩阵与四元数转换（线性代数基础）</a></li><li><a href="#题2齐次变换复合运动学" class="table-of-contents__link toc-highlight">题2：齐次变换复合（运动学）</a></li><li><a href="#题3slerp-插值姿态平滑过渡" class="table-of-contents__link toc-highlight">题3：Slerp 插值（姿态平滑过渡）</a></li><li><a href="#题4卡尔曼滤波一维示例概率与状态估计" class="table-of-contents__link toc-highlight">题4：卡尔曼滤波一维示例（概率与状态估计）</a></li><li><a href="#题5优化方法选择综合应用题" class="table-of-contents__link toc-highlight">题5：优化方法选择（综合应用题）</a></li></ul></li><li><a href="#参考文献" class="table-of-contents__link toc-highlight">参考文献</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">教材</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/humanoid-embodied-textbook/docs/intro">目录</a></li><li class="footer__item"><a href="https://github.com/your-username/humanoid-embodied-textbook" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub 仓库<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/your-username/humanoid-embodied-textbook" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 本书采用 CC BY-NC-SA 4.0 协议开源</div></div></div></footer></div>
+</body>
+</html>

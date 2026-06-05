@@ -34,7 +34,13 @@ module.exports = {
     {
       type: 'category',
       label: '第四部分：具身智能核心篇',
-      items: ['part4-core-ei/index'],
+      items: [
+        'part4-core-ei/ch13-rl',
+        'part4-core-ei/ch14-imitation',
+        'part4-core-ei/ch15-sim2real',
+        'part4-core-ei/ch16-world-model',
+        'part4-core-ei/ch17-vla',
+      ],
     },
     {
       type: 'category',

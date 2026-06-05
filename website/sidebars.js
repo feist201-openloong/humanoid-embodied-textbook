@@ -55,7 +55,12 @@ module.exports = {
     {
       type: 'category',
       label: '第六部分：前沿拓展篇',
-      items: ['part6-frontiers/index'],
+      items: [
+        'part6-frontiers/ch22-genai',
+        'part6-frontiers/ch23-frontiers',
+        'part6-frontiers/ch24-safety',
+        'part6-frontiers/ch25-general',
+      ],
     },
     {
       type: 'category',

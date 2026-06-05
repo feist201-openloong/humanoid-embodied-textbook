@@ -14,7 +14,12 @@ module.exports = {
     {
       type: 'category',
       label: '第二部分：运动系统篇',
-      items: ['part2-motion/index'],
+      items: [
+        'part2-motion/ch05-hardware',
+        'part2-motion/ch06-kinematics',
+        'part2-motion/ch07-dynamics',
+        'part2-motion/ch08-walking',
+      ],
     },
     {
       type: 'category',
